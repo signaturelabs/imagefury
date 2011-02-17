@@ -1,0 +1,31 @@
+= ImageFury
+
+ObjectiveC library for loading ImageViews from Remote URL's and caching their contents for speedy load next time.
+
+A test project is available to check out the library in action and see usage examples.
+
+== Features
+
+* Built not to crash. 
+* Automatic Lazy loading.  Walks up view heirarchy and figures out how far "off screen" an Image View is.  The further away from being on screen, the more likely it is to be unloaded to free up memory.
+* Default loading indicator with animated progress bar and spinner.  Customizable by plugging in your own class.
+* Cache images to disk.
+* Test project with examples, including using in a scroll view with full screen mode.
+
+== Related Projects
+
+* SDWebImage
+* HJCache
+* 320
+
+== Installation
+
+If using git, you can use submodule to integrate it into your project.
+
+If using svn, you can use svn externals.
+
+Otherwise you can just copy in the files to your xcode project.
+
+== License
+
+MPL 1.1 -- See LICENSE file
