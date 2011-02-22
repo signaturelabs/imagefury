@@ -262,12 +262,6 @@
 	return indicatorView;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-	
-	if(!self.state)
-		self.state = IFPlaceholderStatePreload;
-}
-
 - (void)dealloc {
 	
 	if(self.placeholderGraphic && self.placeholderGraphic.layer)

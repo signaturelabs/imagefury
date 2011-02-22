@@ -20,7 +20,8 @@
 
 typedef enum IFPlaceholderState {
 	
-	IFPlaceholderStatePreload = 0,
+	IFPlaceholderStateNone = 0,
+	IFPlaceholderStatePreload,
 	IFPlaceholderStateLoading,
 	IFPlaceholderStateFailed,
 	IFPlaceholderStateSuccess,

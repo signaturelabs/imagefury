@@ -32,4 +32,10 @@
 - (void)add:(IFImageView*)imageView;
 - (void)remove:(IFImageView*)imageView;
 
+- (void)forceCheckSoon;
+
+- (void)forceCheckNow;
+
+- (void)clearForceCheckQueue;
+
 @end

@@ -74,10 +74,7 @@
 		
 		if([self fileExists]) {
 			
-			if([self.delegate respondsToSelector:@selector(IFLoaderProgress:updateCount:)])
-				[self.delegate IFLoaderProgress:0.0f updateCount:0];
-			
-			[self performSelector:@selector(signalCompleted) withObject:nil afterDelay:0];
+			[self signalCompleted];
 		}
 		else {
 			

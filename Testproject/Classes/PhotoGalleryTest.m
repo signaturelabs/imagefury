@@ -110,10 +110,10 @@
 	
 	controller.delegate = self;
 	
-	[self presentModalViewController:controller animated:NO];
+	[self presentModalViewController:controller animated:YES];
 	
 	[controller release];
-	[activeView forceLoadEvent];
+	//[activeView forceLoadEvent];
 	
 }
 

@@ -23,12 +23,14 @@
 
 @property (nonatomic, retain) NSMutableArray *imageViews;
 
+@property (nonatomic, assign) BOOL forceCheckSoonQueued;
+
 @end
 
 
 @implementation IFThrottle
 
-@synthesize imageViews, report;
+@synthesize imageViews, report, forceCheckSoonQueued;
 
 + (IFThrottle*)shared {
 	
@@ -41,6 +43,8 @@
 }
 
 - (void)check {
+	
+	self.forceCheckSoonQueued = NO;
 	
 	if([self.imageViews count]) {
 		
@@ -101,6 +105,39 @@
 	return self;
 }
 
+- (void)dealloc {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
+	
+	self.imageViews = nil;
+	
+	[super dealloc];
+}
+
+- (void)forceCheckNow {
+	
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
+	
+	[self check];
+}
+
+- (void)forceCheckSoon {
+	
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
+	
+	[self performSelector:@selector(check) withObject:nil afterDelay:0];
+	
+	self.forceCheckSoonQueued = YES;
+}
+
+- (void)clearForceCheckQueue {
+	
+	if(self.forceCheckSoonQueued)
+		[self forceCheckNow];
+}
+
 - (void)IFImageFailed:(IFImageView *)imageView error:(NSError *)error {
 	
 	
@@ -141,13 +178,6 @@
 	
 	while((index = [self.imageViews indexOfObject:imageView]) != NSNotFound)
 		[self.imageViews removeObjectAtIndex:index];
-}
-
-- (void)dealloc {
-	
-	self.imageViews = nil;
-	
-	[super dealloc];
 }
 
 @end

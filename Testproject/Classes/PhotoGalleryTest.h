@@ -15,9 +15,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "FullscreenPhotosViewController.h"
 
 
-@interface PhotoGalleryTest : UIViewController <UIScrollViewDelegate> {
+@interface PhotoGalleryTest : UIViewController <UIScrollViewDelegate,
+FullscreenPhotosDelegate> {
 
 }
 

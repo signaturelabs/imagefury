@@ -43,7 +43,7 @@
 
 - (IBAction)close {
 	
-	[self dismissModalViewControllerAnimated:NO];
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)pageControlChanged {

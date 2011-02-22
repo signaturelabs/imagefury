@@ -38,13 +38,15 @@ enum IFImageViewState {
 
 @property (nonatomic, assign) long long sizeEstimate;
 
+@property (nonatomic, assign) BOOL movingToWindow;
+
 @end
 
 @implementation IFImageView
 
 @synthesize placeholder, requestTimeout, contentMode, urlRequest;
 @synthesize delegates, imageView, loader, state, addedToSuperview;
-@synthesize sizeEstimate;
+@synthesize sizeEstimate, movingToWindow;
 
 + (NSMutableArray*)instances {
 	
@@ -59,8 +61,24 @@ enum IFImageViewState {
 	return instances;
 }
 
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+	
+	if(newWindow) {
+		
+		self.movingToWindow = YES;
+		
+		[[IFThrottle shared] forceCheckSoon];
+	}
+}
+
+- (void)didMoveToWindow {
+	
+	[[IFThrottle shared] clearForceCheckQueue];
+	
+	self.movingToWindow = NO;
+}
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
-	[super willMoveToSuperview:newSuperview];
 	
 	if([[IFImageView instances] indexOfObject:self] == NSNotFound)
 		[[IFImageView instances] addObject:self];
@@ -69,6 +87,27 @@ enum IFImageViewState {
 	self.placeholder;
 	
 	self.addedToSuperview = time(0);
+	
+	if([self.loader fileExists]) {
+		
+		[self.placeholder removeFromSuperview];
+		
+		self.imageView.alpha = 1;
+		
+		self.placeholder.state = IFPlaceholderStatePreload;
+	}
+}
+
+- (void)didMoveToSuperview {
+	
+	if([self.loader fileExists]) {
+		
+		[self.placeholder removeFromSuperview];
+		
+		self.imageView.alpha = 1;
+		
+		self.placeholder.state = IFPlaceholderStatePreload;
+	}
 }
 
 - (int)requestTimeout {
@@ -150,7 +189,10 @@ enum IFImageViewState {
 		self.imageView = [[UIImageView alloc] initWithFrame:frame];
 		[imageView release];
 		
-		[self insertSubview:imageView aboveSubview:self.placeholder];
+		if(self.placeholder.superview)
+			[self insertSubview:imageView aboveSubview:self.placeholder];
+		else
+			[self addSubview:imageView];
 	}
 	
 	return imageView;
@@ -195,15 +237,6 @@ enum IFImageViewState {
 	if(!urlRequest)
 		return;
 	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	
-	self.imageView.alpha = 0;
-	
-	[UIView commitAnimations];
-	
-	[self forceClearEvent];
-	
 	self.loader = [[IFLoader alloc] init];
 	[self.loader release];
 	
@@ -212,7 +245,27 @@ enum IFImageViewState {
 	self.loader.tempCacheDir = [[IFSettings shared] tempCacheDirectory];
 	self.loader.urlRequest = request;
 	
-	self.placeholder.state = IFPlaceholderStateLoading;
+	if([self.loader fileExists]) {
+		
+		[self.placeholder removeFromSuperview];
+		
+		self.imageView.alpha = 1;
+		
+		self.placeholder.state = IFPlaceholderStatePreload;
+	}
+	else {
+		
+		[self insertSubview:self.placeholder belowSubview:self.imageView];
+		
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
+		self.imageView.alpha = 0;
+		
+		[UIView commitAnimations];
+		
+		self.placeholder.state = IFPlaceholderStateLoading;
+	}
 	
 	[[IFThrottle shared] add:self];
 }
@@ -279,7 +332,6 @@ enum IFImageViewState {
 		return;
 	}
 	
-	self.imageView.alpha = 0;
 	self.imageView.image = image;
 	
 	[image release];
@@ -313,6 +365,8 @@ enum IFImageViewState {
 	self.loader.running = NO;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
+	
+	[self insertSubview:self.placeholder belowSubview:self.imageView];
 	
 	self.imageView.image = nil;
 	
@@ -365,6 +419,9 @@ enum IFImageViewState {
 	
 	if(!self.superview)
 		ret -= 1000000;
+	
+	if(self.movingToWindow)
+		ret += 100000;
 	
 	if(!self.window)
 		ret -= 100000;
