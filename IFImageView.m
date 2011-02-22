@@ -252,7 +252,7 @@ enum IFImageViewState {
 
 - (void)IFLoaderComplete:(NSString *)filename {
 	
-	NSLog(@"IFLoaderComplete:%@", filename);
+	//NSLog(@"IFLoaderComplete:%@", filename);
 	
 	UIImage *image = [[UIImage alloc] initWithContentsOfFile:filename];
 	
