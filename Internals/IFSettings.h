@@ -53,4 +53,7 @@
 /// Needs to end in a slash.
 @property (nonatomic, retain) NSString *tempCacheDirectory;
 
+/// Disabled the background lazy loader.
+@property (nonatomic, assign) BOOL debugMode;
+
 @end

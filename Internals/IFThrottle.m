@@ -92,7 +92,8 @@
 			self.report.text = str;
 	}
 	
-	[self performSelector:@selector(check) withObject:nil afterDelay:0.1];
+	if(![IFSettings shared].debugMode)
+		[self performSelector:@selector(check) withObject:nil afterDelay:0.1];
 }
 
 - (id)init {
@@ -168,6 +169,8 @@
 	[self.imageViews insertObject:imageView atIndex:0];
 	
 	[imageView addDelegate:self];
+	
+	[self forceCheckSoon];
 }
 
 - (void)remove:(IFImageView*)imageView {

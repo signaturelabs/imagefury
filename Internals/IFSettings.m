@@ -25,6 +25,7 @@
 @synthesize memUsage, diskCacheSize;
 @synthesize maxActiveImages, defaultPlaceholderClass;
 @synthesize defaultTimeout, cacheDirectory, tempCacheDirectory;
+@synthesize debugMode;
 
 + (IFSettings*)shared {
 	
@@ -88,12 +89,14 @@
 		
 		self.memUsage = 25 * 1024 * 1024;
 		self.diskCacheSize = 100 * 1024 * 1024;
-		self.maxActiveImages = 10;
+		self.maxActiveImages = 25;
 		self.defaultPlaceholderClass = [IFPlaceholder class];
 		self.defaultTimeout = 50;
 		self.cacheDirectory =
 		[NSString stringWithFormat:@"%@ImageFuryCache/",
 		 NSTemporaryDirectory()];
+		
+		self.debugMode = NO;
 	}
 	
 	return self;

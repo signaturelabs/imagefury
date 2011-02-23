@@ -237,6 +237,8 @@ enum IFImageViewState {
 	if(!urlRequest)
 		return;
 	
+	[self forceClearEvent];
+	
 	self.loader = [[IFLoader alloc] init];
 	[self.loader release];
 	

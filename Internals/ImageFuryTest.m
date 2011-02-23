@@ -117,9 +117,8 @@
 
 - (void)loadBigImage {
 	
-	self.ifImageView.urlRequest =
-	[NSURLRequest requestWithURL:
-	 [NSURL URLWithString:@"http://nyquil.org/uploads/IndianHeadTestPattern16x9.png"]];
+	[self.ifImageView setURLString:
+	 @"http://nyquil.org/uploads/IndianHeadTestPattern16x9.png"];
 }
 
 - (void)viewDidLoad {
