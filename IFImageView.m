@@ -113,7 +113,8 @@
 		self.delegates =
 		(NSMutableArray*)
 		CFArrayCreateMutable(NULL, 0,
-							 &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
+							 &(const CFArrayCallBacks)
+							 {0, NULL, NULL, NULL, NULL});
 	}
 	
 	return delegates;
@@ -123,14 +124,16 @@
 	
 	if(!placeholder) {
 		
+		Class class = [[IFSettings shared] defaultPlaceholderClass];
+		
+		self.placeholder = [[class alloc] init];
+		[placeholder release];
+		
 		CGRect frame = CGRectZero;
 		
 		frame.size = self.frame.size;
 		
-		Class class = [[IFSettings shared] defaultPlaceholderClass];
-		
-		self.placeholder = [[class alloc] initWithFrame:frame];
-		[placeholder release];
+		self.placeholder.frame = frame;
 	}
 	
 	[self insertSubview:placeholder atIndex:0];

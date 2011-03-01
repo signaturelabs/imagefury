@@ -41,7 +41,11 @@
 	[self.loadingIndicator removeFromSuperview];
 	self.loadingIndicator = nil;
 	
-	self.state = self.state;
+	IFPlaceholderState tmp = self.state;
+	
+	self.state = 0;
+	
+	self.state = tmp;
 }
 
 - (void)setState:(IFPlaceholderState)newState {
@@ -51,6 +55,9 @@
 	state = newState;
 	
 	if(oldState == newState)
+		return;
+	
+	if(!state)
 		return;
 	
 	if(self.placeholderGraphic && self.placeholderGraphic.layer)
