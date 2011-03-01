@@ -18,6 +18,9 @@
 #import "IFSettings.h"
 
 
+static long long diskUsageEstimate = 0;
+
+
 @interface IFLoader ()
 
 @property (nonatomic, retain) NSURLConnection *connection;
@@ -122,8 +125,6 @@
 	 createFileAtPath:[self getTemporaryFilename]
 	 contents:nil attributes:nil];
 	
-	NSLog(@"Made URL: %@", [self getTemporaryFilename]);
-	
 	self.expectedContentLength = [response expectedContentLength];
 	self.contentOffset = 0;
 }
@@ -163,6 +164,9 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	
+	[[NSFileManager defaultManager]
+	 removeItemAtPath:[self getTemporaryFilename] error:nil];
+	
 	if([self.delegate respondsToSelector:@selector(IFLoaderFailed:)])
 		[self.delegate IFLoaderFailed:error];
 	
@@ -175,6 +179,12 @@
 	 moveItemAtPath:[self getTemporaryFilename]
 	 toPath:[self getStorageFilename]
 	 error:nil];
+	
+	if(diskUsageEstimate)
+		diskUsageEstimate += [[[NSFileManager defaultManager]
+							   attributesOfItemAtPath:[self getStorageFilename]
+							   error:nil]
+							  fileSize];
 	
 	[self signalCompleted];
 	
@@ -202,6 +212,9 @@
 	if([[IFSettings shared] diskCacheSize] == 0)
 		return;
 	
+	if(diskUsageEstimate && diskUsageEstimate < [[IFSettings shared] diskCacheSize])
+		return;
+	
 	NSFileManager *manager = [NSFileManager defaultManager];
 	
 	NSMutableArray *files =
@@ -227,8 +240,6 @@
 		
 		if([info fileType] == NSFileTypeDirectory) {
 			
-			//NSLog(@"Skipping 'cause it's a directory:\n%@", path);
-			
 			[files removeObjectAtIndex:i];
 			
 			i--;
@@ -240,9 +251,10 @@
 		[modified addObject:[info fileModificationDate]];
 	}
 	
-	//NSLog(@"fileCount: %d, modifiedCount: %d", [files count], [modified count]);
+	int freeCount = 0;
+	long long freedSpace = 0;
 	
-	while([[IFSettings shared] diskCacheSize] < diskUse) {
+	while([[IFSettings shared] diskCacheSize] / 2 < diskUse) {
 		
 		if(![files count])
 			break;
@@ -261,12 +273,8 @@
 			}
 		}
 		
-		if(!oldest) {
-			
-			//NSLog(@"No earlier files found.\n");
-			
+		if(!oldest)
 			break;
-		}
 		
 		NSString *path = [files objectAtIndex:index];
 		
@@ -275,10 +283,12 @@
 		 stringWithFormat:@"%@%@",
 		 [[IFSettings shared] cacheDirectory], path];
 		
-		//NSLog(@"Removing %@", path);
+		long long fileSize = [[manager attributesOfItemAtPath:path error:nil] fileSize];
 		
-		diskUse -=
-		[[manager attributesOfItemAtPath:path error:nil] fileSize];
+		diskUse -= fileSize;
+		freedSpace += fileSize;
+		
+		freeCount++;
 		
 		[manager removeItemAtPath:path error:nil];
 		
@@ -286,7 +296,11 @@
 		[modified removeObjectAtIndex:index];
 	}
 	
-	//NSLog(@"fileCount: %d, modifiedCount: %d", [files count], [modified count]);
+	diskUsageEstimate = diskUse;
+	
+	if(freeCount)
+		NSLog(@"Cleared %d cache items, freeing %.1f MB",
+			  freeCount, (freedSpace / 1024) / 1024.0);
 }
 
 - (void)dealloc {

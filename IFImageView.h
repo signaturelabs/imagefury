@@ -19,6 +19,12 @@
 #import "IFPlaceholder.h"
 
 
+enum IFImageViewState {
+	IFImageViewStateCleared = 0,
+	IFImageViewStateFired,
+	IFImageViewStateLoaded
+};
+
 @protocol IFImageViewDelegate;
 
 
@@ -77,6 +83,9 @@
 
 /// Calculates this image views load priority
 - (int)loadPriority;
+
+/// The current state of the image view, cleared or fired.
+@property (nonatomic, readonly) enum IFImageViewState state;
 
 /// Returns a comparision result based on loadPriority
 - (NSComparisonResult)compareTo:(IFImageView*)imageView;

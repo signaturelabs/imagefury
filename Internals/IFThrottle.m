@@ -23,6 +23,7 @@
 
 @property (nonatomic, retain) NSMutableArray *imageViews;
 
+@property (nonatomic, assign) BOOL inTransaction;
 @property (nonatomic, assign) BOOL forceCheckSoonQueued;
 
 @end
@@ -30,7 +31,7 @@
 
 @implementation IFThrottle
 
-@synthesize imageViews, report, forceCheckSoonQueued;
+@synthesize imageViews, report, inTransaction, forceCheckSoonQueued;
 
 + (IFThrottle*)shared {
 	
@@ -43,6 +44,12 @@
 }
 
 - (void)check {
+	
+	if(self.inTransaction) {
+		
+		[NSObject cancelPreviousPerformRequestsWithTarget:self];
+		return;
+	}
 	
 	self.forceCheckSoonQueued = NO;
 	
@@ -58,6 +65,8 @@
 		long long usage = 0;
 		
 		IFSettings *settings = [IFSettings shared];
+		
+		int activeCount = 0;
 		
 		int i = 0;
 		
@@ -75,6 +84,9 @@
 			
 			if([settings maxActiveImages] && i >= [settings maxActiveImages])
 				break;
+			
+			if(activeCount < 0)
+				continue;
 			
 			[imageView forceLoadEvent];
 		}
@@ -169,8 +181,6 @@
 	[self.imageViews insertObject:imageView atIndex:0];
 	
 	[imageView addDelegate:self];
-	
-	[self forceCheckSoon];
 }
 
 - (void)remove:(IFImageView*)imageView {

@@ -20,12 +20,6 @@
 #import "IFSettings.h"
 #import <QuartzCore/QuartzCore.h>
 
-
-enum IFImageViewState {
-	IFImageViewStateCleared = 0,
-	IFImageViewStateFired
-};
-
 @interface IFImageView ()
 
 @property (nonatomic, retain) NSMutableArray *delegates;
@@ -87,27 +81,6 @@ enum IFImageViewState {
 	self.placeholder;
 	
 	self.addedToSuperview = time(0);
-	
-	if([self.loader fileExists]) {
-		
-		[self.placeholder removeFromSuperview];
-		
-		self.imageView.alpha = 1;
-		
-		self.placeholder.state = IFPlaceholderStatePreload;
-	}
-}
-
-- (void)didMoveToSuperview {
-	
-	if([self.loader fileExists]) {
-		
-		[self.placeholder removeFromSuperview];
-		
-		self.imageView.alpha = 1;
-		
-		self.placeholder.state = IFPlaceholderStatePreload;
-	}
 }
 
 - (int)requestTimeout {
@@ -160,6 +133,8 @@ enum IFImageViewState {
 		[placeholder release];
 	}
 	
+	[self insertSubview:placeholder atIndex:0];
+	
 	return placeholder;
 }
 
@@ -189,11 +164,10 @@ enum IFImageViewState {
 		self.imageView = [[UIImageView alloc] initWithFrame:frame];
 		[imageView release];
 		
-		if(self.placeholder.superview)
-			[self insertSubview:imageView aboveSubview:self.placeholder];
-		else
-			[self addSubview:imageView];
+		imageView.backgroundColor = [UIColor clearColor];
 	}
+	
+	[self addSubview:imageView];
 	
 	return imageView;
 }
@@ -249,15 +223,9 @@ enum IFImageViewState {
 	
 	if([self.loader fileExists]) {
 		
-		[self.placeholder removeFromSuperview];
-		
-		self.imageView.alpha = 1;
-		
 		self.placeholder.state = IFPlaceholderStatePreload;
 	}
 	else {
-		
-		[self insertSubview:self.placeholder belowSubview:self.imageView];
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -307,7 +275,7 @@ enum IFImageViewState {
 
 - (void)IFLoaderComplete:(NSString *)filename {
 	
-	//NSLog(@"IFLoaderComplete:%@", filename);
+	self.state = IFImageViewStateLoaded;
 	
 	UIImage *image = [[UIImage alloc] initWithContentsOfFile:filename];
 	
@@ -356,9 +324,9 @@ enum IFImageViewState {
 	
 	if(self.state == IFImageViewStateCleared) {
 		
-		self.loader.running = YES;
-		
 		self.state = IFImageViewStateFired;
+		
+		self.loader.running = YES;
 	}
 }
 
@@ -368,9 +336,8 @@ enum IFImageViewState {
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
 	
-	[self insertSubview:self.placeholder belowSubview:self.imageView];
-	
 	self.imageView.image = nil;
+	self.imageView.alpha = 0;
 	
 	self.state = IFImageViewStateCleared;
 }
