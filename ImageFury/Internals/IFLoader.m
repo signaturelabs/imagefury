@@ -28,6 +28,8 @@ static long long diskUsageEstimate = 0;
 @property (nonatomic, assign) long long expectedContentLength;
 @property (nonatomic, assign) long long contentOffset;
 
+@property (nonatomic, assign) long long requestNumber;
+
 @property (assign) int updateCount;
 
 - (NSString*)getStorageFilename;
@@ -39,7 +41,8 @@ static long long diskUsageEstimate = 0;
 @implementation IFLoader
 
 @synthesize urlRequest, running, delegate, cacheDir, tempCacheDir;
-@synthesize connection, expectedContentLength, contentOffset, updateCount;
+@synthesize connection, expectedContentLength, contentOffset;
+@synthesize requestNumber, updateCount;
 
 - (void)signalCompleted {
 	
@@ -101,6 +104,16 @@ static long long diskUsageEstimate = 0;
 	return escaped;
 }
 
+- (long long)requestNumber {
+	
+	static int num = 0;
+	
+	if(!requestNumber)
+		requestNumber = ++num;
+	
+	return requestNumber;
+}
+
 - (NSString*)getStorageFilename {
 	
 	NSString *safeStr =
@@ -115,8 +128,10 @@ static long long diskUsageEstimate = 0;
 	NSString *safeStr =
 	[self fullyEscapeString:[self.urlRequest.URL absoluteString]];
 	
-	return [NSString stringWithFormat:
-			@"%@%@.part", self.tempCacheDir, safeStr];
+	NSString *str = [NSString stringWithFormat:
+			@"%@%@.%ll_.part", self.tempCacheDir, safeStr, [self requestNumber]];
+	
+	return str;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
