@@ -28,7 +28,7 @@ static long long diskUsageEstimate = 0;
 @property (nonatomic, assign) long long expectedContentLength;
 @property (nonatomic, assign) long long contentOffset;
 
-@property (nonatomic, assign) long long requestNumber;
+@property (nonatomic, assign) int requestNumber;
 
 @property (assign) int updateCount;
 
@@ -104,7 +104,7 @@ static long long diskUsageEstimate = 0;
 	return escaped;
 }
 
-- (long long)requestNumber {
+- (int)requestNumber {
 	
 	static int num = 0;
 	
@@ -129,7 +129,7 @@ static long long diskUsageEstimate = 0;
 	[self fullyEscapeString:[self.urlRequest.URL absoluteString]];
 	
 	NSString *str = [NSString stringWithFormat:
-			@"%@%@.%ll_.part", self.tempCacheDir, safeStr, [self requestNumber]];
+			@"%@%@.%d.part", self.tempCacheDir, safeStr, [self requestNumber]];
 	
 	return str;
 }
