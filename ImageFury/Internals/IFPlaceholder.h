@@ -42,12 +42,16 @@ typedef enum IFPlaceholderState {
 
 /// Returns a gray rectangle.  Subclassers should override this and return
 /// the graphic of their choosing.
+///
+/// When overriding, return nil to disable the placeholder graphic
 - (UIView*)getPlaceholderGraphic:(UIView*)oldPlaceholderGraphic;
 
 /// Returns an animating UIActivityIndicatorView view hierarchy.  Subclassers
 /// should override this and return the graphic of their choosing.
 /// If progress is not NULL, it represents how far along the loading state is.
 /// It's floatValue is 0 to begin and gets to 1 when it's done.
+///
+/// When overriding, return nil to disable the loading indicator
 - (UIView*)getLoadingIndicator:(UIView*)oldLoadingIndicator progress:(NSNumber*)progress;
 
 @end
