@@ -62,10 +62,7 @@
 
 - (CGPoint)absoluteOrigin:(UIView*)view {
 	
-	// Hack alert: Not sure why I need to -20 here.  The status bar is 20
-	// pixels tall --- hmmmm.........
-	
-	return [self absoluteOrigin:view startingOrigin:CGPointMake(0, -20)];
+	return [self absoluteOrigin:view startingOrigin:CGPointZero];
 }
 
 - (void)setStartingRectFromView:(UIView*)view {
@@ -84,32 +81,61 @@
 	startingRect = rect;
 }
 
+static clock_t t = 0;
+
 - (void)start {
+	
+	t = clock();
 	
 	[super start];
 	
-	[self.view addSubview:self.fromImage];
-	[self.view addSubview:self.toImage];
+	clock_t val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
 	
-	CGRect finalRect = self.toImage.frame;
+	NSLog(@"[super start] took %.2f seconds", val / 1000.0f);
 	
-	self.toImage.frame = self.startingRect;
+	t = clock();
 	
-	self.toImage.contentMode = UIViewContentModeScaleAspectFill;
-	self.toImage.clipsToBounds = YES;
+	UIView *v = [self getToImageView];
+	
+	[self.fromController.view.window addSubview:v];
+	
+	CGRect finalRect = v.frame;
+	
+	finalRect.origin = [self absoluteOrigin:v];
+	
+	finalRect.origin.y -= 21;
+	
+	v.frame = self.startingRect;
+	
+	v.contentMode = UIViewContentModeScaleAspectFill;
+	v.clipsToBounds = YES;
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDidStopSelector:@selector(finish)];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:0.45];
+	[UIView setAnimationDuration:3];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 	
-	self.toImage.frame = finalRect;
+	v.frame = finalRect;
 	
 	[UIView commitAnimations];
+	
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"start %.2f seconds", val / 1000.0f);
+	
+	t = clock();
 }
 
 - (void)finish {
+	
+	clock_t val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"finish called after %.2f seconds", val / 1000.0f);
+	
+	UIView *v = [self getToImageView];
+	
+	[v removeFromSuperview];
 	
 	[super finish];
 }

@@ -12,7 +12,6 @@
 
 @interface IFTransition ()
 
-@property (nonatomic, readwrite, retain) UIImageView *fromImage;
 @property (nonatomic, readwrite, retain) UIImageView *toImage;
 
 @property (nonatomic, retain) UIViewController *fromController;
@@ -21,19 +20,20 @@
 @property (nonatomic, assign) BOOL isModal;
 @property (nonatomic, assign) BOOL statusBarHidden;
 
-@property (nonatomic, retain) UIViewController *oldRootViewController;
-
 @end
 
 
 @implementation IFTransition
 
-@synthesize fromImage, toImage;
+@synthesize toImage, customToImage;
 @synthesize fromController, toController;
 @synthesize isModal, statusBarHidden;
-@synthesize oldRootViewController;
 
 - (UIImage*)takeScreenshot:(UIViewController*)viewController {
+	
+	clock_t t, val;
+	
+	t = clock();
 	
 	UIView *view = viewController.view;
 	
@@ -49,24 +49,23 @@
 	
 	UIGraphicsBeginImageContext(size);
 	
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"the rest took %.2f seconds", val / 1000.0f);
+	
+	t = clock();
+	
 	[view.layer renderInContext:UIGraphicsGetCurrentContext()];
+	
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"renderInContext took %.2f seconds", val / 1000.0f);
 	
 	UIImage *ret = UIGraphicsGetImageFromCurrentImageContext();
 	
 	UIGraphicsEndImageContext();
 	
 	return ret;
-}
-
-- (UIImageView*)fromImage {
-	
-	if(!fromImage) {
-		
-		self.fromImage = [[UIImageView alloc] init];
-		[fromImage release];
-	}
-	
-	return fromImage;
 }
 
 - (UIImageView*)toImage {
@@ -108,13 +107,10 @@
 
 - (void)dealloc {
 	
-	self.fromImage = nil;
 	self.toImage = nil;
 	
 	self.fromController = nil;
 	self.toController = nil;
-	
-	self.oldRootViewController = nil;
 	
 	[super dealloc];
 }
@@ -126,17 +122,64 @@
 
 - (void)start {
 	
-	UIWindow *window = self.fromController.view.window;
+	clock_t t, val;
 	
-	self.fromImage.image = [self takeScreenshot:self.fromController];
+	self.fromController.view;
+	self.toController.view;
 	
-	CGRect fromImageFrame = self.fromController.view.frame;
+	t = clock();
 	
-	fromImageFrame.origin = CGPointZero;
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
 	
-	self.fromImage.frame = fromImageFrame;
+	NSLog(@"loading view controller views took %.2f seconds", val / 1000.0f);
 	
 	BOOL statusBarHiddenTemp = [[UIApplication sharedApplication] isStatusBarHidden];
+	
+	t = clock();
+	
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"pushViewController took %.2f seconds", val / 1000.0f);
+	
+	t = clock();
+	
+	if(!self.customToImage) {
+		
+		if(self.isModal)
+			[self.fromController
+			 presentModalViewController:self.toController
+			 animated:NO];
+		else
+			[self.fromController.navigationController
+			 pushViewController:self.toController
+			 animated:NO];
+		
+		self.toImage.image = [self takeScreenshot:self.toController];
+		
+		if(self.isModal)
+			[self.fromController dismissModalViewControllerAnimated:NO];
+		else
+			[self.fromController.navigationController popViewControllerAnimated:NO];
+	}
+	
+	CGRect toImageFrame = self.toController.view.frame;
+	
+	self.toImage.frame = toImageFrame;
+	
+	[[UIApplication sharedApplication] setStatusBarHidden:statusBarHiddenTemp];
+	
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"stuff after screenshot took %.2f seconds", val / 1000.0f);
+	
+	t = clock();
+	
+	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
+	
+	NSLog(@"stuff after after screenshot took %.2f seconds", val / 1000.0f);
+}
+
+- (void)finish {
 	
 	if(self.isModal)
 		[self.fromController
@@ -146,32 +189,14 @@
 		[self.fromController.navigationController
 		 pushViewController:self.toController
 		 animated:NO];
-	
-	self.toImage.image = [self takeScreenshot:self.toController];
-	
-	CGRect toImageFrame = self.toController.view.frame;
-	
-	toImageFrame.origin = CGPointZero;
-	
-	self.toImage.frame = toImageFrame;
-	
-	self.statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
-	
-	[[UIApplication sharedApplication] setStatusBarHidden:statusBarHiddenTemp];
-	
-	self.oldRootViewController = window.rootViewController;
-	
-	window.rootViewController = self;
 }
 
-- (void)finish {
+- (UIView*)getToImageView {
 	
-	self.view.window.rootViewController = self.oldRootViewController;
+	if(self.customToImage)
+		return self.customToImage;
 	
-	[[UIApplication sharedApplication]
-	 setStatusBarHidden:self.statusBarHidden
-	 withAnimation:UIStatusBarAnimationFade];
+	return self.toImage;
 }
 
 @end
-

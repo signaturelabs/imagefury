@@ -13,10 +13,6 @@
 
 }
 
-- (id)init;
-
 - (id)initWithImage:(UIImage*)image;
-
-@property (nonatomic, retain) UIImage *image;
 
 @end

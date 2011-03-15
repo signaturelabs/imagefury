@@ -9,34 +9,54 @@
 #import "IFImagePlaceholder.h"
 
 
+@interface IFImagePlaceholder ()
+
+@property (nonatomic, assign) UIImageView *imageView;
+
+@end
+
+
 @implementation IFImagePlaceholder
 
-@synthesize image;
-
-- (id)init {
-	
-	return self = [super init];
-}
+@synthesize imageView;
 
 - (id)initWithImage:(UIImage*)image {
 	
 	if(self = [super init]) {
 		
-		self.image = image;
+		self.imageView =
+		[[UIImageView alloc] initWithImage:image];
+		
+		imageView.backgroundColor = [UIColor grayColor];
+		
+		imageView.contentMode = self.contentMode;
+		
+		[self addSubview:imageView];
+		[imageView release];
 	}
 	
 	return self;
 }
 
+- (void)setContentMode:(UIViewContentMode)mode {
+	
+	[super setContentMode:mode];
+	
+	self.imageView.contentMode = mode;
+}
+
+- (void)setFrame:(CGRect)rect {
+	
+	[super setFrame:rect];
+	
+	rect.origin = CGPointZero;
+	
+	self.imageView.frame = rect;
+}
+
 - (UIView*)getPlaceholderGraphic:(UIView*)oldPlaceholderGraphic {
 	
-	if(!oldPlaceholderGraphic) {
-		
-		oldPlaceholderGraphic = [[UIImageView alloc] initWithImage:self.image];
-		[oldPlaceholderGraphic autorelease];
-	}
-	
-	return oldPlaceholderGraphic;
+	return nil;
 }
 
 - (UIView*)getLoadingIndicator:(UIView*)oldLoadingIndicator progress:(NSNumber*)progress {

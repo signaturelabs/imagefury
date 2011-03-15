@@ -104,6 +104,7 @@
 	contentMode = mode;
 	
 	self.imageView.contentMode = contentMode;
+	self.placeholder.contentMode = contentMode;
 }
 
 - (NSMutableArray*)delegates {
@@ -149,11 +150,15 @@
 	
 	frame.size = self.frame.size;
 	
-	if(placeholder)
+	if(placeholder) {
+		
 		self.placeholder.frame = frame;
+	}
 	
-	if(imageView)
+	if(imageView) {
+		
 		self.imageView.frame = frame;
+	}
 }
 
 - (UIImageView*)imageView {
@@ -192,6 +197,10 @@
 	[placeholder release];
 	placeholder = newPlaceholder;
 	
+	placeholder.contentMode = self.contentMode;
+	
+	self.frame = self.frame;
+	
 	[self insertSubview:placeholder atIndex:0];
 }
 
@@ -205,6 +214,24 @@
 	[self.delegates removeObject:delegate];
 }
 
+- (void)softClearEvent {
+	
+	self.loader.running = NO;
+	
+	self.placeholder.state = IFPlaceholderStatePreload;
+	
+	self.imageView.image = nil;
+	
+	self.state = IFImageViewStateCleared;
+}
+
+- (void)forceClearEvent {
+	
+	[self softClearEvent];
+	
+	self.imageView.alpha = 0;
+}
+
 - (void)setUrlRequest:(NSURLRequest *)request {
 	
 	[request retain];
@@ -214,7 +241,7 @@
 	if(!urlRequest)
 		return;
 	
-	[self forceClearEvent];
+	[self softClearEvent];
 	
 	self.loader = [[IFLoader alloc] init];
 	[self.loader release];
@@ -331,18 +358,6 @@
 		
 		self.loader.running = YES;
 	}
-}
-
-- (void)forceClearEvent {
-	
-	self.loader.running = NO;
-	
-	self.placeholder.state = IFPlaceholderStatePreload;
-	
-	self.imageView.image = nil;
-	self.imageView.alpha = 0;
-	
-	self.state = IFImageViewStateCleared;
 }
 
 - (long long)imageSize {

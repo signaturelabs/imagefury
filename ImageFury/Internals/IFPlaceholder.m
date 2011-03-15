@@ -34,18 +34,13 @@
 - (void)setFrame:(CGRect)rect {
 	
 	[super setFrame:rect];
-	
-	[self.placeholderGraphic removeFromSuperview];
-	self.placeholderGraphic = nil;
-	
-	[self.loadingIndicator removeFromSuperview];
-	self.loadingIndicator = nil;
-	
+	/*
 	IFPlaceholderState tmp = self.state;
 	
 	self.state = 0;
 	
 	self.state = tmp;
+	 */
 }
 
 - (void)setState:(IFPlaceholderState)newState {
@@ -98,7 +93,7 @@
 	}
 	else if(state == IFPlaceholderStateSuccess) {
 		
-		self.placeholderGraphic.alpha = 0;
+		self.placeholderGraphic.alpha = 1;
 		self.loadingIndicator.alpha = 0;
 	}
 	
@@ -131,6 +126,9 @@
 }
 
 - (UIView*)getLoadingIndicator:(UIView *)indicatorView progress:(NSNumber*)progress {
+	
+	if(MIN(self.frame.size.width, self.frame.size.height) < 25)
+		return nil;
 	
 	const int activityViewTag = 1336;
 	const int progressViewTag = 1337;

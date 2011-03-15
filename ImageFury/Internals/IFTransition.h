@@ -9,15 +9,20 @@
 #import <UIKit/UIKit.h>
 
 
-@interface IFTransition : UIViewController {
+@interface IFTransition : NSObject {
 
 }
 
-/// Screenshot of the controller we're coming from
-@property (nonatomic, readonly, retain) UIImageView *fromImage;
-
-/// Screenshot of the controller we're going to
+/// Screenshot of the controller we're going to.  This screenshot will be
+/// generated inside 'start'.  Since the screenshot is a performance heavy
+/// operation, it is recomended you set customToImage instead.
+///
+/// toImage is unused if 'customToImage' is set.
 @property (nonatomic, readonly, retain) UIImageView *toImage;
+
+/// Set this to the UIView that represents the toImage view
+/// Using this property is more optimized 
+@property (nonatomic, retain) UIView *customToImage;
 
 @property (nonatomic, readonly, retain) UIViewController *fromController;
 @property (nonatomic, readonly, retain) UIViewController *toController;
@@ -33,5 +38,8 @@
 /// finish need not be called by users of the class, as subclasses will call it at
 /// the end of their transition animation.
 - (void)finish;
+
+/// Returns the customToImage if set and the toImage otherwise.
+- (UIView*)getToImageView;
 
 @end
