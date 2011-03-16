@@ -31,16 +31,10 @@
 
 - (UIViewController*)fromController {
 	
-	if(self.reverse)
-		return toController;
-	
 	return fromController;
 }
 
 - (UIViewController*)toController {
-	
-	if(self.reverse)
-		return fromController;
 	
 	return toController;
 }
@@ -129,7 +123,16 @@
 	
 	BOOL statusBarHiddenTemp = [[UIApplication sharedApplication] isStatusBarHidden];
 	
-	if(!self.customToImage) {
+	if(self.reverse) {
+		
+		self.toImage.image = [self takeScreenshot:self.fromController];
+		
+		if(self.isModal)
+			[self.toController dismissModalViewControllerAnimated:NO];
+		else
+			[self.toController.navigationController popViewControllerAnimated:NO];
+	}
+	else if(!self.customToImage) {
 		
 		if(self.isModal)
 			[self.fromController
@@ -163,8 +166,7 @@
 	// Undo the reversal for 'finish'
 	if(self.reverse) {
 		
-		from = self.toController;
-		to = self.fromController;
+		return;
 	}
 	
 	if(self.isModal)

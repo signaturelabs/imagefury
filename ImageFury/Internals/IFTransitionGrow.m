@@ -27,17 +27,25 @@
 	
 	if(!self.didSetStartingRect) {
 		
-		startingRect = CGRectZero;
+		CGRect r = CGRectZero;
 		
 		CGSize size = self.fromController.view.frame.size;
 		
-		startingRect.origin = CGPointMake(size.width / 2, size.height / 2);
+		if(self.reverse)
+			size = self.toController.view.frame.size;
+		
+		r.origin = CGPointMake(size.width / 2, size.height / 2);
+		
+		self.startingRect = r;
 	}
 	
 	return startingRect;
 }
 
 - (void)setStartingRectFromView:(UIView*)view {
+	
+	if(!view)
+		return;
 	
 	CGRect rect = view.frame;
 	
@@ -59,17 +67,32 @@
 	
 	UIView *v = [self getToImageView];
 	
-	[self.fromController.view.window addSubview:v];
+	UIWindow *window = self.fromController.view.window;
+	
+	if(self.reverse)
+		window = self.toController.view.window;
+	
+	[window addSubview:v];
 	
 	CGRect finalRect = v.frame;
 	CGRect startRect = self.startingRect;
 	
 	finalRect.origin = [IFTransition absoluteOrigin:v];
 	
-	// Hack alert:
-	finalRect.origin.y -= 21;
+	// Hack alert
+	if(!self.reverse) {
+		
+		finalRect = CGRectInset(finalRect, 0, 10);
+		finalRect.origin.y -= 11;
+	}
 	
-	v.frame = self.startingRect;
+	if(self.reverse) {
+		
+		finalRect = self.startingRect;
+		startRect = v.frame;
+	}
+	
+	v.frame = startRect;
 	
 	v.contentMode = UIViewContentModeScaleAspectFill;
 	v.clipsToBounds = YES;
@@ -77,7 +100,7 @@
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDidStopSelector:@selector(finish)];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:3];
+	[UIView setAnimationDuration:0.45];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 	
 	v.frame = finalRect;
