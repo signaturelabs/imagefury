@@ -26,14 +26,26 @@
 @implementation IFTransition
 
 @synthesize toImage, customToImage;
-@synthesize fromController, toController;
+@synthesize fromController, toController, reverse;
 @synthesize isModal, statusBarHidden;
 
+- (UIViewController*)fromController {
+	
+	if(self.reverse)
+		return toController;
+	
+	return fromController;
+}
+
+- (UIViewController*)toController {
+	
+	if(self.reverse)
+		return fromController;
+	
+	return toController;
+}
+
 - (UIImage*)takeScreenshot:(UIViewController*)viewController {
-	
-	clock_t t, val;
-	
-	t = clock();
 	
 	UIView *view = viewController.view;
 	
@@ -49,17 +61,7 @@
 	
 	UIGraphicsBeginImageContext(size);
 	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"the rest took %.2f seconds", val / 1000.0f);
-	
-	t = clock();
-	
 	[view.layer renderInContext:UIGraphicsGetCurrentContext()];
-	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"renderInContext took %.2f seconds", val / 1000.0f);
 	
 	UIImage *ret = UIGraphicsGetImageFromCurrentImageContext();
 	
@@ -122,26 +124,10 @@
 
 - (void)start {
 	
-	clock_t t, val;
-	
 	self.fromController.view;
 	self.toController.view;
 	
-	t = clock();
-	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"loading view controller views took %.2f seconds", val / 1000.0f);
-	
 	BOOL statusBarHiddenTemp = [[UIApplication sharedApplication] isStatusBarHidden];
-	
-	t = clock();
-	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"pushViewController took %.2f seconds", val / 1000.0f);
-	
-	t = clock();
 	
 	if(!self.customToImage) {
 		
@@ -167,27 +153,27 @@
 	self.toImage.frame = toImageFrame;
 	
 	[[UIApplication sharedApplication] setStatusBarHidden:statusBarHiddenTemp];
-	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"stuff after screenshot took %.2f seconds", val / 1000.0f);
-	
-	t = clock();
-	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"stuff after after screenshot took %.2f seconds", val / 1000.0f);
 }
 
 - (void)finish {
 	
+	UIViewController *from = self.fromController;
+	UIViewController *to = self.toController;
+	
+	// Undo the reversal for 'finish'
+	if(self.reverse) {
+		
+		from = self.toController;
+		to = self.fromController;
+	}
+	
 	if(self.isModal)
-		[self.fromController
-		 presentModalViewController:self.toController
+		[from
+		 presentModalViewController:to
 		 animated:NO];
 	else
-		[self.fromController.navigationController
-		 pushViewController:self.toController
+		[from.navigationController
+		 pushViewController:to
 		 animated:NO];
 }
 
@@ -197,6 +183,34 @@
 		return self.customToImage;
 	
 	return self.toImage;
+}
+
++ (CGPoint)absoluteOrigin:(UIView*)view startingOrigin:(CGPoint)p {
+	
+	if(!view || [view isKindOfClass:[UIWindow class]])
+		return p;
+	
+	p.x += view.frame.origin.x;
+	p.y += view.frame.origin.y;
+	
+	UIView *parent = view.superview;
+	
+	if([parent isKindOfClass:[UIScrollView class]]) {
+		
+		UIScrollView *scrollView = (UIScrollView*)parent;
+		
+		p.x -= scrollView.contentOffset.x;
+		p.y -= scrollView.contentOffset.y;
+	}
+	
+	p = [self absoluteOrigin:parent startingOrigin:p];
+	
+	return p;
+}
+
++ (CGPoint)absoluteOrigin:(UIView*)view {
+	
+	return [IFTransition absoluteOrigin:view startingOrigin:CGPointZero];
 }
 
 @end

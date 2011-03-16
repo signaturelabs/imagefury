@@ -37,39 +37,11 @@
 	return startingRect;
 }
 
-- (CGPoint)absoluteOrigin:(UIView*)view startingOrigin:(CGPoint)p {
-	
-	if(!view || [view isKindOfClass:[UIWindow class]])
-		return p;
-	
-	p.x += view.frame.origin.x;
-	p.y += view.frame.origin.y;
-	
-	UIView *parent = view.superview;
-	
-	if([parent isKindOfClass:[UIScrollView class]]) {
-		
-		UIScrollView *scrollView = (UIScrollView*)parent;
-		
-		p.x -= scrollView.contentOffset.x;
-		p.y -= scrollView.contentOffset.y;
-	}
-	
-	p = [self absoluteOrigin:parent startingOrigin:p];
-	
-	return p;
-}
-
-- (CGPoint)absoluteOrigin:(UIView*)view {
-	
-	return [self absoluteOrigin:view startingOrigin:CGPointZero];
-}
-
 - (void)setStartingRectFromView:(UIView*)view {
 	
 	CGRect rect = view.frame;
 	
-	rect.origin = [self absoluteOrigin:view];
+	rect.origin = [IFTransition absoluteOrigin:view];
 	
 	self.startingRect = rect;
 }
@@ -81,28 +53,20 @@
 	startingRect = rect;
 }
 
-static clock_t t = 0;
-
 - (void)start {
 	
-	t = clock();
-	
 	[super start];
-	
-	clock_t val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"[super start] took %.2f seconds", val / 1000.0f);
-	
-	t = clock();
 	
 	UIView *v = [self getToImageView];
 	
 	[self.fromController.view.window addSubview:v];
 	
 	CGRect finalRect = v.frame;
+	CGRect startRect = self.startingRect;
 	
-	finalRect.origin = [self absoluteOrigin:v];
+	finalRect.origin = [IFTransition absoluteOrigin:v];
 	
+	// Hack alert:
 	finalRect.origin.y -= 21;
 	
 	v.frame = self.startingRect;
@@ -119,19 +83,9 @@ static clock_t t = 0;
 	v.frame = finalRect;
 	
 	[UIView commitAnimations];
-	
-	val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"start %.2f seconds", val / 1000.0f);
-	
-	t = clock();
 }
 
 - (void)finish {
-	
-	clock_t val = (clock() - t) / (CLOCKS_PER_SEC / 1000);
-	
-	NSLog(@"finish called after %.2f seconds", val / 1000.0f);
 	
 	UIView *v = [self getToImageView];
 	

@@ -27,6 +27,8 @@
 @property (nonatomic, readonly, retain) UIViewController *fromController;
 @property (nonatomic, readonly, retain) UIViewController *toController;
 
+@property (nonatomic, assign) BOOL reverse;
+
 - (id)initWithModalTransitionFrom:(UIViewController*)controller to:(UIViewController*)destination;
 - (id)initWithNavigationTransitionFrom:(UIViewController*)controller to:(UIViewController*)destination;
 
@@ -41,5 +43,9 @@
 
 /// Returns the customToImage if set and the toImage otherwise.
 - (UIView*)getToImageView;
+
+/// Calculates the origin of 'view' taking into account all of its
+/// superviews (including UIScrollViews and their scroll positions).
++ (CGPoint)absoluteOrigin:(UIView*)view;
 
 @end
