@@ -13,6 +13,7 @@
 @interface IFTransitionGrow ()
 
 @property (nonatomic, assign) CGRect startingRect;
+@property (nonatomic, assign) CGRect endingRect;
 
 @property (nonatomic, assign) BOOL didSetStartingRect;
 
@@ -67,6 +68,11 @@
 	
 	UIView *v = [self getToImageView];
 	
+	CGRect finalRect = v.frame;
+	CGRect startRect = self.startingRect;
+	
+	finalRect.origin = [IFTransition absoluteOrigin:v];
+	
 	UIWindow *window = self.fromController.view.window;
 	
 	if(self.reverse)
@@ -74,22 +80,19 @@
 	
 	[window addSubview:v];
 	
-	CGRect finalRect = v.frame;
-	CGRect startRect = self.startingRect;
-	
-	finalRect.origin = [IFTransition absoluteOrigin:v];
-	
 	// Hack alert
 	if(!self.reverse) {
 		
 		finalRect = CGRectInset(finalRect, 0, 10);
-		finalRect.origin.y -= 11;
+		finalRect.origin.y += 10;
 	}
 	
 	if(self.reverse) {
 		
-		finalRect = self.startingRect;
-		startRect = v.frame;
+		CGRect temp = finalRect;
+		
+		finalRect = startRect;
+		startRect = temp;
 	}
 	
 	v.frame = startRect;

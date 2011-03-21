@@ -17,4 +17,7 @@
 - (void)setStartingRectFromView:(UIView*)view;
 - (void)setStartingRect:(CGRect)rect;
 
+// Optional
+- (void)setEndingRect:(CGRect)rect;
+
 @end
