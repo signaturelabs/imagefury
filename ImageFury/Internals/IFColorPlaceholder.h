@@ -10,22 +10,21 @@
  
  Contributor(s):
  
- Dustin Dettmer <dusty@dustytech.com>
+ Traun Leyden <tleyden@signature-app.com>
  
  */
 
-#import <UIKit/UIKit.h>
-#import "IFTransition.h"
 
+#import <Foundation/Foundation.h>
+#import "IFPlaceholder.h"
 
-@interface IFTransitionGrow : IFTransition {
+@interface IFColorPlaceholder : IFPlaceholder {
 
 }
 
-- (void)setStartingRectFromView:(UIView*)view;
-- (void)setStartingRect:(CGRect)rect;
+@property (nonatomic, retain) UIColor *color;
 
-// Optional
-- (void)setEndingRect:(CGRect)rect;
+- (id)initWithColor:(UIColor *)color;
+
 
 @end
