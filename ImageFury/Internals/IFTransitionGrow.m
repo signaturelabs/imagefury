@@ -22,7 +22,7 @@
 
 @implementation IFTransitionGrow
 
-@synthesize startingRect, didSetStartingRect;
+@synthesize startingRect, endingRect, didSetStartingRect;
 
 - (CGRect)startingRect {
 	
@@ -52,6 +52,9 @@
 	
 	rect.origin = [IFTransition absoluteOrigin:view];
 	
+	if(self.reverse)
+		rect = CGRectOffset(rect, 0, -20);
+	
 	self.startingRect = rect;
 }
 
@@ -73,18 +76,44 @@
 	
 	finalRect.origin = [IFTransition absoluteOrigin:v];
 	
-	UIWindow *window = self.fromController.view.window;
+	finalRect = CGRectOffset(finalRect, 0, -20);
+	
+	if(!self.reverse && self.fromController.interfaceOrientation == UIInterfaceOrientationPortrait)
+		startRect = CGRectOffset(startRect, 0, -20);
+	
+	if(!self.reverse && self.fromController.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+		
+		startRect = CGRectOffset(startRect, -20, 0);
+	}
+	
+	if(!self.reverse && UIInterfaceOrientationIsLandscape(self.fromController.interfaceOrientation)) {
+		
+		CGFloat tmp = finalRect.size.width;
+		
+		finalRect.size.width = finalRect.size.height;
+		finalRect.size.height = tmp;
+		
+		finalRect.origin.x = 0;
+		finalRect.origin.y = -21;
+		finalRect.size.width -= 21;
+		finalRect.size.height += 1;
+	}
+	
+	UIView *parentView = self.fromController.view;
 	
 	if(self.reverse)
-		window = self.toController.view.window;
+		parentView = self.toController.view;
 	
-	[window addSubview:v];
+	[parentView addSubview:v];
 	
 	// Hack alert
 	if(!self.reverse) {
 		
-		finalRect = CGRectInset(finalRect, 0, 10);
-		finalRect.origin.y += 10;
+		if(!UIInterfaceOrientationIsLandscape(self.fromController.interfaceOrientation)) {
+			
+			finalRect = CGRectInset(finalRect, 0, 10);
+			finalRect.origin.y += 10;
+		}
 	}
 	
 	if(self.reverse) {
