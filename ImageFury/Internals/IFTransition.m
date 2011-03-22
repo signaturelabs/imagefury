@@ -103,6 +103,7 @@
 
 - (void)dealloc {
 	
+	self.customToImage = nil;
 	self.toImage = nil;
 	
 	self.fromController = nil;
@@ -125,7 +126,8 @@
 	
 	if(self.reverse) {
 		
-		self.toImage.image = [self takeScreenshot:self.fromController];
+		if(!self.customToImage)
+			self.toImage.image = [self takeScreenshot:self.fromController];
 		
 		if(self.isModal)
 			[self.toController dismissModalViewControllerAnimated:NO];

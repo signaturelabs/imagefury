@@ -38,15 +38,29 @@
 	return self;
 }
 
+- (void)nilImage {
+	
+	self.imageView.image = nil;
+	[self.imageView removeFromSuperview];
+	self.imageView = nil;
+}
+
+- (void)dealloc {
+	
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
+	
+	[self nilImage];
+	
+	[super dealloc];
+}
+
 - (void)setState:(IFPlaceholderState)newState {
 	
 	[super setState:newState];
 	
 	if(newState == IFPlaceholderStateSuccess) {
 		
-		self.imageView.image = nil;
-		[self.imageView removeFromSuperview];
-		self.imageView = nil;
+		[self performSelector:@selector(nilImage) withObject:nil afterDelay:1];
 	}
 }
 
