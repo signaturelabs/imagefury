@@ -11,3 +11,7 @@ build/
 *.pbxuser
 *.perspective
 *.perspectivev3
+*.mode1v3
+
+# tell git to ignore white space differences and force merge.  That way a corrupt xcode project wont get checked in.
+*.pbxproj -crlf -diff -merge

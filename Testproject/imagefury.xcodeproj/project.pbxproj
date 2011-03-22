@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15160F5A1304C5150063AEC1 /* IFImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160F4E1304C5150063AEC1 /* IFImageView.m */; };
-		15160F5B1304C5150063AEC1 /* IFLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160F511304C5150063AEC1 /* IFLoader.m */; };
-		15160F5C1304C5150063AEC1 /* IFPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160F531304C5150063AEC1 /* IFPlaceholder.m */; };
-		15160F5D1304C5150063AEC1 /* IFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160F551304C5150063AEC1 /* IFSettings.m */; };
-		15160F5E1304C5150063AEC1 /* IFThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160F571304C5150063AEC1 /* IFThrottle.m */; };
-		15160F5F1304C5150063AEC1 /* ImageFuryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160F591304C5150063AEC1 /* ImageFuryTest.m */; };
-		15160FA31304C8470063AEC1 /* ImageFuryTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15160FA21304C8470063AEC1 /* ImageFuryTest.xib */; };
 		15160FCA1304D7190063AEC1 /* PhotoGalleryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160FC81304D7190063AEC1 /* PhotoGalleryTest.m */; };
 		15160FCB1304D7190063AEC1 /* PhotoGalleryTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15160FC91304D7190063AEC1 /* PhotoGalleryTest.xib */; };
 		15160FD81304DA680063AEC1 /* photo_gallery_urls.txt in Resources */ = {isa = PBXBuildFile; fileRef = 15160FD71304DA680063AEC1 /* photo_gallery_urls.txt */; };
@@ -29,6 +22,16 @@
 		1519BF5113050162003D0D7C /* FullscreenPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1519BF4F13050162003D0D7C /* FullscreenPhotosViewController.m */; };
 		1519BF5213050162003D0D7C /* FullscreenPhotosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1519BF5013050162003D0D7C /* FullscreenPhotosViewController.xib */; };
 		1519BF74130504BB003D0D7C /* TappableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1519BF73130504BB003D0D7C /* TappableScrollView.m */; };
+		157C22A11338164C0050D1CE /* IFImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C228E1338164C0050D1CE /* IFImageView.m */; };
+		157C22A21338164C0050D1CE /* IFImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C22911338164C0050D1CE /* IFImagePlaceholder.m */; };
+		157C22A31338164C0050D1CE /* IFLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C22931338164C0050D1CE /* IFLoader.m */; };
+		157C22A41338164C0050D1CE /* IFPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C22951338164C0050D1CE /* IFPlaceholder.m */; };
+		157C22A51338164C0050D1CE /* IFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C22971338164C0050D1CE /* IFSettings.m */; };
+		157C22A61338164C0050D1CE /* IFThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C22991338164C0050D1CE /* IFThrottle.m */; };
+		157C22A71338164C0050D1CE /* IFTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C229B1338164C0050D1CE /* IFTransition.m */; };
+		157C22A81338164C0050D1CE /* IFTransitionGrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C229D1338164C0050D1CE /* IFTransitionGrow.m */; };
+		157C22A91338164C0050D1CE /* ImageFuryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C229F1338164C0050D1CE /* ImageFuryTest.m */; };
+		157C22AA1338164C0050D1CE /* ImageFuryTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157C22A01338164C0050D1CE /* ImageFuryTest.xib */; };
 		1D3623260D0F684500981E51 /* imagefuryAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* imagefuryAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -40,19 +43,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15160F4D1304C5150063AEC1 /* IFImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IFImageView.h; path = ../IFImageView.h; sourceTree = SOURCE_ROOT; };
-		15160F4E1304C5150063AEC1 /* IFImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IFImageView.m; path = ../IFImageView.m; sourceTree = SOURCE_ROOT; };
-		15160F501304C5150063AEC1 /* IFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFLoader.h; sourceTree = "<group>"; };
-		15160F511304C5150063AEC1 /* IFLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFLoader.m; sourceTree = "<group>"; };
-		15160F521304C5150063AEC1 /* IFPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFPlaceholder.h; sourceTree = "<group>"; };
-		15160F531304C5150063AEC1 /* IFPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFPlaceholder.m; sourceTree = "<group>"; };
-		15160F541304C5150063AEC1 /* IFSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFSettings.h; sourceTree = "<group>"; };
-		15160F551304C5150063AEC1 /* IFSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFSettings.m; sourceTree = "<group>"; };
-		15160F561304C5150063AEC1 /* IFThrottle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFThrottle.h; sourceTree = "<group>"; };
-		15160F571304C5150063AEC1 /* IFThrottle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFThrottle.m; sourceTree = "<group>"; };
-		15160F581304C5150063AEC1 /* ImageFuryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFuryTest.h; sourceTree = "<group>"; };
-		15160F591304C5150063AEC1 /* ImageFuryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFuryTest.m; sourceTree = "<group>"; };
-		15160FA21304C8470063AEC1 /* ImageFuryTest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageFuryTest.xib; sourceTree = "<group>"; };
 		15160FC71304D7190063AEC1 /* PhotoGalleryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTest.h; sourceTree = "<group>"; };
 		15160FC81304D7190063AEC1 /* PhotoGalleryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTest.m; sourceTree = "<group>"; };
 		15160FC91304D7190063AEC1 /* PhotoGalleryTest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGalleryTest.xib; sourceTree = "<group>"; };
@@ -81,6 +71,25 @@
 		1519BF5013050162003D0D7C /* FullscreenPhotosViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullscreenPhotosViewController.xib; sourceTree = "<group>"; };
 		1519BF72130504BB003D0D7C /* TappableScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TappableScrollView.h; sourceTree = "<group>"; };
 		1519BF73130504BB003D0D7C /* TappableScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TappableScrollView.m; sourceTree = "<group>"; };
+		157C228D1338164C0050D1CE /* IFImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IFImageView.h; path = ../ImageFury/IFImageView.h; sourceTree = SOURCE_ROOT; };
+		157C228E1338164C0050D1CE /* IFImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IFImageView.m; path = ../ImageFury/IFImageView.m; sourceTree = SOURCE_ROOT; };
+		157C22901338164C0050D1CE /* IFImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFImagePlaceholder.h; sourceTree = "<group>"; };
+		157C22911338164C0050D1CE /* IFImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFImagePlaceholder.m; sourceTree = "<group>"; };
+		157C22921338164C0050D1CE /* IFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFLoader.h; sourceTree = "<group>"; };
+		157C22931338164C0050D1CE /* IFLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFLoader.m; sourceTree = "<group>"; };
+		157C22941338164C0050D1CE /* IFPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFPlaceholder.h; sourceTree = "<group>"; };
+		157C22951338164C0050D1CE /* IFPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFPlaceholder.m; sourceTree = "<group>"; };
+		157C22961338164C0050D1CE /* IFSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFSettings.h; sourceTree = "<group>"; };
+		157C22971338164C0050D1CE /* IFSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFSettings.m; sourceTree = "<group>"; };
+		157C22981338164C0050D1CE /* IFThrottle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFThrottle.h; sourceTree = "<group>"; };
+		157C22991338164C0050D1CE /* IFThrottle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFThrottle.m; sourceTree = "<group>"; };
+		157C229A1338164C0050D1CE /* IFTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFTransition.h; sourceTree = "<group>"; };
+		157C229B1338164C0050D1CE /* IFTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFTransition.m; sourceTree = "<group>"; };
+		157C229C1338164C0050D1CE /* IFTransitionGrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFTransitionGrow.h; sourceTree = "<group>"; };
+		157C229D1338164C0050D1CE /* IFTransitionGrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFTransitionGrow.m; sourceTree = "<group>"; };
+		157C229E1338164C0050D1CE /* ImageFuryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFuryTest.h; sourceTree = "<group>"; };
+		157C229F1338164C0050D1CE /* ImageFuryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFuryTest.m; sourceTree = "<group>"; };
+		157C22A01338164C0050D1CE /* ImageFuryTest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageFuryTest.xib; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* imagefuryAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imagefuryAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* imagefuryAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imagefuryAppDelegate.m; sourceTree = "<group>"; };
@@ -132,31 +141,12 @@
 		15160F4B1304C5010063AEC1 /* Imagefury */ = {
 			isa = PBXGroup;
 			children = (
-				15160F4D1304C5150063AEC1 /* IFImageView.h */,
-				15160F4E1304C5150063AEC1 /* IFImageView.m */,
-				15160F4F1304C5150063AEC1 /* Internals */,
+				157C228D1338164C0050D1CE /* IFImageView.h */,
+				157C228E1338164C0050D1CE /* IFImageView.m */,
+				157C228F1338164C0050D1CE /* Internals */,
 			);
 			name = Imagefury;
 			sourceTree = "<group>";
-		};
-		15160F4F1304C5150063AEC1 /* Internals */ = {
-			isa = PBXGroup;
-			children = (
-				15160F501304C5150063AEC1 /* IFLoader.h */,
-				15160F511304C5150063AEC1 /* IFLoader.m */,
-				15160F521304C5150063AEC1 /* IFPlaceholder.h */,
-				15160F531304C5150063AEC1 /* IFPlaceholder.m */,
-				15160F541304C5150063AEC1 /* IFSettings.h */,
-				15160F551304C5150063AEC1 /* IFSettings.m */,
-				15160F561304C5150063AEC1 /* IFThrottle.h */,
-				15160F571304C5150063AEC1 /* IFThrottle.m */,
-				15160F581304C5150063AEC1 /* ImageFuryTest.h */,
-				15160F591304C5150063AEC1 /* ImageFuryTest.m */,
-				15160FA21304C8470063AEC1 /* ImageFuryTest.xib */,
-			);
-			name = Internals;
-			path = ../Internals;
-			sourceTree = SOURCE_ROOT;
 		};
 		151610871304EEEC0063AEC1 /* TouchJSON */ = {
 			isa = PBXGroup;
@@ -210,6 +200,31 @@
 			name = Extensions;
 			path = "TouchCode-TouchJSON-8dd264d/Source/Extensions";
 			sourceTree = "<group>";
+		};
+		157C228F1338164C0050D1CE /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				157C22901338164C0050D1CE /* IFImagePlaceholder.h */,
+				157C22911338164C0050D1CE /* IFImagePlaceholder.m */,
+				157C22921338164C0050D1CE /* IFLoader.h */,
+				157C22931338164C0050D1CE /* IFLoader.m */,
+				157C22941338164C0050D1CE /* IFPlaceholder.h */,
+				157C22951338164C0050D1CE /* IFPlaceholder.m */,
+				157C22961338164C0050D1CE /* IFSettings.h */,
+				157C22971338164C0050D1CE /* IFSettings.m */,
+				157C22981338164C0050D1CE /* IFThrottle.h */,
+				157C22991338164C0050D1CE /* IFThrottle.m */,
+				157C229A1338164C0050D1CE /* IFTransition.h */,
+				157C229B1338164C0050D1CE /* IFTransition.m */,
+				157C229C1338164C0050D1CE /* IFTransitionGrow.h */,
+				157C229D1338164C0050D1CE /* IFTransitionGrow.m */,
+				157C229E1338164C0050D1CE /* ImageFuryTest.h */,
+				157C229F1338164C0050D1CE /* ImageFuryTest.m */,
+				157C22A01338164C0050D1CE /* ImageFuryTest.xib */,
+			);
+			name = Internals;
+			path = ../ImageFury/Internals;
+			sourceTree = SOURCE_ROOT;
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
@@ -314,10 +329,10 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* imagefuryViewController.xib in Resources */,
-				15160FA31304C8470063AEC1 /* ImageFuryTest.xib in Resources */,
 				15160FCB1304D7190063AEC1 /* PhotoGalleryTest.xib in Resources */,
 				15160FD81304DA680063AEC1 /* photo_gallery_urls.txt in Resources */,
 				1519BF5213050162003D0D7C /* FullscreenPhotosViewController.xib in Resources */,
+				157C22AA1338164C0050D1CE /* ImageFuryTest.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,12 +346,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* imagefuryAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* imagefuryViewController.m in Sources */,
-				15160F5A1304C5150063AEC1 /* IFImageView.m in Sources */,
-				15160F5B1304C5150063AEC1 /* IFLoader.m in Sources */,
-				15160F5C1304C5150063AEC1 /* IFPlaceholder.m in Sources */,
-				15160F5D1304C5150063AEC1 /* IFSettings.m in Sources */,
-				15160F5E1304C5150063AEC1 /* IFThrottle.m in Sources */,
-				15160F5F1304C5150063AEC1 /* ImageFuryTest.m in Sources */,
 				15160FCA1304D7190063AEC1 /* PhotoGalleryTest.m in Sources */,
 				1516109A1304EF080063AEC1 /* CDataScanner.m in Sources */,
 				1516109B1304EF080063AEC1 /* CFilteringJSONSerializer.m in Sources */,
@@ -349,6 +358,15 @@
 				151610AF1304F0200063AEC1 /* NSDictionary_JSONExtensions.m in Sources */,
 				1519BF5113050162003D0D7C /* FullscreenPhotosViewController.m in Sources */,
 				1519BF74130504BB003D0D7C /* TappableScrollView.m in Sources */,
+				157C22A11338164C0050D1CE /* IFImageView.m in Sources */,
+				157C22A21338164C0050D1CE /* IFImagePlaceholder.m in Sources */,
+				157C22A31338164C0050D1CE /* IFLoader.m in Sources */,
+				157C22A41338164C0050D1CE /* IFPlaceholder.m in Sources */,
+				157C22A51338164C0050D1CE /* IFSettings.m in Sources */,
+				157C22A61338164C0050D1CE /* IFThrottle.m in Sources */,
+				157C22A71338164C0050D1CE /* IFTransition.m in Sources */,
+				157C22A81338164C0050D1CE /* IFTransitionGrow.m in Sources */,
+				157C22A91338164C0050D1CE /* ImageFuryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
