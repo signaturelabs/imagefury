@@ -38,6 +38,18 @@
 	return self;
 }
 
+- (void)setState:(IFPlaceholderState)newState {
+	
+	[super setState:newState];
+	
+	if(newState == IFPlaceholderStateSuccess) {
+		
+		self.imageView.image = nil;
+		[self.imageView removeFromSuperview];
+		self.imageView = nil;
+	}
+}
+
 - (void)setContentMode:(UIViewContentMode)mode {
 	
 	[super setContentMode:mode];

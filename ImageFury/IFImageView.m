@@ -348,6 +348,8 @@
 	for(id<IFImageViewDelegate> delegate in self.delegates)
 		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])
 			[delegate IFImageLoaded:self image:image];
+	
+	
 }
 
 - (void)forceLoadEvent {
