@@ -11,6 +11,7 @@
  Contributor(s):
  
  Dustin Dettmer <dusty@dustytech.com>
+ Traun Leyden <tleyden@signature-app.com>
  
  */
 
@@ -34,13 +35,15 @@
 
 @property (nonatomic, assign) BOOL movingToWindow;
 
+- (void)doResizeAfterLoad:(UIImage *)image;
+
 @end
 
 @implementation IFImageView
 
 @synthesize placeholder, requestTimeout, contentMode, urlRequest;
 @synthesize delegates, imageView, loader, state, addedToSuperview;
-@synthesize sizeEstimate, movingToWindow;
+@synthesize sizeEstimate, movingToWindow, resizeAfterLoad;
 
 + (NSMutableArray*)instances {
 	
@@ -348,8 +351,8 @@
 	for(id<IFImageViewDelegate> delegate in self.delegates)
 		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])
 			[delegate IFImageLoaded:self image:image];
-	
-	
+		if(self.resizeAfterLoad) 
+			[self doResizeAfterLoad:image];
 }
 
 - (void)forceLoadEvent {
@@ -467,6 +470,32 @@
 		return NSOrderedAscending;
 	
 	return NSOrderedSame;
+}
+
+- (void)doResizeAfterLoad:(UIImage *)image {
+	
+	CGRect frame = self.frame;
+	
+	CGFloat aspect = self.frame.size.height / image.size.height;
+	
+	frame.size =
+	CGSizeMake(image.size.width * aspect,
+			   self.frame.size.height);
+	
+	if(frame.size.width > self.frame.size.width) {
+		
+		aspect = self.frame.size.width / image.size.width;
+		
+		frame.size =
+		CGSizeMake(self.frame.size.width,
+				   image.size.height * aspect);
+		
+		frame.origin.y += (self.frame.size.height - frame.size.height) / 2;
+	}
+	
+	self.frame = frame;
+	
+	
 }
 
 + (void)clearCache {

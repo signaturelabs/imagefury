@@ -11,7 +11,8 @@
  Contributor(s):
  
  Dustin Dettmer <dusty@dustytech.com>
-
+ Traun Leyden <tleyden@signature-app.com>
+ 
  */
 
 #import <UIKit/UIKit.h>
@@ -93,8 +94,13 @@ enum IFImageViewState {
 /// Returns the reverse direction of compareTo
 - (NSComparisonResult)reverseCompareTo:(IFImageView*)imageView;
 
+/// Setting this property will cause the image to be resized according
+/// to the frame size after it finishes loading
+@property (nonatomic, assign) BOOL resizeAfterLoad;
+
 /// Erases everything from the disk cache.
 + (void)clearCache;
+
 
 @end
 
