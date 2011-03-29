@@ -53,6 +53,9 @@
 /// Needs to end in a slash.
 @property (nonatomic, retain) NSString *tempCacheDirectory;
 
+/// When a download fails, this image is shown in it's place.
+@property (nonatomic, retain) UIImage *failedImagePlaceholder;
+
 /// Disabled the background lazy loader.
 @property (nonatomic, assign) BOOL debugMode;
 

@@ -25,6 +25,7 @@
 @synthesize memUsage, diskCacheSize;
 @synthesize maxActiveImages, defaultPlaceholderClass;
 @synthesize defaultTimeout, cacheDirectory, tempCacheDirectory;
+@synthesize failedImagePlaceholder;
 @synthesize debugMode;
 
 + (IFSettings*)shared {
@@ -92,6 +93,7 @@
 		self.maxActiveImages = 25;
 		self.defaultPlaceholderClass = [IFPlaceholder class];
 		self.defaultTimeout = 50;
+		self.failedImagePlaceholder = [UIImage imageNamed:@"IFBrokenDownload.png"];
 		self.cacheDirectory =
 		[NSString stringWithFormat:@"%@ImageFuryCache/",
 		 NSTemporaryDirectory()];
@@ -108,6 +110,7 @@
 	
 	self.cacheDirectory = nil;
 	self.tempCacheDirectory = nil;
+	self.failedImagePlaceholder = nil;
 	
 	[super dealloc];
 }

@@ -16,6 +16,7 @@
 
 
 #import "IFPlaceholder.h"
+#import "IFSettings.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -109,6 +110,10 @@
 
 - (UIView*)getPlaceholderGraphic:(UIView *)graphic {
 	
+	int failedImageTag = 1;
+	
+	UIImageView *failedImage = nil;
+	
 	if(!graphic) {
 		
 		CGRect frame = CGRectZero;
@@ -120,7 +125,27 @@
 		graphic.frame = frame;
 		
 		graphic.backgroundColor = [UIColor grayColor];
+		
+		failedImage =
+		[[[UIImageView alloc]
+		 initWithImage:
+		 [IFSettings shared].failedImagePlaceholder]
+		 autorelease];
+		
+		failedImage.tag = failedImageTag;
+		
+		[graphic addSubview:failedImage];
 	}
+	
+	failedImage = (UIImageView*)[graphic viewWithTag:failedImageTag];
+	
+	failedImage.center = CGPointMake(graphic.frame.size.width / 2,
+									 graphic.frame.size.height / 2);
+	
+	if(self.state == IFPlaceholderStateFailed)
+		failedImage.hidden = NO;
+	else
+		failedImage.hidden = YES;
 	
 	return graphic;
 }

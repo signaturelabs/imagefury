@@ -1,0 +1,240 @@
+From 979f4fdda674cb6766029fdcaad9fc2180deaafb Mon Sep 17 00:00:00 2001
+From: ddustin <dustinpaystaxes@gmail.com>
+Date: Mon, 28 Mar 2011 19:52:16 +0100
+Subject: [PATCH] Failed image placeholder
+
+---
+ ImageFury/Internals/IFBrokenDownload.png |  Bin 0 -> 6265 bytes
+ ImageFury/Internals/IFPlaceholder.m      |   25 +++++++++++++++++++++++++
+ ImageFury/Internals/IFSettings.h         |    3 +++
+ ImageFury/Internals/IFSettings.m         |    3 +++
+ 4 files changed, 31 insertions(+), 0 deletions(-)
+ create mode 100644 ImageFury/Internals/IFBrokenDownload.png
+
+diff --git a/ImageFury/Internals/IFBrokenDownload.png b/ImageFury/Internals/IFBrokenDownload.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..32dab3c2e0d1e9ebeee9c0e510ae29beb87a4b04
+GIT binary patch
+literal 6265
+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
+z3i%0D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
+
+literal 0
+HcmV?d00001
+
+diff --git a/ImageFury/Internals/IFPlaceholder.m b/ImageFury/Internals/IFPlaceholder.m
+index a03e9bb..528dbed 100644
+--- a/ImageFury/Internals/IFPlaceholder.m
++++ b/ImageFury/Internals/IFPlaceholder.m
+@@ -16,6 +16,7 @@
+ 
+ 
+ #import "IFPlaceholder.h"
++#import "IFSettings.h"
+ #import <QuartzCore/QuartzCore.h>
+ 
+ 
+@@ -109,6 +110,10 @@
+ 
+ - (UIView*)getPlaceholderGraphic:(UIView *)graphic {
+ 	
++	int failedImageTag = 1;
++	
++	UIImageView *failedImage = nil;
++	
+ 	if(!graphic) {
+ 		
+ 		CGRect frame = CGRectZero;
+@@ -120,8 +125,28 @@
+ 		graphic.frame = frame;
+ 		
+ 		graphic.backgroundColor = [UIColor grayColor];
++		
++		failedImage =
++		[[[UIImageView alloc]
++		 initWithImage:
++		 [IFSettings shared].failedImagePlaceholder]
++		 autorelease];
++		
++		failedImage.tag = failedImageTag;
++		
++		[graphic addSubview:failedImage];
+ 	}
+ 	
++	failedImage = (UIImageView*)[graphic viewWithTag:failedImageTag];
++	
++	failedImage.center = CGPointMake(graphic.frame.size.width / 2,
++									 graphic.frame.size.height / 2);
++	
++	if(self.state == IFPlaceholderStateFailed)
++		failedImage.hidden = NO;
++	else
++		failedImage.hidden = YES;
++	
+ 	return graphic;
+ }
+ 
+diff --git a/ImageFury/Internals/IFSettings.h b/ImageFury/Internals/IFSettings.h
+index 0b10ea8..d993f0f 100644
+--- a/ImageFury/Internals/IFSettings.h
++++ b/ImageFury/Internals/IFSettings.h
+@@ -53,6 +53,9 @@
+ /// Needs to end in a slash.
+ @property (nonatomic, retain) NSString *tempCacheDirectory;
+ 
++/// When a download fails, this image is shown in it's place.
++@property (nonatomic, retain) UIImage *failedImagePlaceholder;
++
+ /// Disabled the background lazy loader.
+ @property (nonatomic, assign) BOOL debugMode;
+ 
+diff --git a/ImageFury/Internals/IFSettings.m b/ImageFury/Internals/IFSettings.m
+index f8863e5..9ff74a7 100644
+--- a/ImageFury/Internals/IFSettings.m
++++ b/ImageFury/Internals/IFSettings.m
+@@ -25,6 +25,7 @@
+ @synthesize memUsage, diskCacheSize;
+ @synthesize maxActiveImages, defaultPlaceholderClass;
+ @synthesize defaultTimeout, cacheDirectory, tempCacheDirectory;
++@synthesize failedImagePlaceholder;
+ @synthesize debugMode;
+ 
+ + (IFSettings*)shared {
+@@ -92,6 +93,7 @@
+ 		self.maxActiveImages = 25;
+ 		self.defaultPlaceholderClass = [IFPlaceholder class];
+ 		self.defaultTimeout = 50;
++		self.failedImagePlaceholder = [UIImage imageNamed:@"IFBrokenDownload.png"];
+ 		self.cacheDirectory =
+ 		[NSString stringWithFormat:@"%@ImageFuryCache/",
+ 		 NSTemporaryDirectory()];
+@@ -108,6 +110,7 @@
+ 	
+ 	self.cacheDirectory = nil;
+ 	self.tempCacheDirectory = nil;
++	self.failedImagePlaceholder = nil;
+ 	
+ 	[super dealloc];
+ }
+-- 
+1.7.3.2
+
