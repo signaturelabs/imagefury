@@ -30,7 +30,8 @@
 
 @implementation IFPlaceholder
 
-@synthesize state, placeholderGraphic, loadingIndicator, showProgress;
+@synthesize state, placeholderBackgroundColor;
+@synthesize placeholderGraphic, loadingIndicator, showProgress;
 
 - (void)setFrame:(CGRect)rect {
 	
@@ -42,6 +43,17 @@
 	
 	self.state = tmp;
 	 */
+}
+
+- (UIColor*)placeholderBackgroundColor {
+	
+	if(!placeholderBackgroundColor) {
+		
+		self.placeholderBackgroundColor = [UIColor clearColor];
+		[placeholderBackgroundColor release];
+	}
+	
+	return placeholderBackgroundColor;
 }
 
 - (void)setState:(IFPlaceholderState)newState {
@@ -124,7 +136,7 @@
 		
 		graphic.frame = frame;
 		
-		graphic.backgroundColor = [UIColor grayColor];
+		graphic.backgroundColor = self.placeholderBackgroundColor;
 		
 		failedImage =
 		[[[UIImageView alloc]
@@ -299,6 +311,8 @@
 	
 	if(self.loadingIndicator && self.loadingIndicator.layer)
 		[self.loadingIndicator.layer removeAllAnimations];
+	
+	self.placeholderBackgroundColor = nil;
 	
 	self.placeholderGraphic = nil;
 	self.loadingIndicator = nil;

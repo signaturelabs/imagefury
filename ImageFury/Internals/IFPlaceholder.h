@@ -35,6 +35,9 @@ typedef enum IFPlaceholderState {
 /// This property is set for transitions between states
 @property (nonatomic, assign) IFPlaceholderState state;
 
+/// This property is used as the background color of the placeholder graphic
+@property (nonatomic, retain) UIColor *placeholderBackgroundColor;
+
 /// This method is called with the current progress.
 /// Subclassers don't need to override this method, instead
 /// use the 'progress' parameter to getLoadingIndicator.

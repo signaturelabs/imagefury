@@ -50,6 +50,11 @@
 	return graphic;
 }
 
+- (UIView*)getLoadingIndicator:(UIView *)oldLoadingIndicator progress:(NSNumber *)progress {
+	
+	return nil;
+}
+
 - (void)dealloc {
 
 	self.color = nil;
