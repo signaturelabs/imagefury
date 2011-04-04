@@ -88,7 +88,7 @@
 	
 	if(self = [super init]) {
 		
-		self.memUsage = 25 * 1024 * 1024;
+		self.memUsage = 10 * 1024 * 1024;
 		self.diskCacheSize = 100 * 1024 * 1024;
 		self.maxActiveImages = 25;
 		self.defaultPlaceholderClass = [IFPlaceholder class];
