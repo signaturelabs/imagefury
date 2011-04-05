@@ -144,12 +144,21 @@
 		 [IFSettings shared].failedImagePlaceholder]
 		 autorelease];
 		
+		failedImage.contentMode = UIViewContentModeScaleAspectFill;
+		failedImage.clipsToBounds = YES;
+		
 		failedImage.tag = failedImageTag;
 		
 		[graphic addSubview:failedImage];
 	}
 	
 	failedImage = (UIImageView*)[graphic viewWithTag:failedImageTag];
+	
+	CGRect frame = failedImage.frame;
+	
+	frame.size = self.frame.size;
+	
+	failedImage.frame = frame;
 	
 	failedImage.center = CGPointMake(graphic.frame.size.width / 2,
 									 graphic.frame.size.height / 2);
