@@ -29,7 +29,7 @@ enum IFImageViewState {
 @protocol IFImageViewDelegate;
 
 
-@interface IFImageView : UIView<IFLoaderDelegate> {
+@interface IFImageView : UIScrollView <UIScrollViewDelegate, IFLoaderDelegate> {
 
 }
 
@@ -52,6 +52,9 @@ enum IFImageViewState {
 /// control how the image is scaled on it's UIImageView, once loaded.
 /// Defaults to [[ImageFury shared] defaultContentMode].
 @property (nonatomic, assign) UIViewContentMode contentMode;
+
+// Set this to YES to enable pan and zoom.
+@property (nonatomic, assign) BOOL panAndZoom;
 
 /// Calling this will cause the image to be added into the loading queue.
 - (void)setURL:(NSURL*)url;
