@@ -62,8 +62,6 @@
 
 - (void)setup {
 	
-	[self checkScrollEnabled];
-	
 	self.showsVerticalScrollIndicator = NO;
 	self.showsHorizontalScrollIndicator = NO;
 	self.bouncesZoom = YES;
@@ -82,17 +80,17 @@
 
 - (void)setMaxMinZoomScalesForCurrentBounds
 {
-    CGSize boundsSize = self.bounds.size;
+    CGSize boundsSize = self.frame.size;
     CGSize imageSize = imageView.image.size;
     
     // calculate min/max zoomscale
     CGFloat xScale = boundsSize.width / imageSize.width;    // the scale needed to perfectly fit the image width-wise
     CGFloat yScale = boundsSize.height / imageSize.height;  // the scale needed to perfectly fit the image height-wise
-    CGFloat minScale = MIN(xScale, yScale);                 // use minimum of these to allow the image to become fully visible
+    CGFloat minScale = MAX(1, MIN(xScale, yScale));                 // use minimum of these to allow the image to become fully visible
     
-    // on high resolution screens we have double the pixel density, so we will be seeing every pixel if we limit the
-    // maximum zoom scale to 0.5.
-    CGFloat maxScale = 1.0 / [[UIScreen mainScreen] scale];
+    xScale = imageSize.width / boundsSize.width;
+    yScale = imageSize.height / boundsSize.height;
+    CGFloat maxScale = MAX(1, MAX(xScale, yScale));
     
     // don't let minScale exceed maxScale. (If the image is smaller than the screen, we don't want to force it to be zoomed.) 
     if (minScale > maxScale) {
@@ -105,10 +103,17 @@
 
 - (void)checkScrollEnabled {
 	
-	if(self.panAndZoom)
+	[self setup];
+	
+	if(self.panAndZoom) {
+		
 		self.scrollEnabled = YES;
-	else
+	}
+	else {
+		
 		self.scrollEnabled = NO;
+		self.maximumZoomScale = self.minimumZoomScale = 1;
+	}
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
@@ -409,7 +414,7 @@
 		if(self.resizeAfterLoad) 
 			[self doResizeAfterLoad:image];
 	
-	[self setup];
+	[self checkScrollEnabled];
 }
 
 - (void)layoutSubviews 
@@ -434,6 +439,8 @@
         frameToCenter.origin.y = 0;
     
     imageView.frame = frameToCenter;
+	
+	[self checkScrollEnabled];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -448,10 +455,12 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	
-	if(!self.dragging)
+	if(!self.dragging) {
+		
 		[self.nextResponder touchesEnded:touches withEvent:event];
-	
-	[super touchesEnded:touches withEvent:event];
+		
+		[super touchesEnded:touches withEvent:event];
+	}
 }
 
 - (void)forceLoadEvent {

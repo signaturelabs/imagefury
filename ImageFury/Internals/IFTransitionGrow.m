@@ -134,7 +134,7 @@
 	
 	v.frame = startRect;
 	
-	v.contentMode = UIViewContentModeScaleAspectFill;
+	v.contentMode = UIViewContentModeScaleAspectFit;
 	v.clipsToBounds = YES;
 	
 	[UIView beginAnimations:nil context:nil];
