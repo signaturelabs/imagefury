@@ -122,9 +122,9 @@
 
 - (UIView*)getPlaceholderGraphic:(UIView *)graphic {
 	
-	int failedImageTag = 1;
+	int failedViewTag = 1;
 	
-	UIImageView *failedImage = nil;
+	UILabel *failedView = nil;
 	
 	if(!graphic) {
 		
@@ -138,35 +138,50 @@
 		
 		graphic.backgroundColor = self.placeholderBackgroundColor;
 		
-		failedImage =
-		[[[UIImageView alloc]
-		 initWithImage:
-		 [IFSettings shared].failedImagePlaceholder]
-		 autorelease];
+		UILabel *lbl = [[UILabel alloc] initWithFrame:
+						CGRectInset(frame, 5, 5)];
 		
-		failedImage.contentMode = UIViewContentModeScaleAspectFill;
-		failedImage.clipsToBounds = YES;
+		lbl.tag = failedViewTag;
 		
-		failedImage.tag = failedImageTag;
+		lbl.autoresizingMask = UIViewAutoresizingFlexibleWidth
+		| UIViewAutoresizingFlexibleHeight;
 		
-		[graphic addSubview:failedImage];
+		lbl.backgroundColor = [UIColor grayColor];
+		lbl.numberOfLines = 2;
+		lbl.adjustsFontSizeToFitWidth = YES;
+		lbl.text = @"NO IMAGE\nAVAILABLE";
+		lbl.textAlignment = UITextAlignmentCenter;
+		lbl.textColor = [UIColor whiteColor];
+		
+		[graphic addSubview:lbl];
+		[lbl release];
 	}
 	
-	failedImage = (UIImageView*)[graphic viewWithTag:failedImageTag];
+	failedView = (UILabel*)[graphic viewWithTag:failedViewTag];
 	
-	CGRect frame = failedImage.frame;
+	failedView.font = [failedView.font fontWithSize:28];
+	
+	while(failedView.frame.size.width > 50
+		  && [@"AVAILABLE" sizeWithFont:failedView.font].width >
+		  failedView.frame.size.width) {
+		
+		if(failedView.font.pointSize <= 1)
+			break;
+		
+		failedView.font = [failedView.font
+						   fontWithSize:failedView.font.pointSize - 1];
+	}
+	
+	CGRect frame = CGRectZero;
 	
 	frame.size = self.frame.size;
 	
-	failedImage.frame = frame;
-	
-	failedImage.center = CGPointMake(graphic.frame.size.width / 2,
-									 graphic.frame.size.height / 2);
+	failedView.frame = frame;
 	
 	if(self.state == IFPlaceholderStateFailed)
-		failedImage.hidden = NO;
+		failedView.hidden = NO;
 	else
-		failedImage.hidden = YES;
+		failedView.hidden = YES;
 	
 	return graphic;
 }
