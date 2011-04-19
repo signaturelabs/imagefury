@@ -9,7 +9,8 @@
  the Initial Developer. All Rights Reserved.
  
  Contributor(s):
- 
+
+ Dustin Dettmer <dusty@dustytech.com>
  Traun Leyden <tleyden@signature-app.com>
  
  */
@@ -20,6 +21,8 @@
 
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) UIColor *color;
+
+-(BOOL)isEmpty:(id)thing;
 
 @end
 
@@ -54,7 +57,10 @@
 		lbl.autoresizingMask = UIViewAutoresizingFlexibleWidth
 		| UIViewAutoresizingFlexibleHeight;
 		
-		lbl.text = self.text;
+		if (![self isEmpty:self.text]) {
+			lbl.text = self.text;
+		}
+				
 		lbl.opaque = NO;
 		lbl.textColor = color;
 		lbl.textAlignment = UITextAlignmentCenter;
@@ -87,6 +93,15 @@
 - (UIView*)getLoadingIndicator:(UIView *)oldLoadingIndicator progress:(NSNumber *)progress {
 	
 	return nil;
+}
+
+-(BOOL)isEmpty:(id)thing {
+	return thing == nil
+	|| [thing isKindOfClass:[NSNull class]]
+	|| ([thing respondsToSelector:@selector(length)]
+        && [(NSData *)thing length] == 0)
+	|| ([thing respondsToSelector:@selector(count)]
+        && [(NSArray *)thing count] == 0);
 }
 
 - (void)dealloc {
