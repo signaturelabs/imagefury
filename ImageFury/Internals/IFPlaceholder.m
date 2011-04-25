@@ -280,6 +280,10 @@
 			
 			activity.center = p;
 			
+			p.y += 20;
+			
+			progressView.center = p;
+			
 			progressView.alpha = 1;
 			
 			[UIView commitAnimations];
@@ -318,6 +322,10 @@
 			p.y = self.frame.size.height/ 2;
 			
 			activity.center = p;
+			
+			p.y += 20;
+			
+			progressView.center = p;
 			
 			progressView.alpha = 0;
 			
