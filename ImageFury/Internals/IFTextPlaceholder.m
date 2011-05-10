@@ -74,7 +74,7 @@
 		[graphic addSubview:lbl];
 	}
 	
-	if(self.state == IFPlaceholderStateFailed) {
+	if(self.state == IFPlaceholderStateFailed || self.state == IFPlaceholderStatePreload) {
 		
 		[UIView beginAnimations:nil context:nil];
 		
