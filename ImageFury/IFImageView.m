@@ -301,10 +301,10 @@
 	[urlRequest release];
 	urlRequest = request;
 	
+	[self softClearEvent];
+	
 	if(!urlRequest)
 		return;
-	
-	[self softClearEvent];
 	
 	self.loader = [[IFLoader alloc] init];
 	[self.loader release];
@@ -335,16 +335,22 @@
 
 - (void)setURL:(NSURL *)url {
 	
-	self.urlRequest =
-	[NSURLRequest
-	 requestWithURL:url
-	 cachePolicy:NSURLCacheStorageNotAllowed
-	 timeoutInterval:self.requestTimeout];
+	if(!url)
+		self.urlRequest = nil;
+	else
+		self.urlRequest =
+		[NSURLRequest
+		 requestWithURL:url
+		 cachePolicy:NSURLCacheStorageNotAllowed
+		 timeoutInterval:self.requestTimeout];
 }
 
 - (void)setURLString:(NSString *)url {
 	
-	[self setURL:[NSURL URLWithString:url]];
+	if(!url)
+		self.urlRequest = nil;
+	else
+		[self setURL:[NSURL URLWithString:url]];
 }
 
 - (void)IFLoaderFailed:(NSError *)error {
