@@ -280,6 +280,8 @@
 - (void)softClearEvent {
 	
 	self.loader.running = NO;
+	self.loader.delegate = nil;
+	self.loader = nil;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
 	
@@ -306,6 +308,7 @@
 	if(!urlRequest)
 		return;
 	
+	self.loader.delegate = nil;
 	self.loader = [[IFLoader alloc] init];
 	[self.loader release];
 	
