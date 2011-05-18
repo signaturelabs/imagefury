@@ -15,6 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 
 
 @protocol IFLoaderDelegate<NSObject>
