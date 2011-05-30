@@ -21,10 +21,10 @@
 
 @synthesize color;
 
-- (id)initWithColor:(UIColor *)color {
+- (id)initWithColor:(UIColor *)col {
 
 	if (self = [super init]) {
-		self.color = color;
+		self.color = col;
 	}
 	
 	return self;
