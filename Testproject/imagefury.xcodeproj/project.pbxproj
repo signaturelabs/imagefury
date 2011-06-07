@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		106CBEE9139E10030068226E /* IFBrokenDownload.png in Resources */ = {isa = PBXBuildFile; fileRef = 106CBEE4139E10030068226E /* IFBrokenDownload.png */; };
+		106CBEEA139E10030068226E /* IFColorPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 106CBEE6139E10030068226E /* IFColorPlaceholder.m */; };
+		106CBEEB139E10030068226E /* IFTextPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 106CBEE8139E10030068226E /* IFTextPlaceholder.m */; };
 		15160FCA1304D7190063AEC1 /* PhotoGalleryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 15160FC81304D7190063AEC1 /* PhotoGalleryTest.m */; };
 		15160FCB1304D7190063AEC1 /* PhotoGalleryTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15160FC91304D7190063AEC1 /* PhotoGalleryTest.xib */; };
 		15160FD81304DA680063AEC1 /* photo_gallery_urls.txt in Resources */ = {isa = PBXBuildFile; fileRef = 15160FD71304DA680063AEC1 /* photo_gallery_urls.txt */; };
@@ -43,6 +46,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		106CBEE4139E10030068226E /* IFBrokenDownload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IFBrokenDownload.png; path = ../ImageFury/Internals/IFBrokenDownload.png; sourceTree = "<group>"; };
+		106CBEE5139E10030068226E /* IFColorPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFColorPlaceholder.h; sourceTree = "<group>"; };
+		106CBEE6139E10030068226E /* IFColorPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFColorPlaceholder.m; sourceTree = "<group>"; };
+		106CBEE7139E10030068226E /* IFTextPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFTextPlaceholder.h; sourceTree = "<group>"; };
+		106CBEE8139E10030068226E /* IFTextPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFTextPlaceholder.m; sourceTree = "<group>"; };
 		15160FC71304D7190063AEC1 /* PhotoGalleryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTest.h; sourceTree = "<group>"; };
 		15160FC81304D7190063AEC1 /* PhotoGalleryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTest.m; sourceTree = "<group>"; };
 		15160FC91304D7190063AEC1 /* PhotoGalleryTest.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGalleryTest.xib; sourceTree = "<group>"; };
@@ -204,6 +212,10 @@
 		157C228F1338164C0050D1CE /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				106CBEE5139E10030068226E /* IFColorPlaceholder.h */,
+				106CBEE6139E10030068226E /* IFColorPlaceholder.m */,
+				106CBEE7139E10030068226E /* IFTextPlaceholder.h */,
+				106CBEE8139E10030068226E /* IFTextPlaceholder.m */,
 				157C22901338164C0050D1CE /* IFImagePlaceholder.h */,
 				157C22911338164C0050D1CE /* IFImagePlaceholder.m */,
 				157C22921338164C0050D1CE /* IFLoader.h */,
@@ -260,6 +272,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				106CBEE4139E10030068226E /* IFBrokenDownload.png */,
 				2899E5210DE3E06400AC0155 /* imagefuryViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* imagefury-Info.plist */,
@@ -333,6 +346,7 @@
 				15160FD81304DA680063AEC1 /* photo_gallery_urls.txt in Resources */,
 				1519BF5213050162003D0D7C /* FullscreenPhotosViewController.xib in Resources */,
 				157C22AA1338164C0050D1CE /* ImageFuryTest.xib in Resources */,
+				106CBEE9139E10030068226E /* IFBrokenDownload.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +381,8 @@
 				157C22A71338164C0050D1CE /* IFTransition.m in Sources */,
 				157C22A81338164C0050D1CE /* IFTransitionGrow.m in Sources */,
 				157C22A91338164C0050D1CE /* ImageFuryTest.m in Sources */,
+				106CBEEA139E10030068226E /* IFColorPlaceholder.m in Sources */,
+				106CBEEB139E10030068226E /* IFTextPlaceholder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,7 @@
 
 }
 
+
 - (id)initWithText:(NSString*)text color:(UIColor *)color;
 
 @end

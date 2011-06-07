@@ -15,3 +15,8 @@ build/
 
 # tell git to ignore white space differences and force merge.  That way a corrupt xcode project wont get checked in.
 *.pbxproj -crlf -diff -merge
+
+xcuserdata
+/Testproject/imagefury.xcodeproj/project.xcworkspace/xcuserdata
+/Testproject/imagefury.xcodeproj/project.xcworkspace/xcuserdata/nlyman.xcuserdatad
+/Testproject/imagefury.xcodeproj/xcuserdata

@@ -21,6 +21,7 @@
 
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) UIColor *color;
+@property (nonatomic, retain) UILabel *textLabel;
 
 -(BOOL)isEmpty:(id)thing;
 
@@ -29,11 +30,11 @@
 
 @implementation IFTextPlaceholder
 
-@synthesize text, color;
+@synthesize text, color, textLabel;
 
 - (id)initWithText:(NSString*)str color:(UIColor *)col{
 
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		
 		self.text = str;
 		self.color = col;
@@ -50,28 +51,30 @@
 	
 	if(!graphic) {
 		
-		UILabel *lbl = [[[UILabel alloc] init] autorelease];
+        if(textLabel == nil)
+            textLabel = [[UILabel alloc] init];
 		
-		lbl.frame = frame;
+        
+		textLabel.frame = frame;
 		
-		lbl.autoresizingMask = UIViewAutoresizingFlexibleWidth
+		textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth
 		| UIViewAutoresizingFlexibleHeight;
 		
 		if (![self isEmpty:self.text]) {
-			lbl.text = self.text;
+			textLabel.text = self.text;
 		}
 				
-		lbl.opaque = NO;
-		lbl.textColor = color;
-		lbl.textAlignment = UITextAlignmentCenter;
-		lbl.backgroundColor = [UIColor clearColor];
-		lbl.font = [UIFont fontWithName:@"Helvetica" size:34];
-		lbl.adjustsFontSizeToFitWidth = YES;
-		lbl.alpha = 0;
+		textLabel.opaque = NO;
+		textLabel.textColor = color;
+		textLabel.textAlignment = UITextAlignmentCenter;
+		textLabel.backgroundColor = [UIColor clearColor];
+		textLabel.font = [UIFont fontWithName:@"Helvetica" size:34];
+		textLabel.adjustsFontSizeToFitWidth = YES;
+		textLabel.alpha = 0;
 		
 		graphic = [[[UIView alloc] initWithFrame:frame] autorelease];
 		
-		[graphic addSubview:lbl];
+		[graphic addSubview:textLabel];
 	}
 	
 	if(self.state == IFPlaceholderStateFailed || self.state == IFPlaceholderStatePreload) {
@@ -108,6 +111,7 @@
 
 	self.text = nil;
 	self.color = nil;
+    self.textLabel = nil;
 	
 	[super dealloc];
 }
