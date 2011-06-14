@@ -63,12 +63,12 @@
 		if (![self isEmpty:self.text]) {
 			textLabel.text = self.text;
 		}
-				
+		
 		textLabel.opaque = NO;
 		textLabel.textColor = color;
 		textLabel.textAlignment = UITextAlignmentCenter;
 		textLabel.backgroundColor = [UIColor clearColor];
-		textLabel.font = [UIFont fontWithName:@"Helvetica" size:34];
+		textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
 		textLabel.adjustsFontSizeToFitWidth = YES;
 		textLabel.alpha = 0;
 		
