@@ -55,7 +55,7 @@ static long long diskUsageEstimate = 0;
 	
 	return
 	[[NSFileManager defaultManager]
-	 fileExistsAtPath:[self getStorageFilename]];
+	 fileExistsAtPath:[self getStorageFilename] isDirectory:NO];
 }
 
 - (void)setRunning:(BOOL)yesOrNo {
@@ -112,7 +112,7 @@ static long long diskUsageEstimate = 0;
 	
 	// We just want to SHA1 the part we cut off
 	const char *cStr =
-	[[str substringFromIndex:MAX_FILENAME_LENGTH - 20] UTF8String];
+	[[escaped substringFromIndex:MAX_FILENAME_LENGTH - 20] UTF8String];
 	
     unsigned char result[CC_SHA1_DIGEST_LENGTH];
 	
@@ -143,6 +143,9 @@ static long long diskUsageEstimate = 0;
 }
 
 - (NSString*)getStorageFilename {
+	
+	if(!self.urlRequest.URL)
+		return nil;
 	
 	NSString *safeStr =
 	[self fullyEscapeString:[self.urlRequest.URL absoluteString]];

@@ -336,6 +336,12 @@
 
 - (void)setURL:(NSURL *)url {
 	
+	if(!url) {
+		
+		[self softClearEvent];
+		return;
+	}
+	
 	self.urlRequest =
 	[NSURLRequest
 	 requestWithURL:url
@@ -344,6 +350,12 @@
 }
 
 - (void)setURLString:(NSString *)url {
+	
+	if(!url) {
+		
+		[self softClearEvent];
+		return;
+	}
 	
 	[self setURL:[NSURL URLWithString:url]];
 }
