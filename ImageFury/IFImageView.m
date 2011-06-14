@@ -303,8 +303,6 @@
 	[urlRequest release];
 	urlRequest = request;
 	
-	[self softClearEvent];
-	
 	if(!urlRequest)
 		return;
 	
@@ -338,22 +336,16 @@
 
 - (void)setURL:(NSURL *)url {
 	
-	if(!url)
-		self.urlRequest = nil;
-	else
-		self.urlRequest =
-		[NSURLRequest
-		 requestWithURL:url
-		 cachePolicy:NSURLCacheStorageNotAllowed
-		 timeoutInterval:self.requestTimeout];
+	self.urlRequest =
+	[NSURLRequest
+	 requestWithURL:url
+	 cachePolicy:NSURLCacheStorageNotAllowed
+	 timeoutInterval:self.requestTimeout];
 }
 
 - (void)setURLString:(NSString *)url {
 	
-	if(!url)
-		self.urlRequest = nil;
-	else
-		[self setURL:[NSURL URLWithString:url]];
+	[self setURL:[NSURL URLWithString:url]];
 }
 
 - (void)IFLoaderFailed:(NSError *)error {
