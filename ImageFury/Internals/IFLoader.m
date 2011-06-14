@@ -17,6 +17,8 @@
 #import "IFLoader.h"
 #import "IFSettings.h"
 
+#define MAX_FILENAME_LENGTH 255
+
 
 static long long diskUsageEstimate = 0;
 
@@ -95,20 +97,39 @@ static long long diskUsageEstimate = 0;
 
 /// Requires 8 bit encoding type (ie UTF8)
 - (NSString*)fullyEscapeString:(NSString*)str {
-	// SHA1 hash to prevent issues with really long URLs
-	const char *cStr = [str UTF8String];
+	
+	NSMutableString *escaped = [NSMutableString string];
+	
+	for(int i = 0; i < [str length]; i++)
+		[escaped appendFormat:@"%02X", [str characterAtIndex:i]];
+	
+	// If the filename is short enough, return it.
+	if([escaped length] <= MAX_FILENAME_LENGTH)
+		return escaped;
+	
+	// Add space for the SHA1 on the end
+	NSString *shortened = [escaped substringToIndex:MAX_FILENAME_LENGTH - 20];
+	
+	// We just want to SHA1 the part we cut off
+	const char *cStr =
+	[[str substringFromIndex:MAX_FILENAME_LENGTH - 20] UTF8String];
+	
     unsigned char result[CC_SHA1_DIGEST_LENGTH];
+	
     CC_SHA1(cStr, strlen(cStr), result);
-    NSString *s = [NSString  stringWithFormat:
-                   @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-                   result[0], result[1], result[2], result[3], result[4],
-                   result[5], result[6], result[7],
-                   result[8], result[9], result[10], result[11], result[12],
-                   result[13], result[14], result[15],
-                   result[16], result[17], result[18], result[19]
-                   ];
-    
-    return [s lowercaseString];
+	
+	// This should be uppercase since the escape code above is uppercase.
+    return
+	[NSString  stringWithFormat:
+	 @"%@%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X"
+	  "%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+	 shortened,
+	 result[0],  result[1],  result[2],  result[3],
+	 result[4],  result[5],  result[6],  result[7],
+	 result[8],  result[9],  result[10], result[11],
+	 result[12], result[13], result[14], result[15],
+	 result[16], result[17], result[18], result[19]
+	 ];
 }
 
 - (int)requestNumber {
