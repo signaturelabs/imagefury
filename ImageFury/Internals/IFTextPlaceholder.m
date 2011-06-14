@@ -21,7 +21,8 @@
 
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) UIColor *color;
-@property (nonatomic, retain) UILabel *textLabel;
+@property (nonatomic) CGFloat textSize;
+@property (nonatomic, retain) NSString *fontName;
 
 -(BOOL)isEmpty:(id)thing;
 
@@ -30,14 +31,29 @@
 
 @implementation IFTextPlaceholder
 
-@synthesize text, color, textLabel;
+@synthesize text, color, textSize, fontName;
 
-- (id)initWithText:(NSString*)str color:(UIColor *)col{
+- (id)initWithText:(NSString*)_text color:(UIColor *)_color {
+    return [self initWithText:_text color:_color size:nil font:@"Helvetica"];
+}
+
+- (id)initWithText:(NSString*)str color:(UIColor *)col size:(NSNumber *)sz font:(NSString *)font{
 
 	if ((self = [super init])) {
 		
 		self.text = str;
 		self.color = col;
+		
+        if(sz != nil)
+            self.textSize = [sz floatValue];
+        else
+            self.textSize = 34.0;
+        
+        if(font != nil){
+            self.fontName = font;
+        }else{
+            self.fontName = @"Helvetica";
+        }
 	}
 	
 	return self;
@@ -51,10 +67,8 @@
 	
 	if(!graphic) {
 		
-        if(textLabel == nil)
-            textLabel = [[UILabel alloc] init];
+        UILabel *textLabel = [[UILabel alloc] init];
 		
-        
 		textLabel.frame = frame;
 		
 		textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth
@@ -68,16 +82,16 @@
 		textLabel.textColor = color;
 		textLabel.textAlignment = UITextAlignmentCenter;
 		textLabel.backgroundColor = [UIColor clearColor];
-		textLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-		textLabel.adjustsFontSizeToFitWidth = YES;
+		textLabel.font = [UIFont fontWithName:self.fontName size:self.textSize];		textLabel.adjustsFontSizeToFitWidth = YES;
 		textLabel.alpha = 0;
 		
 		graphic = [[[UIView alloc] initWithFrame:frame] autorelease];
 		
 		[graphic addSubview:textLabel];
+		[textLabel release];
 	}
 	
-	if(self.state == IFPlaceholderStateFailed) {
+	if(self.state == IFPlaceholderStateFailed || self.state == IFPlaceholderStatePreload) {
 		
 		[UIView beginAnimations:nil context:nil];
 		
@@ -98,7 +112,8 @@
 	return nil;
 }
 
--(BOOL)isEmpty:(id)thing {
+- (BOOL)isEmpty:(id)thing {
+	
 	return thing == nil
 	|| [thing isKindOfClass:[NSNull class]]
 	|| ([thing respondsToSelector:@selector(length)]
@@ -111,7 +126,7 @@
 
 	self.text = nil;
 	self.color = nil;
-    self.textLabel = nil;
+	self.fontName = nil;
 	
 	[super dealloc];
 }
