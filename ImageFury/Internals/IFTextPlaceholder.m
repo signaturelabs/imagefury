@@ -79,7 +79,10 @@
 		}
 		
 		textLabel.opaque = NO;
-		textLabel.textColor = color;
+		
+		if(color)
+			textLabel.textColor = color;
+		
 		textLabel.textAlignment = UITextAlignmentCenter;
 		textLabel.backgroundColor = [UIColor clearColor];
 		textLabel.font = [UIFont fontWithName:self.fontName size:self.textSize];		textLabel.adjustsFontSizeToFitWidth = YES;

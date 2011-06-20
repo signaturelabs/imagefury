@@ -194,10 +194,13 @@
 		
 		frame.size = self.frame.size;
 		
-		self.placeholder.frame = frame;
+		placeholder.frame = frame;
+		
+		placeholder.state = placeholder.state;
 	}
 	
 	[self insertSubview:placeholder atIndex:0];
+	[self bringSubviewToFront:placeholder];
 	
 	return placeholder;
 }
@@ -251,17 +254,20 @@
 
 - (void)setPlaceholder:(IFPlaceholder *)newPlaceholder {
 	
-	[placeholder removeFromSuperview];
-	
 	[newPlaceholder retain];
+	
+	[placeholder removeFromSuperview];
 	[placeholder release];
 	placeholder = newPlaceholder;
+	
+	placeholder.state = placeholder.state;
 	
 	placeholder.contentMode = self.contentMode;
 	
 	self.frame = self.frame;
 	
 	[self insertSubview:placeholder atIndex:0];
+	[self bringSubviewToFront:placeholder];
 }
 
 - (void)addDelegate:(id <IFImageViewDelegate>)delegate {

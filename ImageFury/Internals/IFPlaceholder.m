@@ -24,34 +24,52 @@
 
 @property (nonatomic, retain) UIView *placeholderGraphic;
 @property (nonatomic, retain) UIView *loadingIndicator;
-@property (nonatomic, assign) BOOL showProgress;
+
+@property (nonatomic, assign) BOOL validState;
 
 @end
 
 @implementation IFPlaceholder
 
 @synthesize state, placeholderBackgroundColor;
-@synthesize placeholderGraphic, loadingIndicator, showProgress;
+@synthesize placeholderGraphic, loadingIndicator, validState;
+
+- (void)resetGraphicViews {
+	
+	UIView *place = [self getPlaceholderGraphic:self.placeholderGraphic];
+	UIView *load = [self getLoadingIndicator:self.loadingIndicator progress:nil];
+	
+	if(place != self.placeholderGraphic) {
+		
+		[self.placeholderGraphic removeFromSuperview];
+		
+		self.placeholderGraphic = place;
+		
+		[self addSubview:self.placeholderGraphic];
+	}
+	
+	if(load != self.loadingIndicator) {
+		
+		[self.loadingIndicator removeFromSuperview];
+		
+		self.loadingIndicator = load;
+		
+		[self addSubview:self.loadingIndicator];
+	}
+}
 
 - (void)setFrame:(CGRect)rect {
 	
 	[super setFrame:rect];
-	/*
-	IFPlaceholderState tmp = self.state;
 	
-	self.state = 0;
-	
-	self.state = tmp;
-	 */
+	[self resetGraphicViews];
 }
 
 - (UIColor*)placeholderBackgroundColor {
 	
-	if(!placeholderBackgroundColor) {
-		
-		self.placeholderBackgroundColor = [UIColor clearColor];
-		[placeholderBackgroundColor release];
-	}
+	if(!placeholderBackgroundColor)
+		self.placeholderBackgroundColor =
+		[[UIColor blackColor] colorWithAlphaComponent:0.5];
 	
 	return placeholderBackgroundColor;
 }
@@ -62,31 +80,24 @@
 	
 	state = newState;
 	
-	if(oldState == newState)
-		return;
+	if(self.validState) {
+		
+		if(oldState == newState)
+			return;
+		
+		if(!state)
+			return;
+	}
 	
-	if(!state)
-		return;
+	validState = YES;
 	
-	if(self.placeholderGraphic && self.placeholderGraphic.layer)
-		[self.placeholderGraphic.layer removeAllAnimations];
-	
-	if(self.loadingIndicator && self.loadingIndicator.layer)
-		[self.loadingIndicator.layer removeAllAnimations];
-	
-	[self.placeholderGraphic removeFromSuperview];
-	[self.loadingIndicator removeFromSuperview];
-	
-	self.placeholderGraphic = [self getPlaceholderGraphic:self.placeholderGraphic];
-	self.loadingIndicator = [self getLoadingIndicator:self.loadingIndicator progress:nil];
-	
-	[self addSubview:self.placeholderGraphic];
-	[self addSubview:self.loadingIndicator];
+	[self resetGraphicViews];
 	
 	if(newState == IFPlaceholderStatePreload && oldState == IFPlaceholderStatePreload)
 		self.loadingIndicator.alpha = 0;
 	
 	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationBeginsFromCurrentState:YES];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 	
 	if(state == IFPlaceholderStatePreload) {
@@ -96,7 +107,7 @@
 	}
 	else if(state == IFPlaceholderStateLoading) {
 		
-		self.placeholderGraphic.alpha = 1;
+		self.placeholderGraphic.alpha = 0;
 		self.loadingIndicator.alpha = 1;
 	}
 	else if(state == IFPlaceholderStateFailed) {
@@ -106,9 +117,11 @@
 	}
 	else if(state == IFPlaceholderStateSuccess) {
 		
-		self.placeholderGraphic.alpha = 1;
+		self.placeholderGraphic.alpha = 0;
 		self.loadingIndicator.alpha = 0;
 	}
+	
+	[self bringSubviewToFront:self.placeholderGraphic];
 	
 	[UIView commitAnimations];
 }
@@ -123,8 +136,10 @@
 - (UIView*)getPlaceholderGraphic:(UIView *)graphic {
 	
 	int failedViewTag = 1;
+	int spinnyViewTag = 2;
 	
 	UILabel *failedView = nil;
+	UIActivityIndicatorView *spinnyView = nil;
 	
 	if(!graphic) {
 		
@@ -155,9 +170,26 @@
 		
 		[graphic addSubview:lbl];
 		[lbl release];
+		
+		spinnyView =
+		[[UIActivityIndicatorView alloc]
+		 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		
+		lbl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin
+		| UIViewAutoresizingFlexibleTopMargin
+		| UIViewAutoresizingFlexibleRightMargin
+		| UIViewAutoresizingFlexibleBottomMargin;
+		
+		spinnyView.tag = spinnyViewTag;
+		
+		[spinnyView startAnimating];
+		
+		[graphic addSubview:spinnyView];
+		[spinnyView release];
 	}
 	
 	failedView = (UILabel*)[graphic viewWithTag:failedViewTag];
+	spinnyView = (UIActivityIndicatorView*)[graphic viewWithTag:spinnyViewTag];
 	
 	failedView.font = [failedView.font fontWithSize:28];
 	
@@ -176,12 +208,29 @@
 	
 	frame.size = self.frame.size;
 	
+	graphic.frame = frame;
+	
 	failedView.frame = frame;
 	
-	if(self.state == IFPlaceholderStateFailed)
+	spinnyView.center = CGPointMake
+	(frame.size.width / 2, frame.size.height / 2);
+	
+	if(self.state == IFPlaceholderStateFailed) {
+		
 		failedView.hidden = NO;
-	else
+		spinnyView.hidden = YES;
+	}
+	else if(self.state == IFPlaceholderStatePreload) {
+		
 		failedView.hidden = YES;
+		spinnyView.hidden = NO;
+	}
+	else {
+		
+		failedView.hidden = YES;
+		spinnyView.hidden = YES;
+	}
+	spinnyView.hidden = NO;
 	
 	return graphic;
 }
@@ -204,9 +253,7 @@
 		
 		indicatorView.frame = frame;
 		
-		indicatorView.backgroundColor =
-		[[UIColor blackColor]
-		 colorWithAlphaComponent:0.5];
+		indicatorView.backgroundColor = self.placeholderBackgroundColor;
 		
 		UIView *activityView = [[[UIView alloc] init] autorelease];
 		
@@ -247,90 +294,84 @@
 	UIView *activity = (id)[indicatorView viewWithTag:activityViewTag];
 	UIProgressView *progressView = (id)[indicatorView viewWithTag:progressViewTag];
 	
+	CGRect frame = self.frame;
+	
+	frame.origin = CGPointZero;
+	
+	indicatorView.frame = frame;
+	
 	if(progress && progressView.frame.size.width <= self.frame.size.width) {
 		
 		progressView.progress = [progress floatValue];
 		
 		// Transition into progress bar mode.
 		
-		if(self.showProgress)
-			; // But don't repeat the transition
-		else {
-			
-			self.showProgress = YES;
-			
-			if(activity && activity.layer)
-				[activity.layer removeAllAnimations];
-			
-			if(progressView && progressView.layer)
-				[progressView.layer removeAllAnimations];
-			
-			activity.center = indicatorView.center;
-			
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-			[UIView setAnimationDuration:0.25];
-			
-			CGPoint p;
-			
-			p.x = self.frame.size.width / 2;
-			p.y = self.frame.size.height/ 2;
-			
-			p.y -= 10;
-			
-			activity.center = p;
-			
-			p.y += 20;
-			
-			progressView.center = p;
-			
-			progressView.alpha = 1;
-			
-			[UIView commitAnimations];
-		}
+		if(activity && activity.layer)
+			[activity.layer removeAllAnimations];
+		
+		if(progressView && progressView.layer)
+			[progressView.layer removeAllAnimations];
+		
+		activity.center = indicatorView.center;
+		
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationDuration:0.25];
+		
+		CGPoint p;
+		
+		p.x = self.frame.size.width / 2;
+		p.y = self.frame.size.height/ 2;
+		
+		p.y -= 10;
+		
+		activity.center = p;
+		
+		p.y += 20;
+		
+		progressView.center = p;
+		
+		progressView.alpha = 1;
+		
+		[UIView commitAnimations];
 	}
 	else {
 		
 		// Transition out of progress bar mode.
 		
-		if(!self.showProgress)
-			; // But don't repeat the transition
-		else {
-			
-			self.showProgress = NO;
-			
-			if(activity && activity.layer)
-				[activity.layer removeAllAnimations];
-			
-			if(progressView && progressView.layer)
-				[progressView.layer removeAllAnimations];
-			
-			CGPoint p;
-			
-			p.x = self.frame.size.width / 2;
-			p.y = self.frame.size.height/ 2;
-			
-			p.y -= 10;
-			
-			activity.center = p;
-			
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-			[UIView setAnimationDuration:0.25];
-			
-			p.x = self.frame.size.width / 2;
-			p.y = self.frame.size.height/ 2;
-			
-			activity.center = p;
-			
-			p.y += 20;
-			
-			progressView.center = p;
-			
-			progressView.alpha = 0;
-			
-			[UIView commitAnimations];
-		}
+		if(activity && activity.layer)
+			[activity.layer removeAllAnimations];
+		
+		if(progressView && progressView.layer)
+			[progressView.layer removeAllAnimations];
+		
+		CGPoint p;
+		
+		p.x = self.frame.size.width / 2;
+		p.y = self.frame.size.height/ 2;
+		
+		p.y -= 10;
+		
+		activity.center = p;
+		
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationDuration:0.25];
+		
+		p.x = self.frame.size.width / 2;
+		p.y = self.frame.size.height/ 2;
+		
+		activity.center = p;
+		
+		p.y += 20;
+		
+		progressView.center = p;
+		
+		progressView.alpha = 0;
+		
+		[UIView commitAnimations];
 	}
 	
 	return indicatorView;
