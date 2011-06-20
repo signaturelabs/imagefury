@@ -19,6 +19,12 @@
 #import "IFImageView.h"
 
 
+/// Maintains a list of all IFImageView instances and judges their
+/// respective priorities.  The most important images are sent load
+/// events while everyone lower on the list are sent unload events.
+///
+/// This keeps memory usage in check while keeping the most important
+/// images readily available.
 @interface IFThrottle : NSObject<IFImageViewDelegate> {
 
 }
@@ -32,10 +38,16 @@
 - (void)add:(IFImageView*)imageView;
 - (void)remove:(IFImageView*)imageView;
 
+/// Sets a flag asking for a check to be performed soon.
+/// The exact time of the check is tweaked to be most optimal,
+/// typically occuring during view controller or view transitions. 
 - (void)forceCheckSoon;
 
+/// Performs a check now.
 - (void)forceCheckNow;
 
+/// Checks if there is an outstanding check soon request, if so it is
+/// performed and cleared.
 - (void)clearForceCheckQueue;
 
 @end

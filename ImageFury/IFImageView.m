@@ -52,10 +52,9 @@
 	static NSMutableArray *instances = 0;
 	
 	if(!instances)
-		instances =
-		(NSMutableArray*)
-		CFArrayCreateMutable(NULL, 0,
-							 &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
+		// Create a NSMuteableArray that does not retain its objects
+		instances = (NSMutableArray*)CFArrayCreateMutable
+		(NULL, 0, &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
 	
 	return instances;
 }
@@ -174,11 +173,9 @@
 	
 	if(!delegates) {
 		
-		self.delegates =
-		(NSMutableArray*)
-		CFArrayCreateMutable(NULL, 0,
-							 &(const CFArrayCallBacks)
-							 {0, NULL, NULL, NULL, NULL});
+		// Create a NSMuteableArray that does not retain its objects
+		self.delegates = (NSMutableArray*)CFArrayCreateMutable
+		(NULL, 0, &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
 	}
 	
 	return delegates;
@@ -280,8 +277,6 @@
 - (void)softClearEvent {
 	
 	self.loader.running = NO;
-	self.loader.delegate = nil;
-	self.loader = nil;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
 	
@@ -303,9 +298,12 @@
 	[urlRequest release];
 	urlRequest = request;
 	
+	[self softClearEvent];
+	
 	if(!urlRequest)
 		return;
 	
+	self.loader.running = NO;
 	self.loader.delegate = nil;
 	self.loader = [[IFLoader alloc] init];
 	[self.loader release];
@@ -338,7 +336,7 @@
 	
 	if(!url) {
 		
-		[self softClearEvent];
+		[self setUrlRequest:nil];
 		return;
 	}
 	
@@ -353,7 +351,7 @@
 	
 	if(!url) {
 		
-		[self softClearEvent];
+		[self setUrlRequest:nil];
 		return;
 	}
 	
@@ -481,6 +479,9 @@
 	if(self.state == IFImageViewStateCleared) {
 		
 		self.state = IFImageViewStateFired;
+		
+		if(!self.loader)
+			[self setUrlRequest:self.urlRequest];
 		
 		self.loader.running = YES;
 	}

@@ -23,7 +23,6 @@
 
 @property (nonatomic, retain) NSMutableArray *imageViews;
 
-@property (nonatomic, assign) BOOL inTransaction;
 @property (nonatomic, assign) BOOL forceCheckSoonQueued;
 
 @end
@@ -31,7 +30,7 @@
 
 @implementation IFThrottle
 
-@synthesize imageViews, report, inTransaction, forceCheckSoonQueued;
+@synthesize imageViews, report, forceCheckSoonQueued;
 
 + (IFThrottle*)shared {
 	
@@ -44,12 +43,6 @@
 }
 
 - (void)check {
-	
-	if(self.inTransaction) {
-		
-		[NSObject cancelPreviousPerformRequestsWithTarget:self];
-		return;
-	}
 	
 	self.forceCheckSoonQueued = NO;
 	
@@ -112,6 +105,7 @@
 	
 	if(self = [super init]) {
 		
+		// Start the check callback loop.
 		[self check];
 	}
 	
@@ -165,10 +159,9 @@
 	
 	if(!imageViews) {
 		
-		self.imageViews =
-		(NSMutableArray*)
-		CFArrayCreateMutable(NULL, 0,
-							 &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});   //&(what){the,fuck}?
+		// Create a NSMuteableArray that does not retain its objects
+		self.imageViews = (NSMutableArray*)CFArrayCreateMutable
+		(NULL, 0, &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
 	}
 	
 	return imageViews;

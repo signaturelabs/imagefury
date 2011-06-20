@@ -37,7 +37,7 @@ enum IFImageViewState {
 - (void)setURLString:(NSString*)url;
 
 /// You can override this to set a custom placeholder for this instance.
-/// Defaults to an instance of [[ImageFury shared] defaultPlaceholderClass].
+/// Defaults to an instance of [[IFSettings shared] defaultPlaceholderClass].
 /// Set to nil to disable the placeholder.
 ///
 /// Note: Placeholders control the default graphic as well as loading
@@ -45,12 +45,12 @@ enum IFImageViewState {
 @property (nonatomic, retain) IFPlaceholder *placeholder;
 
 /// Override this to set a custom timeout for this instance.
-/// Defaults to [[ImageFury shared] defaultRequestTimeout].
+/// Defaults to [[IFSettings shared] defaultTimeout].
 @property (nonatomic, assign) int requestTimeout;
 
 /// Override this to set your own contentMode for this instance, to
 /// control how the image is scaled on it's UIImageView, once loaded.
-/// Defaults to [[ImageFury shared] defaultContentMode].
+/// Defaults to UIViewContentModeScaleAspectFit.
 @property (nonatomic, assign) UIViewContentMode contentMode;
 
 // Set this to YES to enable pan and zoom.
@@ -82,7 +82,7 @@ enum IFImageViewState {
 /// placeholder into a preload state.
 - (void)forceClearEvent;
 
-/// Returns out estimation for the amount of memory this instance is using
+/// Returns an estimation of the amount of memory this instance is using
 - (long long)imageSize;
 
 /// Calculates this image views load priority
@@ -103,7 +103,6 @@ enum IFImageViewState {
 
 /// Erases everything from the disk cache.
 + (void)clearCache;
-
 
 @end
 
