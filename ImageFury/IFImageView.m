@@ -289,6 +289,10 @@
 	self.imageView.image = nil;
 	
 	self.state = IFImageViewStateCleared;
+    
+	for(id<IFImageViewDelegate> delegate in self.delegates)
+		if([delegate respondsToSelector:@selector(IFImageCanceled:)])
+			[delegate IFImageCanceled:self];
 }
 
 - (void)forceClearEvent {
@@ -428,8 +432,9 @@
 	for(id<IFImageViewDelegate> delegate in self.delegates)
 		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])
 			[delegate IFImageLoaded:self image:image];
-		if(self.resizeAfterLoad) 
-			[self doResizeAfterLoad:image];
+    
+    if(self.resizeAfterLoad) 
+        [self doResizeAfterLoad:image];
 	
 	[self checkScrollEnabled];
 }
@@ -622,8 +627,6 @@
 	}
 	
 	self.frame = frame;
-	
-	
 }
 
 + (void)clearCache {

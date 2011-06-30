@@ -112,4 +112,6 @@ enum IFImageViewState {
 - (void)IFImageLoaded:(IFImageView*)imageView image:(UIImage*)image;
 - (void)IFImageFailed:(IFImageView*)imageView error:(NSError*)error;
 
+- (void)IFImageCanceled:(IFImageView*)imageView;
+
 @end
