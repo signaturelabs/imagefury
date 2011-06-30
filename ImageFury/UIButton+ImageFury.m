@@ -21,23 +21,23 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
     
     [self setBackgroundImage:image forState:UIControlStateNormal];
     
-    [self release];
+    //[self release];
     
-    setImageViewForButton(self, nil);
+    //setImageViewForButton(self, nil);
 }
 
 - (void)IFImageFailed:(IFImageView*)imageView error:(NSError*)error {
     
-    [self release];
+    //[self release];
     
-    setImageViewForButton(self, nil);
+    //setImageViewForButton(self, nil);
 }
 
 - (void)IFImageCanceled:(IFImageView*)imageView {
     
-    [self release];
+    //[self release];
     
-    setImageViewForButton(self, nil);
+    // setImageViewForButton(self, nil);
 }
 
 - (void)setUrlRequest:(NSURLRequest*)urlRequest {
@@ -76,10 +76,11 @@ static IFImageView *imageViewForButton(void *btnPtr)
         
         ret = [[IFImageView alloc] init];
         
-        ret.delegate = btnPtr;
+        //ret.delegate = btnPtr;
+        [ret addDelegate:btnPtr];
         
         setImageViewForButton(btnPtr, ret);
-        [ret release];
+        //[ret release];
     }
     
     return ret;
