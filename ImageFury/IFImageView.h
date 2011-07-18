@@ -74,6 +74,11 @@ enum IFImageViewState {
 /// is released / dealloced / gone.
 - (void)removeDelegate:(id<IFImageViewDelegate>)delegate;
 
+/// This flags this instance as slightly less important than one
+/// that is attached to a UIWindow.  Use this when you're worried
+/// about how long it will take the image to appear.
+@property (nonatomic, assign) BOOL important;
+
 /// This forces the image view to be loaded right now.  Under most
 /// scenarios you don't need to and shouldn't call this.
 - (void)forceLoadEvent;

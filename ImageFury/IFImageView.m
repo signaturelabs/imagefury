@@ -44,7 +44,7 @@
 @implementation IFImageView
 
 @synthesize placeholder, requestTimeout, contentMode, panAndZoom, urlRequest;
-@synthesize delegates, imageView, loader, state, addedToSuperview;
+@synthesize delegates, imageView, loader, state, important, addedToSuperview;
 @synthesize sizeEstimate, movingToWindow, resizeAfterLoad;
 
 + (NSMutableArray*)instances {
@@ -140,7 +140,7 @@
 		[[IFImageView instances] addObject:self];
 	
 	// Ensure placeholder is loaded.
-	self.placeholder;
+	(void)self.placeholder;
 	
 	self.addedToSuperview = time(0);
 }
@@ -303,12 +303,16 @@
 }
 
 - (void)setUrlRequest:(NSURLRequest *)request {
+    
+    if([urlRequest.URL isEqual:request.URL])
+        return;
+    
+    if(urlRequest)
+        [self softClearEvent];
 	
 	[request retain];
 	[urlRequest release];
 	urlRequest = request;
-	
-	[self softClearEvent];
 	
 	if(!urlRequest)
 		return;
@@ -507,7 +511,7 @@
 	
 	UIView *v = self;
 	
-	while(v = v.superview)
+	while((v = v.superview))
 		if([v isKindOfClass:[UIScrollView class]])
 			return (UIScrollView*)v;
 	
@@ -540,7 +544,7 @@
 
 - (int)loadPriority {
 	
-	int ret = 1000000;
+	int ret =  1000000;
 	
 	if(!self.superview)
 		ret -= 1000000;
@@ -548,8 +552,13 @@
 	if(self.movingToWindow)
 		ret += 100000;
 	
-	if(!self.window)
-		ret -= 100000;
+	if(!self.window) {
+        
+        if(self.important)
+            ret -=      1;
+        else
+            ret -= 100000;
+    }
 	
 	if(self.hidden)
 		ret -= 10000;
