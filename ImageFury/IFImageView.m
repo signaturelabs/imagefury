@@ -290,12 +290,13 @@
 	
 	self.state = IFImageViewStateCleared;
     
-    // delegate may release us
-    [[self retain] autorelease];
-    
-	for(id<IFImageViewDelegate> delegate in self.delegates)
+    NSArray *delegatesCache = [[NSArray alloc] initWithArray:self.delegates];
+	
+	for(id<IFImageViewDelegate> delegate in delegatesCache)
 		if([delegate respondsToSelector:@selector(IFImageCanceled:)])
 			[delegate IFImageCanceled:self];
+    
+    [delegatesCache release];
 }
 
 - (void)forceClearEvent {
@@ -384,9 +385,13 @@
     // Delegate may release us
     [[self retain] release];
 	
-	for(id<IFImageViewDelegate> delegate in self.delegates)
+    NSArray *delegatesCache = [[NSArray alloc] initWithArray:self.delegates];
+	
+	for(id<IFImageViewDelegate> delegate in delegatesCache)
 		if([delegate respondsToSelector:@selector(IFImageFailed:error:)])
 			[delegate IFImageFailed:self error:error];
+    
+    [delegatesCache release];
 }
 
 - (void)IFLoaderProgress:(CGFloat)progress updateCount:(int)updateCount {
@@ -439,17 +444,18 @@
 	
 	self.placeholder.state = IFPlaceholderStateSuccess;
     
-    // Delegate may release us.
-    [[self retain] autorelease];
-	
-	for(id<IFImageViewDelegate> delegate in self.delegates)
-		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])
-			[delegate IFImageLoaded:self image:image];
-    
     if(self.resizeAfterLoad) 
         [self doResizeAfterLoad:image];
 	
 	[self checkScrollEnabled];
+    
+    NSArray *delegatesCache = [[NSArray alloc] initWithArray:self.delegates];
+	
+	for(id<IFImageViewDelegate> delegate in delegatesCache)
+		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])
+			[delegate IFImageLoaded:self image:image];
+    
+    [delegatesCache release];
 }
 
 - (void)layoutSubviews 
