@@ -45,10 +45,12 @@
 - (void)check {
 	
 	self.forceCheckSoonQueued = NO;
+    
+    NSMutableArray *imageViewsCache = [[NSMutableArray alloc] initWithArray:self.imageViews];
 	
-	if([self.imageViews count]) {
+	if([imageViewsCache count]) {
 		
-		[self.imageViews sortUsingSelector:@selector(reverseCompareTo:)];
+		[imageViewsCache sortUsingSelector:@selector(reverseCompareTo:)];
 		
 		NSMutableString *str = nil;
 		
@@ -63,9 +65,9 @@
 		
 		int i = 0;
 		
-		for(; i < [self.imageViews count]; i++) {
+		for(; i < [imageViewsCache count]; i++) {
 			
-			IFImageView *imageView = [self.imageViews objectAtIndex:i];
+			IFImageView *imageView = [imageViewsCache objectAtIndex:i];
 			
 			usage += [imageView imageSize];
 			
@@ -84,7 +86,7 @@
 			[imageView forceLoadEvent];
 		}
 		
-		for(; i < [self.imageViews count]; i++) {
+		for(; i < [imageViewsCache count]; i++) {
 			
 			IFImageView *imageView = [self.imageViews objectAtIndex:i];
 			
@@ -96,6 +98,8 @@
 		if(str)
 			self.report.text = str;
 	}
+    
+    [imageViewsCache release];
 	
 	if(![IFSettings shared].debugMode)
 		[self performSelector:@selector(check) withObject:nil afterDelay:0.1];

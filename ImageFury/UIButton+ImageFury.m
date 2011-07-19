@@ -21,29 +21,21 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
     
     [self setBackgroundImage:image forState:UIControlStateNormal];
     
-    // commented due to crashes https://www.pivotaltracker.com/story/show/15086115 needs to be re-added
-    //[self release];
-    //setImageViewForButton(self, nil);
-    // /commented
+    [self release];
+    setImageViewForButton(self, nil);
     
 }
 
 - (void)IFImageFailed:(IFImageView*)imageView error:(NSError*)error {
     
-    // commented due to crashes https://www.pivotaltracker.com/story/show/15086115 needs to be re-added
-    //[self release];
-    //setImageViewForButton(self, nil);
-    // /commented
-    
+    [self release];
+    setImageViewForButton(self, nil);
 }
 
 - (void)IFImageCanceled:(IFImageView*)imageView {
     
-    // commented due to crashes https://www.pivotaltracker.com/story/show/15086115 needs to be re-added
-    //[self release];
-    // setImageViewForButton(self, nil);
-    // /commented
-
+    [self release];
+    setImageViewForButton(self, nil);
 }
 
 - (void)setUrlRequest:(NSURLRequest*)urlRequest {
@@ -86,10 +78,7 @@ static IFImageView *imageViewForButton(void *btnPtr)
         
         setImageViewForButton(btnPtr, ret);
         
-        // commented due to crashes https://www.pivotaltracker.com/story/show/15086115 needs to be re-added
-        //[ret release];
-        // /commented
-        
+        [ret release];
     }
     
     return ret;
