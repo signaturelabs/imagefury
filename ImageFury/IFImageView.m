@@ -290,6 +290,9 @@
 	
 	self.state = IFImageViewStateCleared;
     
+    // delegate may release us
+    [[self retain] autorelease];
+    
 	for(id<IFImageViewDelegate> delegate in self.delegates)
 		if([delegate respondsToSelector:@selector(IFImageCanceled:)])
 			[delegate IFImageCanceled:self];
@@ -377,6 +380,9 @@
 	self.placeholder.state = IFPlaceholderStateFailed;
 	
 	NSLog(@"Image Fury Loader Failed: %@", error);
+    
+    // Delegate may release us
+    [[self retain] release];
 	
 	for(id<IFImageViewDelegate> delegate in self.delegates)
 		if([delegate respondsToSelector:@selector(IFImageFailed:error:)])
@@ -432,6 +438,9 @@
 	[UIView commitAnimations];
 	
 	self.placeholder.state = IFPlaceholderStateSuccess;
+    
+    // Delegate may release us.
+    [[self retain] autorelease];
 	
 	for(id<IFImageViewDelegate> delegate in self.delegates)
 		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])

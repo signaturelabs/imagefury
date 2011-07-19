@@ -21,7 +21,7 @@
 
 @interface IFThrottle ()
 
-@property (nonatomic, retain) NSMutableArray *imageViews;
+@property (retain) NSMutableArray *imageViews;
 
 @property (nonatomic, assign) BOOL forceCheckSoonQueued;
 
@@ -109,6 +109,10 @@
 	
 	if(self = [super init]) {
 		
+        /// An array that does not retain it's elements.
+        self.imageViews = (NSMutableArray*)CFArrayCreateMutable
+		(NULL, 0, &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
+        
 		// Start the check callback loop.
 		[self check];
 	}
@@ -157,18 +161,6 @@
 - (void)IFImageLoaded:(IFImageView *)imageView image:(UIImage *)image {
 	
 	
-}
-
-- (NSMutableArray*)imageViews {
-	
-	if(!imageViews) {
-		
-		// Create a NSMuteableArray that does not retain its objects
-		self.imageViews = (NSMutableArray*)CFArrayCreateMutable
-		(NULL, 0, &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
-	}
-	
-	return imageViews;
 }
 
 - (void)add:(IFImageView*)imageView {
