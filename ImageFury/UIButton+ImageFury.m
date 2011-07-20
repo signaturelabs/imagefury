@@ -90,8 +90,12 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView)
     
     if(imageView != nil)
         [dict setObject:imageView forKey:val];
-    else
+    else {
+        
+        [[dict objectForKey:val] removeDelegate:btnPtr];
+        
         [dict removeObjectForKey:val];
+    }
     
     if(![dict count]) {
         
