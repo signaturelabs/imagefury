@@ -53,8 +53,8 @@
 /// Returns 0 if the fileSize is not known.
 @property (nonatomic, readonly) long long fileSize;
 
-/// Returns true if the file is already stored in cache.
-- (BOOL)fileExists;
+/// Returns true if the file is already stored in cache and is non zero.
+- (BOOL)nonEmptyFileExists;
 
 /// Checks if the disk usage is over [[IFThrottle shared] diskCacheSize]
 /// bytes and removes cache items (based on timestamp) until we're under

@@ -49,11 +49,13 @@ static long long diskUsageEstimate = 0;
 	[self.delegate IFLoaderComplete:[self getStorageFilename]];
 }
 
-- (BOOL)fileExists {
+- (BOOL)nonEmptyFileExists {
 	
-	return
-	[[NSFileManager defaultManager]
-	 fileExistsAtPath:[self getStorageFilename] isDirectory:NO];
+    if([[[NSFileManager defaultManager]
+          attributesOfItemAtPath:[self getStorageFilename] error:nil] fileSize])
+        return YES;
+    
+    return NO;
 }
 
 - (void)setRunning:(BOOL)yesOrNo {
@@ -78,7 +80,7 @@ static long long diskUsageEstimate = 0;
 		
 		self.updateCount = 0;
 		
-		if([self fileExists]) {
+		if([self nonEmptyFileExists]) {
 			
 			[self signalCompleted];
 		}
@@ -205,6 +207,12 @@ static long long diskUsageEstimate = 0;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	
+    // Rare scenario where there is a lingering corrupt file
+    // but deleting is more robust against the future.
+	[[NSFileManager defaultManager]
+	 removeItemAtPath:[self getStorageFilename]
+     error:nil];
+	
 	[[NSFileManager defaultManager]
 	 moveItemAtPath:[self getTemporaryFilename]
 	 toPath:[self getStorageFilename]
@@ -216,14 +224,14 @@ static long long diskUsageEstimate = 0;
 							   error:nil]
 							  fileSize];
 	
-	[self signalCompleted];
-	
 	self.connection = nil;
+	
+	[self signalCompleted];
 }
 
 - (long long)fileSize {
 	
-	if(!self.connection && [self fileExists]) {
+	if(!self.connection && [self nonEmptyFileExists]) {
 		
 		NSFileHandle *fileHandle =
 		[NSFileHandle fileHandleForReadingAtPath:

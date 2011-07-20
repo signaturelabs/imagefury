@@ -331,7 +331,7 @@
 	self.loader.tempCacheDir = [[IFSettings shared] tempCacheDirectory];
 	self.loader.urlRequest = request;
 	
-	if([self.loader fileExists]) {
+	if([self.loader nonEmptyFileExists]) {
 		
 		self.placeholder.state = IFPlaceholderStatePreload;
 	}
