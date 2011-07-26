@@ -228,9 +228,8 @@
 	else {
 		
 		failedView.hidden = YES;
-		spinnyView.hidden = YES;
+		spinnyView.hidden = NO;
 	}
-	spinnyView.hidden = NO;
 	
 	return graphic;
 }
