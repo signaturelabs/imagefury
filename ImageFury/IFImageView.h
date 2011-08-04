@@ -22,7 +22,7 @@
 
 enum IFImageViewState {
 	IFImageViewStateCleared = 0,
-	IFImageViewStateFired,
+	IFImageViewStateFired, // loading
 	IFImageViewStateLoaded
 };
 

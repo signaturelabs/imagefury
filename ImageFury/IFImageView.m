@@ -283,6 +283,8 @@
 - (void)softClearEvent {
 	
 	self.loader.running = NO;
+    self.loader.delegate = nil;
+    self.loader = nil;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
 	
@@ -308,7 +310,7 @@
 
 - (void)setUrlRequest:(NSURLRequest *)request {
     
-    if([urlRequest.URL isEqual:request.URL])
+    if(self.placeholder.state != IFPlaceholderStateFailed && [urlRequest.URL isEqual:request.URL])
         return;
     
     if(urlRequest)
