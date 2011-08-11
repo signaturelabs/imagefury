@@ -283,8 +283,6 @@
 - (void)softClearEvent {
 	
 	self.loader.running = NO;
-    self.loader.delegate = nil;
-    self.loader = nil;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
 	
