@@ -283,8 +283,6 @@
 - (void)softClearEvent {
 	
 	self.loader.running = NO;
-    self.loader.delegate = nil;
-    self.loader = nil;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
 	
@@ -383,6 +381,25 @@
 	[self setURL:[NSURL URLWithString:url]];
 }
 
+- (NSString*)description {
+    
+    NSString *stateStr = @"Invalid";
+    
+    if(self.state == IFImageViewStateCleared)
+        stateStr = @"Cleared";
+    
+    if(self.state == IFImageViewStateFired)
+        stateStr = @"Fired(Loading)";
+    
+    if(self.state == IFImageViewStateLoaded)
+        stateStr = @"Loaded";
+    
+    return
+    [NSString stringWithFormat:
+     @"<IFImageView %p> priority: %d, state: %@, url: %@, placeholder: %@",
+     self, self.loadPriority, stateStr, self.urlRequest.URL, self.placeholder];
+}
+
 - (void)IFLoaderFailed:(NSError *)error {
 	
 	self.placeholder.state = IFPlaceholderStateFailed;
@@ -444,6 +461,7 @@
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationBeginsFromCurrentState:YES];
 	
 	self.imageView.alpha = 1;
 	

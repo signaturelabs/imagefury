@@ -127,6 +127,30 @@
 	[UIView commitAnimations];
 }
 
+- (NSString*)description {
+    
+    NSString *stateStr = @"Invalid";
+    
+    if(state == IFPlaceholderStateNone)
+        stateStr = @"None";
+    
+    if(state == IFPlaceholderStatePreload)
+        stateStr = @"Preload";
+    
+    if(state == IFPlaceholderStateLoading)
+        stateStr = @"Loading";
+    
+    if(state == IFPlaceholderStateFailed)
+        stateStr = @"Failed";
+    
+    if(state == IFPlaceholderStateSuccess)
+        stateStr = @"Success";
+    
+    return
+    [NSString stringWithFormat:
+     @"<IFPlaceholder %p> state: %@", self, stateStr];
+}
+
 - (void)setProgress:(CGFloat)progress {
 	
 	[self

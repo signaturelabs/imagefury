@@ -50,6 +50,7 @@
 	
 	if([imageViewsCache count]) {
 		
+        // Sorted by load priority.
 		[imageViewsCache sortUsingSelector:@selector(reverseCompareTo:)];
 		
 		NSMutableString *str = nil;
@@ -88,7 +89,7 @@
 		
 		for(; i < [imageViewsCache count]; i++) {
 			
-			IFImageView *imageView = [self.imageViews objectAtIndex:i];
+			IFImageView *imageView = [imageViewsCache objectAtIndex:i];
 			
 			[str appendFormat:@"(%p) Rank %d %.3fM\n", imageView, i+1, ([imageView imageSize] / 1024) / 1024.0f];
 			
