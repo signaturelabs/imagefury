@@ -244,6 +244,9 @@
 		
 		failedView.hidden = NO;
 		spinnyView.hidden = YES;
+        
+        [spinnyView removeFromSuperview];
+        spinnyView = nil;
 	}
 	else if(self.state == IFPlaceholderStatePreload) {
 		
@@ -255,6 +258,9 @@
 		failedView.hidden = YES;
 		spinnyView.hidden = NO;
 	}
+    
+    if(!failedView.hidden)
+        spinnyView.hidden = YES;
 	
 	return graphic;
 }
@@ -397,7 +403,9 @@
 		
 		[UIView commitAnimations];
 	}
-	
+    
+    indicatorView.hidden = (self.state == IFPlaceholderStateFailed);
+    
 	return indicatorView;
 }
 

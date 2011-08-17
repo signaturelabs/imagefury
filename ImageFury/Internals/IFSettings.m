@@ -91,7 +91,7 @@
 		self.memUsage = 25 * 1024 * 1024;
 		self.diskCacheSize = 100 * 1024 * 1024;
 		self.maxActiveImages = 25;
-        self.maxLoadingImages = 4;
+        self.maxLoadingImages = 4   ;
 		self.defaultPlaceholderClass = [IFPlaceholder class];
 		self.defaultTimeout = 50;
 		self.failedImagePlaceholder = [UIImage imageNamed:@"IFBrokenDownload.png"];
