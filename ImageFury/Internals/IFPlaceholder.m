@@ -62,7 +62,8 @@
 	
 	[super setFrame:rect];
 	
-	[self resetGraphicViews];
+    if(self.superview)
+        [self resetGraphicViews];
 }
 
 - (UIColor*)placeholderBackgroundColor {

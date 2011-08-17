@@ -74,9 +74,8 @@
 		textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth
 		| UIViewAutoresizingFlexibleHeight;
 		
-		if (![self isEmpty:self.text]) {
+		if (![self isEmpty:self.text])
 			textLabel.text = self.text;
-		}
 		
 		textLabel.opaque = NO;
 		
@@ -85,7 +84,8 @@
 		
 		textLabel.textAlignment = UITextAlignmentCenter;
 		textLabel.backgroundColor = [UIColor clearColor];
-		textLabel.font = [UIFont fontWithName:self.fontName size:self.textSize];		textLabel.adjustsFontSizeToFitWidth = YES;
+		textLabel.font = [UIFont fontWithName:self.fontName size:self.textSize];
+		textLabel.adjustsFontSizeToFitWidth = YES;
 		textLabel.alpha = 0;
 		
 		graphic = [[[UIView alloc] initWithFrame:frame] autorelease];

@@ -320,12 +320,17 @@
 	[urlRequest release];
 	urlRequest = request;
 	
-	if(!urlRequest)
+	if(!urlRequest) {
+        
+        self.loader.delegate = nil;
+        self.loader = nil;
+        
 		return;
+    }
 	
 	self.loader.running = NO;
 	self.loader.delegate = nil;
-	self.loader = [[IFLoader alloc] init];
+	self.loader = [IFLoader new];
 	[self.loader release];
 	
 	self.loader.delegate = self;
