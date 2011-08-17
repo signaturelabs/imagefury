@@ -37,6 +37,10 @@
 /// 0 means no limit.
 @property (nonatomic, assign) int maxActiveImages;
 
+/// How many images can we have loading at once?
+/// 0 means no limit.
+@property (nonatomic, assign) int maxLoadingImages;
+
 /// What class should we use as the default placeholder / loading indicator?
 @property (nonatomic, assign) Class defaultPlaceholderClass;
 

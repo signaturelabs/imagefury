@@ -63,6 +63,7 @@
 		IFSettings *settings = [IFSettings shared];
 		
 		int activeCount = 0;
+        int loadingCount = 0;
 		
 		int i = 0;
 		
@@ -84,7 +85,11 @@
 			if(activeCount < 0)
 				continue;
 			
-			[imageView forceLoadEvent];
+            if(!settings.maxLoadingImages || loadingCount < settings.maxLoadingImages)
+                [imageView forceLoadEvent];
+            
+            if(imageView.state == IFImageViewStateFired)
+                loadingCount++;
 		}
 		
 		for(; i < [imageViewsCache count]; i++) {

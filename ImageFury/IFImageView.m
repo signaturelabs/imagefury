@@ -403,6 +403,7 @@
 - (void)IFLoaderFailed:(NSError *)error {
 	
 	self.placeholder.state = IFPlaceholderStateFailed;
+    self.state = IFImageViewStateLoaded;
 	
 	NSLog(@"Image Fury Loader Failed: %@", error);
     
