@@ -280,8 +280,8 @@
 	[self.delegates removeObject:delegate];
 }
 
-- (void)softClearEvent {
-	
+- (void)verySoftClearEvent {
+    
 	self.loader.running = NO;
 	
 	self.placeholder.state = IFPlaceholderStatePreload;
@@ -289,6 +289,11 @@
 	self.imageView.image = nil;
 	
 	self.state = IFImageViewStateCleared;
+}
+
+- (void)softClearEvent {
+	
+    [self verySoftClearEvent];
     
     NSArray *delegatesCache = [[NSArray alloc] initWithArray:self.delegates];
 	
@@ -312,7 +317,7 @@
         return;
     
     if(urlRequest)
-        [self softClearEvent];
+        [self verySoftClearEvent];
 	
 	[request retain];
 	[urlRequest release];
@@ -407,14 +412,15 @@
 	
 	NSLog(@"Image Fury Loader Failed: %@", error);
     
-    // Delegate may release us
-    [[self retain] release];
-	
     NSArray *delegatesCache = [[NSArray alloc] initWithArray:self.delegates];
 	
+    [self retain];
+    
 	for(id<IFImageViewDelegate> delegate in delegatesCache)
 		if([delegate respondsToSelector:@selector(IFImageFailed:error:)])
 			[delegate IFImageFailed:self error:error];
+    
+    [self release];
     
     [delegatesCache release];
 }
@@ -476,10 +482,14 @@
 	[self checkScrollEnabled];
     
     NSArray *delegatesCache = [[NSArray alloc] initWithArray:self.delegates];
-	
+    
+    [self retain];
+    
 	for(id<IFImageViewDelegate> delegate in delegatesCache)
 		if([delegate respondsToSelector:@selector(IFImageLoaded:image:)])
 			[delegate IFImageLoaded:self image:image];
+    
+    [self release];
     
     [delegatesCache release];
 }
@@ -691,6 +701,8 @@
 
 - (void)dealloc {
 	
+	self.delegates = nil;
+	
 	[[IFImageView instances] removeObject:self];
 	
 	[[IFThrottle shared] remove:self];
@@ -700,9 +712,8 @@
 	self.loader.running = NO;
 	
 	self.placeholder = nil;
-	self.urlRequest = nil;
-	
-	self.delegates = nil;
+    [urlRequest release];
+    urlRequest = nil;
 	
 	self.imageView.image = nil;
 	self.imageView = nil;
