@@ -19,6 +19,8 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
 
 - (void)IFImageLoaded:(IFImageView*)imageView image:(UIImage*)image {
     
+	NSLog(@"UIButton+ImageFury IFImageLoaded imageView: %@", imageView);
+	
     [self setBackgroundImage:image forState:UIControlStateNormal];
     
     setImageViewForButton(self, nil);
@@ -28,21 +30,29 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
 
 - (void)IFImageFailed:(IFImageView*)imageView error:(NSError*)error {
     
+	NSLog(@"UIButton+ImageFury IFImageFailed imageView: %@", imageView);
+
     setImageViewForButton(self, nil);
     [self release];
 }
 
 - (void)IFImageCanceled:(IFImageView*)imageView {
+	
+	
+	NSLog(@"UIButton+ImageFury IFImageCanceled imageView: %@", imageView);
+
     
-    setImageViewForButton(self, nil);
+    // setImageViewForButton(self, nil);
     [self release];
 }
 
 - (void)setUrlRequest:(NSURLRequest*)urlRequest {
-    
+	
     [self retain];
     
     IFImageView *img = imageViewForButton(self);
+	
+	NSLog(@"UIButton+ImageFury setUrlRequest IFImageView: %@", img);
     
     img.urlRequest = urlRequest;
 }
