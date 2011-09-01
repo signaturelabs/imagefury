@@ -113,11 +113,11 @@
 
 - (id)init {
 	
-	if(self = [super init]) {
+	if((self = [super init])) {
 		
         /// An array that does not retain it's elements.
         self.imageViews = (NSMutableArray*)CFArrayCreateMutable
-		(NULL, 0, &(const CFArrayCallBacks){0, NULL, NULL, NULL, NULL});
+		(NULL, 0, &(const CFArrayCallBacks){0, NULL /* c function called for various events, whatever */, NULL, NULL, NULL});
         
 		// Start the check callback loop.
 		[self check];
