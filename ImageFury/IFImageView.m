@@ -325,6 +325,7 @@
 	
 	if(!urlRequest) {
         
+		self.state = IFImageViewStateCleared;
         self.loader.delegate = nil;
         self.loader = nil;
         
