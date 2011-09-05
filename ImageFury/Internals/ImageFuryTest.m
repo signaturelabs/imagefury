@@ -20,7 +20,7 @@
 #import "IFImageView.h"
 #import "IFSettings.h"
 #import "IFThrottle.h"
-
+#import "ManualImageLoadingTestViewController.h"
 
 @interface ImageFuryTest ()
 
@@ -121,6 +121,12 @@
 	 @"http://nyquil.org/uploads/IndianHeadTestPattern16x9.png"];
 }
 
+- (void)manualImageLoaderTest{
+	ManualImageLoadingTestViewController *controller = [[ManualImageLoadingTestViewController alloc] init];
+	
+	[self presentModalViewController:controller animated:YES];
+	[controller release];
+}
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -193,13 +199,26 @@
 	
 	btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	
-	btn.frame = CGRectMake(5, 155, 150, 50);
+	btn.frame = CGRectMake(5, 205, 150, 50);
 	
 	[btn setTitle:@"Clear cache" forState:UIControlStateNormal];
 	
 	[btn
 	 addTarget:self
 	 action:@selector(clearCache)
+	 forControlEvents:UIControlEventTouchUpInside];
+	
+	[self.view addSubview:btn];
+	//Manual Image loader btn
+	btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	
+	btn.frame = CGRectMake(5, 155, 150, 50);
+	
+	[btn setTitle:@"Manual Loader" forState:UIControlStateNormal];
+	
+	[btn
+	 addTarget:self
+	 action:@selector(manualImageLoaderTest)
 	 forControlEvents:UIControlEventTouchUpInside];
 	
 	[self.view addSubview:btn];
