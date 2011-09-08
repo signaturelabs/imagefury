@@ -108,6 +108,7 @@
 -(void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	textView.text = [[NSUserDefaults standardUserDefaults] valueForKey:LIST_KEY];
+	urlLabel.text = @"None";
 	currentIndex = 0;
 }
 
