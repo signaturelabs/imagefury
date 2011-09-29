@@ -25,7 +25,11 @@
 
 - (id)initWithText:(NSString*)text color:(UIColor *)color;
 
-- (id)initWithText:(NSString*)text color:(UIColor *)color
-			  size:(NSNumber *)size font:(NSString *)font;
+- (id)initWithText:(NSString*)str color:(UIColor *)col 
+		   bgcolor:(UIColor *)bgcol size:(NSNumber *)sz font:(NSString *)font;
+
+
+- (id)initWithText:(NSString*)str color:(UIColor *)col 
+		   size:(NSNumber *)sz font:(NSString *)font;
 
 @end

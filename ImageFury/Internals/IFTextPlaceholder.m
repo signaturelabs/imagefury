@@ -21,6 +21,7 @@
 
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) UIColor *color;
+@property (nonatomic, retain) UIColor *bgcolor;
 @property (nonatomic) CGFloat textSize;
 @property (nonatomic, retain) NSString *fontName;
 
@@ -31,18 +32,26 @@
 
 @implementation IFTextPlaceholder
 
-@synthesize text, color, textSize, fontName;
+@synthesize text, color, bgcolor, textSize, fontName;
 
 - (id)initWithText:(NSString*)_text color:(UIColor *)_color {
-    return [self initWithText:_text color:_color size:nil font:@"Helvetica"];
+    return [self initWithText:_text color:_color bgcolor:[UIColor clearColor] size:nil font:@"Helvetica"];
 }
 
-- (id)initWithText:(NSString*)str color:(UIColor *)col size:(NSNumber *)sz font:(NSString *)font{
+
+- (id)initWithText:(NSString*)str color:(UIColor *)col 
+			  size:(NSNumber *)sz font:(NSString *)font {
+	return [self initWithText:str color:col bgcolor:[UIColor clearColor] size:nil font:font];
+	
+}
+
+- (id)initWithText:(NSString*)str color:(UIColor *)col bgcolor:(UIColor *)bgcol size:(NSNumber *)sz font:(NSString *)font{
 
 	if ((self = [super init])) {
 		
 		self.text = str;
 		self.color = col;
+		self.bgcolor = bgcol;
 		
         if(sz != nil)
             self.textSize = [sz floatValue];
@@ -83,7 +92,7 @@
 			textLabel.textColor = color;
 		
 		textLabel.textAlignment = UITextAlignmentCenter;
-		textLabel.backgroundColor = [UIColor clearColor];
+		textLabel.backgroundColor = self.bgcolor;
 		textLabel.font = [UIFont fontWithName:self.fontName size:self.textSize];
 		textLabel.adjustsFontSizeToFitWidth = YES;
 		textLabel.alpha = 0;
