@@ -256,7 +256,7 @@
 	else {
 		
 		failedView.hidden = YES;
-		spinnyView.hidden = NO;
+		spinnyView.hidden = YES;
 	}
     
     if(!failedView.hidden)
