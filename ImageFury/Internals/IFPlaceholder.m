@@ -196,9 +196,9 @@
 		[graphic addSubview:lbl];
 		[lbl release];
 		
-		spinnyView =
-		[[UIActivityIndicatorView alloc]
-		 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		spinnyView = nil;
+//		[[UIActivityIndicatorView alloc]
+//		 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		
 		lbl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin
 		| UIViewAutoresizingFlexibleTopMargin
@@ -323,6 +323,8 @@
 	
 	UIView *activity = (id)[indicatorView viewWithTag:activityViewTag];
 	UIProgressView *progressView = (id)[indicatorView viewWithTag:progressViewTag];
+    
+    activity.hidden = (self.state != IFPlaceholderStateLoading);
 	
 	CGRect frame = self.frame;
 	
