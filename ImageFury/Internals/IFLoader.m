@@ -222,24 +222,31 @@ static long long diskUsageEstimate = 0;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	
-    // Rare scenario where there is a lingering corrupt file
-    // but deleting is more robust against the future.
-	[[NSFileManager defaultManager]
-	 removeItemAtPath:[self getStorageFilename]
-     error:nil];
-	
-	[[NSFileManager defaultManager]
-	 moveItemAtPath:[self getTemporaryFilename]
-	 toPath:[self getStorageFilename]
-	 error:nil];
-	
-	if(diskUsageEstimate)
-		diskUsageEstimate += [[[NSFileManager defaultManager]
-							   attributesOfItemAtPath:[self getStorageFilename]
-							   error:nil]
-							  fileSize];
-	
-	self.connection = nil;
+	// before moving to cache, make sure this is a valid image.  for example, maybe a 
+	// captive portal returned a "you must agree to use this wifi" instead of a real image
+	UIImage *image = [[UIImage alloc] initWithContentsOfFile:[self getTemporaryFilename]];
+	if (image != nil) {
+		
+		// Rare scenario where there is a lingering corrupt file
+		// but deleting is more robust against the future.
+		[[NSFileManager defaultManager]
+		 removeItemAtPath:[self getStorageFilename]
+		 error:nil];
+		
+		[[NSFileManager defaultManager]
+		 moveItemAtPath:[self getTemporaryFilename]
+		 toPath:[self getStorageFilename]
+		 error:nil];
+		
+		if(diskUsageEstimate)
+			diskUsageEstimate += [[[NSFileManager defaultManager]
+								   attributesOfItemAtPath:[self getStorageFilename]
+								   error:nil]
+								  fileSize];
+		
+		self.connection = nil;
+		
+	}
 	
 	[self signalCompleted];
 }
