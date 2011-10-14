@@ -52,23 +52,8 @@ static long long diskUsageEstimate = 0;
 - (BOOL)nonEmptyFileExists {
 	
     if([[[NSFileManager defaultManager]
-		 attributesOfItemAtPath:[self getStorageFilename] error:nil] fileSize]) {
-		
-		// it seems that checking the non-empty filesize is not enough, there were cases where it had a file
-		// size of 307 bytes, but when [UIImage initWithContentsOfFile] was called, it would return a nil object.
-		// add extra checking here at the cost of some extra hits to the flash drive.
-		UIImage *image = [[UIImage alloc] initWithContentsOfFile:[self getStorageFilename]];
-
-		if (image != nil) {
-			[image release];
-			return YES;
-		}
-		else {
-			[image release];
-			return NO;
-		}
-		
-	}
+          attributesOfItemAtPath:[self getStorageFilename] error:nil] fileSize])
+        return YES;
     
     return NO;
 }
