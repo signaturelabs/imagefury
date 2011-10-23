@@ -96,7 +96,7 @@ static long long diskUsageEstimate = 0;
 }
 
 /// Requires 8 bit encoding type (ie UTF8)
-- (NSString*)fullyEscapeString:(NSString*)str {
++ (NSString*)fullyEscapeString:(NSString*)str {
 	
 	// SHA1 hash to prevent issues with really long URLs
 	const char *cStr = [str UTF8String];
@@ -115,6 +115,11 @@ static long long diskUsageEstimate = 0;
     return [s lowercaseString];
 }
 
+- (NSString*)fullyEscapeString:(NSString*)str {
+    
+    return [self.class fullyEscapeString:str];
+}
+
 - (int)requestNumber {
 	
 	static int num = 0;
@@ -125,16 +130,19 @@ static long long diskUsageEstimate = 0;
 	return requestNumber;
 }
 
-- (NSString*)getStorageFilename {
-	
-	if(!self.urlRequest.URL)
++ (NSString*)getStoreageFilename:(NSURL*)url cacheDir:(NSString*)cacheDir {
+    
+	if(!url)
 		return nil;
 	
-	NSString *safeStr =
-	[self fullyEscapeString:[self.urlRequest.URL absoluteString]];
+	NSString *safeStr = [self fullyEscapeString:url.absoluteString];
 	
-	return [NSString stringWithFormat:
-			@"%@%@", self.cacheDir, safeStr];
+	return [NSString stringWithFormat:@"%@%@", cacheDir, safeStr];
+}
+
+- (NSString*)getStorageFilename {
+	
+    return [self.class getStoreageFilename:self.urlRequest.URL cacheDir:self.cacheDir];
 }
 
 - (NSString*)getTemporaryFilename {

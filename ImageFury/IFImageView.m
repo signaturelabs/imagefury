@@ -700,6 +700,15 @@
 	settings.cacheDirectory = settings.cacheDirectory;
 }
 
++ (NSString*)getStoreageFilename:(NSURL*)url {
+    
+    return [IFLoader getStoreageFilename:url cacheDir:IFSettings.shared.cacheDirectory];
+}
+
++ (void)installPreloadedCachedImages:(NSString*)preloadPath {
+    
+}
+
 - (void)dealloc {
 	
 	self.delegates = nil;

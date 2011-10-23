@@ -61,4 +61,6 @@
 /// the usage size again.
 + (void)trimDiskUse;
 
++ (NSString*)getStoreageFilename:(NSURL*)url cacheDir:(NSString*)cacheDir;
+
 @end

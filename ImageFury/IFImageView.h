@@ -109,6 +109,10 @@ enum IFImageViewState {
 /// Erases everything from the disk cache.
 + (void)clearCache;
 
++ (NSString*)getStoreageFilename:(NSURL*)url;
+
++ (void)installPreloadedCachedImages:(NSString*)preloadPath;
+
 @end
 
 @protocol IFImageViewDelegate<NSObject>
