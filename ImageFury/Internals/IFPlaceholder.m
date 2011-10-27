@@ -348,7 +348,7 @@
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[UIView setAnimationBeginsFromCurrentState:YES];
+//		[UIView setAnimationBeginsFromCurrentState:YES];
 		[UIView setAnimationDuration:0.25];
 		
 		CGPoint p;
@@ -389,7 +389,7 @@
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[UIView setAnimationBeginsFromCurrentState:YES];
+//		[UIView setAnimationBeginsFromCurrentState:YES];
 		[UIView setAnimationDuration:0.25];
 		
 		p.x = self.frame.size.width / 2;
