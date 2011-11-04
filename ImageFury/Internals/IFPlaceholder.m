@@ -346,10 +346,10 @@
 		
 		activity.center = indicatorView.center;
 		
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//		[UIView beginAnimations:nil context:nil];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 //		[UIView setAnimationBeginsFromCurrentState:YES];
-		[UIView setAnimationDuration:0.25];
+//		[UIView setAnimationDuration:0.25];
 		
 		CGPoint p;
 		
@@ -366,7 +366,7 @@
 		
 		progressView.alpha = 1;
 		
-		[UIView commitAnimations];
+//		[UIView commitAnimations];
 	}
 	else {
 		
@@ -387,10 +387,10 @@
 		
 		activity.center = p;
 		
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//		[UIView beginAnimations:nil context:nil];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 //		[UIView setAnimationBeginsFromCurrentState:YES];
-		[UIView setAnimationDuration:0.25];
+//		[UIView setAnimationDuration:0.25];
 		
 		p.x = self.frame.size.width / 2;
 		p.y = self.frame.size.height/ 2;
@@ -403,7 +403,7 @@
 		
 		progressView.alpha = 0;
 		
-		[UIView commitAnimations];
+//		[UIView commitAnimations];
 	}
     
     indicatorView.hidden = (self.state == IFPlaceholderStateFailed);
