@@ -21,6 +21,7 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
     
     [self setBackgroundImage:image forState:UIControlStateNormal];
     
+    [imageView removeFromSuperview];
     setImageViewForButton(self, nil);
     [self release];
     
@@ -28,12 +29,14 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
 
 - (void)IFImageFailed:(IFImageView*)imageView error:(NSError*)error {
     
+    [imageView removeFromSuperview];
     setImageViewForButton(self, nil);
     [self release];
 }
 
 - (void)IFImageCanceled:(IFImageView*)imageView {
     
+    [imageView removeFromSuperview];
     setImageViewForButton(self, nil);
     [self release];
 }
@@ -43,6 +46,8 @@ static void setImageViewForButton(void *btnPtr, IFImageView *imageView);
     [self retain];
     
     IFImageView *img = imageViewForButton(self);
+    
+    [self addSubview:img];
     
     img.urlRequest = urlRequest;
 }
