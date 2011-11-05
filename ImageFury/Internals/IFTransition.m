@@ -119,8 +119,8 @@
 
 - (void)start {
 	
-	self.fromController.view;
-	self.toController.view;
+	(void)self.fromController.view;
+	(void)self.toController.view;
 	
 	BOOL statusBarHiddenTemp = [[UIApplication sharedApplication] isStatusBarHidden];
 	
