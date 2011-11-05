@@ -116,6 +116,9 @@
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
+    
+    // Save this until the end of the run loop
+    [[self retain] autorelease];
 	
 	[self checkScrollEnabled];
 	
@@ -129,12 +132,18 @@
 
 - (void)didMoveToWindow {
 	
-	[[IFThrottle shared] clearForceCheckQueue];
+    // Save this until the end of the run loop
+    [[self retain] autorelease];
 	
 	self.movingToWindow = NO;
+	
+	[[IFThrottle shared] clearForceCheckQueue];
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
+	
+    // Save this until the end of the run loop
+    [[self retain] autorelease];
 	
 	if([[IFImageView instances] indexOfObject:self] == NSNotFound)
 		[[IFImageView instances] addObject:self];
