@@ -159,7 +159,19 @@ static long long diskUsageEstimate = 0;
 	return str;
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+- (void)connection:(NSURLConnection *)con didReceiveResponse:(NSHTTPURLResponse *)response {
+	
+	if(![response isKindOfClass:NSHTTPURLResponse.class]) {
+		
+		[con cancel];
+		return;
+	}
+	
+	if(response.statusCode / 100 != 2 && response.statusCode != 304) {
+		
+		[con cancel];
+		return;
+	}
 	
 	[[NSFileManager defaultManager]
 	 createFileAtPath:[self getTemporaryFilename]
