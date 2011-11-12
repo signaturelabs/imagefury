@@ -66,11 +66,8 @@
 
 - (UIImageView*)toImage {
 	
-	if(!toImage) {
-		
-		self.toImage = [[UIImageView alloc] init];
-		[toImage release];
-	}
+	if(!toImage)
+		toImage = [UIImageView new];
 	
 	return toImage;
 }
