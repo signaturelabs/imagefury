@@ -130,9 +130,9 @@
 			self.toImage.image = [self takeScreenshot:self.fromController];
 		
 		if(self.isModal)
-			[self.toController dismissModalViewControllerAnimated:NO];
+			[self.fromController dismissModalViewControllerAnimated:NO];
 		else
-			[self.toController.navigationController popViewControllerAnimated:NO];
+			[self.fromController.navigationController popViewControllerAnimated:NO];
 	}
 	else if(!self.customToImage) {
 		
