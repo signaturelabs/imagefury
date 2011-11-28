@@ -43,7 +43,7 @@
 
 @implementation IFImageView
 
-@synthesize placeholder, requestTimeout, contentMode, panAndZoom, urlRequest;
+@synthesize placeholder, overlay, requestTimeout, contentMode, panAndZoom, urlRequest;
 @synthesize delegates, imageView, loader, state, important, addedToSuperview;
 @synthesize sizeEstimate, movingToWindow, resizeAfterLoad;
 
@@ -279,6 +279,54 @@
 	[self bringSubviewToFront:placeholder];
 }
 
+/// Attaches the overlay to ifimageview if its not already attached
+/// and the image view is loaded.
+- (void)updateOverlay {
+	
+	if(self.state == IFImageViewStateLoaded) {
+		
+		if(self.overlay.superview == self)
+			[self bringSubviewToFront:self.overlay];
+		else
+			[self addSubview:self.overlay];
+	}
+	else
+		[self.overlay removeFromSuperview];
+}
+
+- (void)setOverlay:(UIView *)parm {
+	
+	if(overlay == parm)
+		return;
+	
+	[parm retain];
+	[overlay removeFromSuperview];
+	[overlay release];
+	
+	overlay = parm;
+	
+	[self updateOverlay];
+	[self layoutSubviews];
+}
+
+- (void)setState:(enum IFImageViewState)parm {
+	
+	state = parm;
+	
+	[self updateOverlay];
+}
+
+- (void)setOverlayImage:(UIImage*)image attachment:(UIViewContentMode)attachment {
+	
+	UIImageView *imgView = [[UIImageView alloc] initWithImage:image];
+	
+	imgView.contentMode = attachment;
+	
+	self.overlay = imgView;
+	
+	[imgView release];
+}
+
 - (void)addDelegate:(id <IFImageViewDelegate>)delegate {
 	
 	[self.delegates addObject:delegate];
@@ -433,6 +481,8 @@
     [self release];
     
     [delegatesCache release];
+	
+	[self updateOverlay];
 }
 
 - (void)IFLoaderProgress:(CGFloat)progress updateCount:(int)updateCount {
@@ -502,6 +552,8 @@
     [self release];
     
     [delegatesCache release];
+	
+	[self updateOverlay];
 }
 
 - (void)layoutSubviews 
@@ -528,6 +580,8 @@
     imageView.frame = frameToCenter;
 	
 	[self checkScrollEnabled];
+	
+	self.overlay.frame = self.bounds;
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -736,6 +790,8 @@
 	
 	self.imageView.image = nil;
 	self.imageView = nil;
+	
+	self.overlay = nil;
 	
 	self.loader.delegate = nil;
 	self.loader = nil;

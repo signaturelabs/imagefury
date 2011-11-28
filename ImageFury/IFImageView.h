@@ -44,6 +44,18 @@ enum IFImageViewState {
 /// indicators.
 @property (nonatomic, retain) IFPlaceholder *placeholder;
 
+/// The overlay is only attached when the image loads successfully.
+@property (nonatomic, retain) UIView *overlay;
+
+/// Using the method will set a UIView overlay with the given settings.
+/// You can use the following values for attachment get attach the image to
+/// the corrisponding corner:
+/// UIViewContentModeTopLeft
+/// UIViewContentModeTopRight
+/// UIViewContentModeBottomRight
+/// UIViewContentModeBottomLeft
+- (void)setOverlayImage:(UIImage*)image attachment:(UIViewContentMode)attachment;
+
 /// Override this to set a custom timeout for this instance.
 /// Defaults to [[IFSettings shared] defaultTimeout].
 @property (nonatomic, assign) int requestTimeout;
