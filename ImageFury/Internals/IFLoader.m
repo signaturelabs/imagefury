@@ -182,9 +182,24 @@ static long long diskUsageEstimate = 0;
             return;
         }
         
-        if(!self.allowChecksumFailure)
+        if(!self.allowChecksumFailure) {
+            
+            /* Confirm eTag appears to be a valid md5 string */
+            
             self.eTag = [[response.allHeaderFields objectForKey:@"ETag"]
                          stringByTrimmingCharactersInSet:NSCharacterSet.punctuationCharacterSet];
+            
+            NSMutableCharacterSet *invalidSet =
+            [NSMutableCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"];
+            
+            [invalidSet invert];
+            
+            if([self.eTag rangeOfCharacterFromSet:invalidSet].location != NSNotFound)
+                self.eTag = nil;
+            
+            if(self.eTag.length != 32)
+                self.eTag = nil;
+        }
 	}
     
 	CC_MD5_Init(&md5);
