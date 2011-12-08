@@ -32,6 +32,9 @@ static long long diskUsageEstimate = 0;
 
 @property (assign) int updateCount;
 
+@property (nonatomic, assign) CC_MD5_CTX md5;
+@property (nonatomic, retain) NSString *eTag;
+
 - (NSString*)getStorageFilename;
 - (NSString*)getTemporaryFilename;
 
@@ -42,8 +45,8 @@ static long long diskUsageEstimate = 0;
 
 @synthesize urlRequest, running, delegate, cacheDir, tempCacheDir;
 @synthesize connection, expectedContentLength, contentOffset;
-@synthesize requestNumber, updateCount;
-@synthesize allowNonImages;
+@synthesize requestNumber, updateCount, md5, eTag;
+@synthesize allowNonImages, allowChecksumFailure;
 
 - (void)signalCompleted {
 	
@@ -161,6 +164,8 @@ static long long diskUsageEstimate = 0;
 }
 
 - (void)connection:(NSURLConnection *)con didReceiveResponse:(NSHTTPURLResponse *)response {
+    
+    self.eTag = nil;
 	
 	if([response isKindOfClass:NSHTTPURLResponse.class]) {
 	   
@@ -176,7 +181,13 @@ static long long diskUsageEstimate = 0;
             [con cancel];
             return;
         }
+        
+        if(!self.allowChecksumFailure)
+            self.eTag = [[response.allHeaderFields objectForKey:@"ETag"]
+                         stringByTrimmingCharactersInSet:NSCharacterSet.punctuationCharacterSet];
 	}
+    
+	CC_MD5_Init(&md5);
 	
 	[[NSFileManager defaultManager]
 	 createFileAtPath:[self getTemporaryFilename]
@@ -194,6 +205,8 @@ static long long diskUsageEstimate = 0;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    
+    CC_MD5_Update(&md5, data.bytes, data.length);
 	
 	NSFileHandle *fileHandle =
 	[NSFileHandle fileHandleForWritingAtPath:
@@ -231,6 +244,27 @@ static long long diskUsageEstimate = 0;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5_Final(result, &md5);
+    
+    NSString *md5Str = [NSString stringWithFormat:
+                     @"%02x%02x%02x%02x%02x"
+                     @"%02x%02x%02x%02x%02x"
+                     @"%02x%02x%02x%02x%02x"
+                     @"%02x",
+                     result[0],  result[1],  result[2],  result[3],  result[4],
+                     result[5],  result[6],  result[7],  result[8],  result[9],
+                     result[10], result[11], result[12], result[13], result[14],
+                     result[15]];
+    
+    if(self.eTag && ![md5Str isEqual:self.eTag]) {
+        
+        NSLog(@"MD5 eTag mismatch -- ignoring image.");
+        
+        self.connection = nil;
+        return;
+    }
 	
     // Rare scenario where there is a lingering corrupt file
     // but deleting is more robust against the future.
@@ -373,6 +407,7 @@ static long long diskUsageEstimate = 0;
 	[self.connection cancel];
 	
 	self.connection = nil;
+    self.eTag = nil;
 	self.urlRequest = nil;
 	self.delegate = nil;
 	self.cacheDir = nil;

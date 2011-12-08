@@ -38,6 +38,11 @@
 /// start with "image/".  Disable this behavior by setting this flag to YES.
 @property (nonatomic, assign) BOOL allowNonImages;
 
+/// By default, if a http header tag called "ETag" is found in the response,
+/// we confirm the checksums match and throw out the result if they do not.
+/// Disable this behavior by setting this flag to YES.
+@property (nonatomic, assign) BOOL allowChecksumFailure;
+
 @property (nonatomic, retain) NSURLRequest *urlRequest;
 
 /// Set to YES to begin the url request.
