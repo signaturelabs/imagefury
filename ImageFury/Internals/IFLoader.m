@@ -43,6 +43,7 @@ static long long diskUsageEstimate = 0;
 @synthesize urlRequest, running, delegate, cacheDir, tempCacheDir;
 @synthesize connection, expectedContentLength, contentOffset;
 @synthesize requestNumber, updateCount;
+@synthesize allowNonImages;
 
 - (void)signalCompleted {
 	
@@ -161,11 +162,20 @@ static long long diskUsageEstimate = 0;
 
 - (void)connection:(NSURLConnection *)con didReceiveResponse:(NSHTTPURLResponse *)response {
 	
-	if([response isKindOfClass:NSHTTPURLResponse.class]
-	   && response.statusCode / 100 != 2 && response.statusCode != 304) {
-		
-		[con cancel];
-		return;
+	if([response isKindOfClass:NSHTTPURLResponse.class]) {
+	   
+        if(response.statusCode / 100 != 2 && response.statusCode != 304) {
+            
+            [con cancel];
+            return;
+        }
+        
+        if(!self.allowNonImages && [[response.allHeaderFields objectForKey:@"Content-Type"]
+            rangeOfString:@"image/"].location != 0) {
+            
+            [con cancel];
+            return;
+        }
 	}
 	
 	[[NSFileManager defaultManager]

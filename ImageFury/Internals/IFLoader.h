@@ -34,6 +34,10 @@
 
 }
 
+/// By default, if loader rejects anything whose mime type doesnt
+/// start with "image/".  Disable this behavior by setting this flag to YES.
+@property (nonatomic, assign) BOOL allowNonImages;
+
 @property (nonatomic, retain) NSURLRequest *urlRequest;
 
 /// Set to YES to begin the url request.
