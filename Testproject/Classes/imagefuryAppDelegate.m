@@ -16,6 +16,7 @@
 
 #import "imagefuryAppDelegate.h"
 #import "imagefuryViewController.h"
+#import "Webserver.h"
 
 @implementation imagefuryAppDelegate
 
@@ -27,6 +28,8 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+    
+    [Webserver shared];
     
     // Override point for customization after app launch. 
     [self.window addSubview:viewController.view];
