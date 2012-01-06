@@ -21,6 +21,7 @@
 #import "IFSettings.h"
 #import "IFThrottle.h"
 #import "ManualImageLoadingTestViewController.h"
+#import "Webserver.h"
 
 @interface ImageFuryTest ()
 
@@ -86,10 +87,15 @@
 	
 	[self.view bringSubviewToFront:[IFThrottle shared].report];
 	
-	NSString *url = @"http://www.google.com/logos/2011/valentines11-hp.jpg";
+    NSString *filename = [NSBundle.mainBundle pathForResource:@"Images" ofType:@"plist"];
+    
+    NSArray *images = [[NSDictionary dictionaryWithContentsOfFile:filename] objectForKey:@"images"];
+    
+    NSString *parms = @"";
+    
+    NSString *url = [NSString stringWithFormat:@"http://localhost:%s/%@?parm", WEBSERVER_PORT, [images objectAtIndex:rand() % images.count], parms];
 	
-	IFImageView *imageView =
-	[[IFImageView alloc] init];
+	IFImageView *imageView = [[IFImageView alloc] init];
 	
 	imageView.frame =
 	CGRectMake(
