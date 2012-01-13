@@ -160,21 +160,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8C2581201414A84100411959 /* ManualImageLoadingTestViewController.h */,
-				8C2581211414A84100411959 /* ManualImageLoadingTestViewController.m */,
-				8C2581221414A84100411959 /* ManualImageLoadingTestViewController.xib */,
-				1519BF4E13050162003D0D7C /* FullscreenPhotosViewController.h */,
-				1519BF4F13050162003D0D7C /* FullscreenPhotosViewController.m */,
-				1519BF5013050162003D0D7C /* FullscreenPhotosViewController.xib */,
-				1D3623240D0F684500981E51 /* imagefuryAppDelegate.h */,
-				1D3623250D0F684500981E51 /* imagefuryAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* imagefuryViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* imagefuryViewController.m */,
-				15160FC71304D7190063AEC1 /* PhotoGalleryTest.h */,
-				15160FC81304D7190063AEC1 /* PhotoGalleryTest.m */,
-				15160FC91304D7190063AEC1 /* PhotoGalleryTest.xib */,
-				1519BF72130504BB003D0D7C /* TappableScrollView.h */,
-				1519BF73130504BB003D0D7C /* TappableScrollView.m */,
+				582C7DD214C0BD91005D7FD6 /* FullscreenPhotos */,
+				582C7DD414C0BDA8005D7FD6 /* imagefury */,
+				582C7DD314C0BD9D005D7FD6 /* imagefuryAppDelegate */,
+				582C7DD014C0BD81005D7FD6 /* ManualImageLoadingTest */,
+				582C7DD514C0BDB1005D7FD6 /* PhotoGalleryTest */,
+				582C7DD614C0BDBE005D7FD6 /* TappableScrollView */,
+				58512B9114B3DBC700CAE308 /* Webserver */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -282,9 +274,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				151610871304EEEC0063AEC1 /* TouchJSON */,
-				15160F4B1304C5010063AEC1 /* Imagefury */,
-				58512B9114B3DBC700CAE308 /* Webserver */,
+				582C7DD714C0BDEE005D7FD6 /* Libraries */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				58512B9614B3E8C800CAE308 /* TestImages */,
@@ -326,6 +316,72 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		582C7DD014C0BD81005D7FD6 /* ManualImageLoadingTest */ = {
+			isa = PBXGroup;
+			children = (
+				8C2581201414A84100411959 /* ManualImageLoadingTestViewController.h */,
+				8C2581211414A84100411959 /* ManualImageLoadingTestViewController.m */,
+				8C2581221414A84100411959 /* ManualImageLoadingTestViewController.xib */,
+			);
+			name = ManualImageLoadingTest;
+			sourceTree = "<group>";
+		};
+		582C7DD214C0BD91005D7FD6 /* FullscreenPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				1519BF4E13050162003D0D7C /* FullscreenPhotosViewController.h */,
+				1519BF4F13050162003D0D7C /* FullscreenPhotosViewController.m */,
+				1519BF5013050162003D0D7C /* FullscreenPhotosViewController.xib */,
+			);
+			name = FullscreenPhotos;
+			sourceTree = "<group>";
+		};
+		582C7DD314C0BD9D005D7FD6 /* imagefuryAppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1D3623240D0F684500981E51 /* imagefuryAppDelegate.h */,
+				1D3623250D0F684500981E51 /* imagefuryAppDelegate.m */,
+			);
+			name = imagefuryAppDelegate;
+			sourceTree = "<group>";
+		};
+		582C7DD414C0BDA8005D7FD6 /* imagefury */ = {
+			isa = PBXGroup;
+			children = (
+				28D7ACF60DDB3853001CB0EB /* imagefuryViewController.h */,
+				28D7ACF70DDB3853001CB0EB /* imagefuryViewController.m */,
+			);
+			name = imagefury;
+			sourceTree = "<group>";
+		};
+		582C7DD514C0BDB1005D7FD6 /* PhotoGalleryTest */ = {
+			isa = PBXGroup;
+			children = (
+				15160FC71304D7190063AEC1 /* PhotoGalleryTest.h */,
+				15160FC81304D7190063AEC1 /* PhotoGalleryTest.m */,
+				15160FC91304D7190063AEC1 /* PhotoGalleryTest.xib */,
+			);
+			name = PhotoGalleryTest;
+			sourceTree = "<group>";
+		};
+		582C7DD614C0BDBE005D7FD6 /* TappableScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				1519BF72130504BB003D0D7C /* TappableScrollView.h */,
+				1519BF73130504BB003D0D7C /* TappableScrollView.m */,
+			);
+			name = TappableScrollView;
+			sourceTree = "<group>";
+		};
+		582C7DD714C0BDEE005D7FD6 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				15160F4B1304C5010063AEC1 /* Imagefury */,
+				151610871304EEEC0063AEC1 /* TouchJSON */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		58512B9114B3DBC700CAE308 /* Webserver */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,7 +389,6 @@
 				58512B9414B3DBDA00CAE308 /* Webserver.m */,
 			);
 			name = Webserver;
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		58512B9614B3E8C800CAE308 /* TestImages */ = {
