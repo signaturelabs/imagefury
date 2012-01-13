@@ -42,6 +42,9 @@
 		2899E5220DE3E06400AC0155 /* imagefuryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* imagefuryViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* imagefuryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* imagefuryViewController.m */; };
+		582C7DDC14C0BE52005D7FD6 /* ImageFuryTestScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DDA14C0BE52005D7FD6 /* ImageFuryTestScreen.m */; };
+		582C7DDD14C0BE52005D7FD6 /* ImageFuryTestScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 582C7DDB14C0BE52005D7FD6 /* ImageFuryTestScreen.xib */; };
+		582C7DE114C0C58F005D7FD6 /* Regular.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DE014C0C58F005D7FD6 /* Regular.m */; };
 		58512B9514B3DBDA00CAE308 /* Webserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 58512B9414B3DBDA00CAE308 /* Webserver.m */; };
 		58512BA014B3E91100CAE308 /* philosophy.png in Resources */ = {isa = PBXBuildFile; fileRef = 58512B9714B3E91100CAE308 /* philosophy.png */; };
 		58512BA114B3E91100CAE308 /* stringtheory.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 58512B9814B3E91100CAE308 /* stringtheory.jpg */; };
@@ -122,6 +125,11 @@
 		28D7ACF70DDB3853001CB0EB /* imagefuryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imagefuryViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* imagefury_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imagefury_Prefix.pch; sourceTree = "<group>"; };
+		582C7DD914C0BE52005D7FD6 /* ImageFuryTestScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFuryTestScreen.h; sourceTree = "<group>"; };
+		582C7DDA14C0BE52005D7FD6 /* ImageFuryTestScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFuryTestScreen.m; sourceTree = "<group>"; };
+		582C7DDB14C0BE52005D7FD6 /* ImageFuryTestScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFuryTestScreen.xib; sourceTree = "<group>"; };
+		582C7DDF14C0C58F005D7FD6 /* Regular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regular.h; sourceTree = "<group>"; };
+		582C7DE014C0C58F005D7FD6 /* Regular.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regular.m; sourceTree = "<group>"; };
 		58512B9314B3DBDA00CAE308 /* Webserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webserver.h; sourceTree = "<group>"; };
 		58512B9414B3DBDA00CAE308 /* Webserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webserver.m; sourceTree = "<group>"; };
 		58512B9714B3E91100CAE308 /* philosophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = philosophy.png; sourceTree = "<group>"; };
@@ -163,6 +171,7 @@
 				582C7DD214C0BD91005D7FD6 /* FullscreenPhotos */,
 				582C7DD414C0BDA8005D7FD6 /* imagefury */,
 				582C7DD314C0BD9D005D7FD6 /* imagefuryAppDelegate */,
+				582C7DD814C0BE3B005D7FD6 /* ImageFuryTestScreen */,
 				582C7DD014C0BD81005D7FD6 /* ManualImageLoadingTest */,
 				582C7DD514C0BDB1005D7FD6 /* PhotoGalleryTest */,
 				582C7DD614C0BDBE005D7FD6 /* TappableScrollView */,
@@ -275,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				582C7DD714C0BDEE005D7FD6 /* Libraries */,
+				582C7DDE14C0C56F005D7FD6 /* TestCases */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				58512B9614B3E8C800CAE308 /* TestImages */,
@@ -382,6 +392,25 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		582C7DD814C0BE3B005D7FD6 /* ImageFuryTestScreen */ = {
+			isa = PBXGroup;
+			children = (
+				582C7DD914C0BE52005D7FD6 /* ImageFuryTestScreen.h */,
+				582C7DDA14C0BE52005D7FD6 /* ImageFuryTestScreen.m */,
+				582C7DDB14C0BE52005D7FD6 /* ImageFuryTestScreen.xib */,
+			);
+			name = ImageFuryTestScreen;
+			sourceTree = "<group>";
+		};
+		582C7DDE14C0C56F005D7FD6 /* TestCases */ = {
+			isa = PBXGroup;
+			children = (
+				582C7DDF14C0C58F005D7FD6 /* Regular.h */,
+				582C7DE014C0C58F005D7FD6 /* Regular.m */,
+			);
+			name = TestCases;
+			sourceTree = "<group>";
+		};
 		58512B9114B3DBC700CAE308 /* Webserver */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +506,7 @@
 				58512BA814B3E91100CAE308 /* duty_calls.png in Resources */,
 				58512BAA14B3E9B800CAE308 /* Images.plist in Resources */,
 				58512BC814B65D6400CAE308 /* amazon403.txt in Resources */,
+				582C7DDD14C0BE52005D7FD6 /* ImageFuryTestScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +545,8 @@
 				8C2581231414A84100411959 /* ManualImageLoadingTestViewController.m in Sources */,
 				8C2581281414A87A00411959 /* ImageFuryTest.m in Sources */,
 				58512B9514B3DBDA00CAE308 /* Webserver.m in Sources */,
+				582C7DDC14C0BE52005D7FD6 /* ImageFuryTestScreen.m in Sources */,
+				582C7DE114C0C58F005D7FD6 /* Regular.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
