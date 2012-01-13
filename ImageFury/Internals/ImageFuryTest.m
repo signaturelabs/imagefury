@@ -93,7 +93,7 @@
     
     NSString *parms = @"";
     
-    NSString *url = [NSString stringWithFormat:@"http://localhost:%s/%@?parm", WEBSERVER_PORT, [images objectAtIndex:rand() % images.count], parms];
+    NSString *url = [NSString stringWithFormat:@"http://localhost:%s/%@?%@", WEBSERVER_PORT, [images objectAtIndex:rand() % images.count], parms];
 	
 	IFImageView *imageView = [[IFImageView alloc] init];
 	
