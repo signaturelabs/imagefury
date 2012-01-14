@@ -14,4 +14,8 @@
 
 + (Webserver*)shared;
 
+/// Returns a url to load from the local webserver for 'resourceName'.
+- (NSURL*)urlForResource:(NSString*)resourceName;
+- (NSURL*)urlForResource:(NSString*)resourceName parameters:(NSString*)parameters;
+
 @end

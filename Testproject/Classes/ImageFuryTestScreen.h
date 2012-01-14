@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageFuryTestList.h"
 
-@interface ImageFuryTestScreen : UIViewController
+@interface ImageFuryTestScreen : UIViewController<ImageFuryTestListDelegate>
 
 /// Subclasses should attach their test to this view.
 @property (nonatomic, readonly, retain) UIView *testView;
@@ -37,7 +38,7 @@
 /// This macro adds the class named 'className' to [ImageFuryTestScreen classes]
 /// Use it for each subclass of ImageFuryTestScreen to add it to the test suite.
 #define ADD_TEST_CLASS(className) \
-static void _addTestClass##className() __attribute__((constructor)); \
-static void _addTestClass##className() { \
-[[ImageFuryTestScreen classes] addObject:[className class]]; \
-}
+  static void _addTestClass##className() __attribute__((constructor)); \
+  static void _addTestClass##className() { \
+    [[ImageFuryTestScreen classes] addObject:[className class]]; \
+  }

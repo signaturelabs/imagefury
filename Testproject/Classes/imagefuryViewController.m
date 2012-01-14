@@ -18,6 +18,7 @@
 #import "ImageFuryTest.h"
 #import "PhotoGalleryTest.h"
 #import "IFThrottle.h"
+#import "ImageFuryTestScreen.h"
 
 @implementation imagefuryViewController
 
@@ -27,7 +28,6 @@
 	
 	[self presentModalViewController:controller animated:YES];
 	[controller release];
-		
 }
 
 - (IBAction) scrollButtonPressed {
@@ -36,7 +36,14 @@
 	
 	[self presentModalViewController:controller animated:YES];
 	[controller release];
-	
+}
+
+- (IBAction)unitTests:(id)sender {
+    
+    ImageFuryTestScreen *controller = [[[ImageFuryTestScreen classes] objectAtIndex:0] new];
+    
+	[self presentModalViewController:controller animated:YES];
+	[controller release];
 }
 
 - (void)viewDidLoad {

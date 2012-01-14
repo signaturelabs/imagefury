@@ -1,5 +1,5 @@
 //
-//  Regular.h
+//  Error403Test.h
 //  imagefury
 //
 //  Created by Dustin Dettmer on 1/13/12.
@@ -7,9 +7,8 @@
 //
 
 #import "ImageFuryTestScreen.h"
+#import "IFImageView.h"
 
-@interface Regular : ImageFuryTestScreen
+@interface Error403Test : ImageFuryTestScreen<IFImageViewDelegate>
 
 @end
-
-ADD_TEST_CLASS(Regular);

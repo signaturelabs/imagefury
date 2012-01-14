@@ -27,6 +27,23 @@
     return instance;
 }
 
+- (NSURL*)urlForResource:(NSString*)resource parameters:(NSString*)parameters {
+    
+    NSString *str = nil;
+    
+    if(parameters)
+        str = [NSString stringWithFormat:@"http://localhost:%s/%@?%@", WEBSERVER_PORT, resource, parameters];
+    else
+        str = [NSString stringWithFormat:@"http://localhost:%s/%@", WEBSERVER_PORT, resource];
+    
+    return [NSURL URLWithString:str];
+}
+
+- (NSURL*)urlForResource:(NSString*)resource {
+    
+    return [self urlForResource:resource parameters:nil];
+}
+
 - (NSString*)queryParm:(NSString*)named query:(NSString*)path {
     
     named = [NSRegularExpression escapedPatternForString:named];
@@ -75,6 +92,16 @@
     if(path.length) {
         
         path = [path substringFromIndex:1];
+        
+        if([self queryParm:@"intermittent403" query:query]) {
+            
+            static BOOL doFail = YES;
+            
+            if(doFail)
+                path = @"amazon403.txt";
+            
+            doFail = !doFail;
+        }
         
         NSString *base = path.stringByDeletingPathExtension;
         NSString *type = path.pathExtension;
@@ -129,7 +156,7 @@
             
             bytesSent += read_ret;
             
-            if([self queryParm:@"fail" query:query])
+            if([self queryParm:@"incomplete" query:query])
                 if(bytesSent * 2 > fileSize)
                     break;
             
@@ -164,6 +191,8 @@
         
         int rbind = bind(msock, res->ai_addr, res->ai_addrlen);
         
+        // Typically, a failure here means the port number is still being used by an old run
+        // of the program.  Wait 10 seconds for the port to be released and run again.
         assert(rbind != -1);
         
         freeaddrinfo(res);

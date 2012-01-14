@@ -44,7 +44,12 @@
 		28D7ACF80DDB3853001CB0EB /* imagefuryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* imagefuryViewController.m */; };
 		582C7DDC14C0BE52005D7FD6 /* ImageFuryTestScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DDA14C0BE52005D7FD6 /* ImageFuryTestScreen.m */; };
 		582C7DDD14C0BE52005D7FD6 /* ImageFuryTestScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 582C7DDB14C0BE52005D7FD6 /* ImageFuryTestScreen.xib */; };
-		582C7DE114C0C58F005D7FD6 /* Regular.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DE014C0C58F005D7FD6 /* Regular.m */; };
+		582C7DE114C0C58F005D7FD6 /* RegularTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DE014C0C58F005D7FD6 /* RegularTest.m */; };
+		582C7DEB14C0E969005D7FD6 /* ImageFuryTestList.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DE914C0E969005D7FD6 /* ImageFuryTestList.m */; };
+		582C7DEC14C0E969005D7FD6 /* ImageFuryTestList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 582C7DEA14C0E969005D7FD6 /* ImageFuryTestList.xib */; };
+		582C7DEF14C0F239005D7FD6 /* SlowTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DEE14C0F239005D7FD6 /* SlowTest.m */; };
+		582C7DF214C0F4FE005D7FD6 /* IncompleteTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DF114C0F4FE005D7FD6 /* IncompleteTest.m */; };
+		582C7DF514C0F70E005D7FD6 /* Error403Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 582C7DF414C0F70E005D7FD6 /* Error403Test.m */; };
 		58512B9514B3DBDA00CAE308 /* Webserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 58512B9414B3DBDA00CAE308 /* Webserver.m */; };
 		58512BA014B3E91100CAE308 /* philosophy.png in Resources */ = {isa = PBXBuildFile; fileRef = 58512B9714B3E91100CAE308 /* philosophy.png */; };
 		58512BA114B3E91100CAE308 /* stringtheory.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 58512B9814B3E91100CAE308 /* stringtheory.jpg */; };
@@ -128,8 +133,17 @@
 		582C7DD914C0BE52005D7FD6 /* ImageFuryTestScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFuryTestScreen.h; sourceTree = "<group>"; };
 		582C7DDA14C0BE52005D7FD6 /* ImageFuryTestScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFuryTestScreen.m; sourceTree = "<group>"; };
 		582C7DDB14C0BE52005D7FD6 /* ImageFuryTestScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFuryTestScreen.xib; sourceTree = "<group>"; };
-		582C7DDF14C0C58F005D7FD6 /* Regular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regular.h; sourceTree = "<group>"; };
-		582C7DE014C0C58F005D7FD6 /* Regular.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regular.m; sourceTree = "<group>"; };
+		582C7DDF14C0C58F005D7FD6 /* RegularTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularTest.h; sourceTree = "<group>"; };
+		582C7DE014C0C58F005D7FD6 /* RegularTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularTest.m; sourceTree = "<group>"; };
+		582C7DE814C0E969005D7FD6 /* ImageFuryTestList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFuryTestList.h; sourceTree = "<group>"; };
+		582C7DE914C0E969005D7FD6 /* ImageFuryTestList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFuryTestList.m; sourceTree = "<group>"; };
+		582C7DEA14C0E969005D7FD6 /* ImageFuryTestList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFuryTestList.xib; sourceTree = "<group>"; };
+		582C7DED14C0F239005D7FD6 /* SlowTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlowTest.h; sourceTree = "<group>"; };
+		582C7DEE14C0F239005D7FD6 /* SlowTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlowTest.m; sourceTree = "<group>"; };
+		582C7DF014C0F4FE005D7FD6 /* IncompleteTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncompleteTest.h; sourceTree = "<group>"; };
+		582C7DF114C0F4FE005D7FD6 /* IncompleteTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncompleteTest.m; sourceTree = "<group>"; };
+		582C7DF314C0F70E005D7FD6 /* Error403Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Error403Test.h; sourceTree = "<group>"; };
+		582C7DF414C0F70E005D7FD6 /* Error403Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Error403Test.m; sourceTree = "<group>"; };
 		58512B9314B3DBDA00CAE308 /* Webserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webserver.h; sourceTree = "<group>"; };
 		58512B9414B3DBDA00CAE308 /* Webserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webserver.m; sourceTree = "<group>"; };
 		58512B9714B3E91100CAE308 /* philosophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = philosophy.png; sourceTree = "<group>"; };
@@ -395,6 +409,7 @@
 		582C7DD814C0BE3B005D7FD6 /* ImageFuryTestScreen */ = {
 			isa = PBXGroup;
 			children = (
+				582C7DE214C0E8F9005D7FD6 /* ImageFuryTestList */,
 				582C7DD914C0BE52005D7FD6 /* ImageFuryTestScreen.h */,
 				582C7DDA14C0BE52005D7FD6 /* ImageFuryTestScreen.m */,
 				582C7DDB14C0BE52005D7FD6 /* ImageFuryTestScreen.xib */,
@@ -405,10 +420,26 @@
 		582C7DDE14C0C56F005D7FD6 /* TestCases */ = {
 			isa = PBXGroup;
 			children = (
-				582C7DDF14C0C58F005D7FD6 /* Regular.h */,
-				582C7DE014C0C58F005D7FD6 /* Regular.m */,
+				582C7DDF14C0C58F005D7FD6 /* RegularTest.h */,
+				582C7DE014C0C58F005D7FD6 /* RegularTest.m */,
+				582C7DED14C0F239005D7FD6 /* SlowTest.h */,
+				582C7DEE14C0F239005D7FD6 /* SlowTest.m */,
+				582C7DF014C0F4FE005D7FD6 /* IncompleteTest.h */,
+				582C7DF114C0F4FE005D7FD6 /* IncompleteTest.m */,
+				582C7DF314C0F70E005D7FD6 /* Error403Test.h */,
+				582C7DF414C0F70E005D7FD6 /* Error403Test.m */,
 			);
 			name = TestCases;
+			sourceTree = "<group>";
+		};
+		582C7DE214C0E8F9005D7FD6 /* ImageFuryTestList */ = {
+			isa = PBXGroup;
+			children = (
+				582C7DE814C0E969005D7FD6 /* ImageFuryTestList.h */,
+				582C7DE914C0E969005D7FD6 /* ImageFuryTestList.m */,
+				582C7DEA14C0E969005D7FD6 /* ImageFuryTestList.xib */,
+			);
+			name = ImageFuryTestList;
 			sourceTree = "<group>";
 		};
 		58512B9114B3DBC700CAE308 /* Webserver */ = {
@@ -507,6 +538,7 @@
 				58512BAA14B3E9B800CAE308 /* Images.plist in Resources */,
 				58512BC814B65D6400CAE308 /* amazon403.txt in Resources */,
 				582C7DDD14C0BE52005D7FD6 /* ImageFuryTestScreen.xib in Resources */,
+				582C7DEC14C0E969005D7FD6 /* ImageFuryTestList.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,7 +578,11 @@
 				8C2581281414A87A00411959 /* ImageFuryTest.m in Sources */,
 				58512B9514B3DBDA00CAE308 /* Webserver.m in Sources */,
 				582C7DDC14C0BE52005D7FD6 /* ImageFuryTestScreen.m in Sources */,
-				582C7DE114C0C58F005D7FD6 /* Regular.m in Sources */,
+				582C7DE114C0C58F005D7FD6 /* RegularTest.m in Sources */,
+				582C7DEB14C0E969005D7FD6 /* ImageFuryTestList.m in Sources */,
+				582C7DEF14C0F239005D7FD6 /* SlowTest.m in Sources */,
+				582C7DF214C0F4FE005D7FD6 /* IncompleteTest.m in Sources */,
+				582C7DF514C0F70E005D7FD6 /* Error403Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

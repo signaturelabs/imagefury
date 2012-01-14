@@ -1,13 +1,13 @@
 //
-//  Regular.m
+//  SlowTest.h
 //  imagefury
 //
 //  Created by Dustin Dettmer on 1/13/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Regular.h"
+#import "ImageFuryTestScreen.h"
 
-@implementation Regular
+@interface SlowTest : ImageFuryTestScreen
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ImageFuryTestScreen.h"
+#import "IFImageView.h"
 
 @interface ImageFuryTestScreen ()
 
@@ -16,6 +17,10 @@
 
 @property (retain, nonatomic) IBOutlet UIView *testView;
 
+@property (nonatomic, retain) UIPopoverController *popCntrl;
+
+@property (nonatomic, assign) BOOL active;
+
 @end
 
 @implementation ImageFuryTestScreen
@@ -23,13 +28,69 @@
 @synthesize doesWhatLbl;
 @synthesize resultLbl;
 @synthesize testView;
+@synthesize popCntrl;
+@synthesize active;
 
 - (void)dealloc {
+    
     [titleLbl release];
     [doesWhatLbl release];
     [resultLbl release];
     [testView release];
+    
+    [popCntrl dismissPopoverAnimated:NO];
+    [popCntrl release];
+    popCntrl = nil;
+    
     [super dealloc];
+}
+
+- (id)init {
+    
+    return (self = [super initWithNibName:@"ImageFuryTestScreen" bundle:nil]);
+}
+
+- (void)choseTestClass:(Class)classObj {
+    
+    if(self.active)
+        [self teardown];
+    
+    self.active = NO;
+    
+    UIViewController *presenter = self.parentViewController ? self.parentViewController : self.presentingViewController;
+    
+    [self dismissModalViewControllerAnimated:NO];
+    
+    UIViewController *controller = [classObj new];
+    
+    [presenter presentModalViewController:controller animated:NO];
+    [controller release];
+}
+
+- (void)next {
+    
+    NSInteger index = [self.class.classes indexOfObject:self.class] + 1;
+    
+    if(index < self.class.classes.count) {
+        
+        [self choseTestClass:[self.class.classes objectAtIndex:index]];
+    }
+    else {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Finished"
+                                                        message:@"You've finished the last unit test"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
+        [alert release];
+    }
+}
+
+- (IBAction)close:(id)sender {
+    
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)fail:(id)sender {
@@ -40,6 +101,10 @@
     [self.class.failed addObject:self.class];
     
     [self teardown];
+    
+    self.active = NO;
+    
+    [self next];
 }
 
 - (IBAction)pass:(id)sender {
@@ -50,14 +115,44 @@
     [self.class.passed addObject:self.class];
     
     [self teardown];
+    
+    self.active = NO;
+    
+    [self next];
 }
 
 - (IBAction)start:(id)sender {
     
+    [IFImageView clearCache];
+    
+    if(self.active)
+        [self teardown];
+    
+    self.active = YES;
+    
     [self setup];
     
-    if(![self runTest])
+    if(![self runTest]) {
+        
         [self fail:nil];
+    }
+}
+
+- (IBAction)tests:(UIBarButtonItem*)sender {
+    
+    ImageFuryTestList *controller = [ImageFuryTestList new];
+    
+    controller.delegate = self;
+    
+    [self.popCntrl dismissPopoverAnimated:NO];
+    
+    self.popCntrl =
+    [[UIPopoverController alloc] initWithContentViewController:controller];
+    [controller release];
+    
+    [self.popCntrl presentPopoverFromBarButtonItem:sender
+                          permittedArrowDirections:UIPopoverArrowDirectionAny
+                                          animated:YES];
 }
 
 - (NSString*)title {
@@ -76,7 +171,13 @@
 }
 
 - (void)setup { }
-- (void)teardown { }
+
+- (void)teardown {
+    
+    for(UIView *v in self.testView.subviews)
+        [v removeFromSuperview];
+}
+
 - (BOOL)runTest { return YES; }
 
 - (void)viewDidLoad {
@@ -124,10 +225,12 @@
 }
 
 - (void)viewDidUnload {
+    
     [self setTitleLbl:nil];
     [self setDoesWhatLbl:nil];
     [self setResultLbl:nil];
     [self setTestView:nil];
+    
     [super viewDidUnload];
 }
 
