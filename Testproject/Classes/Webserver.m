@@ -119,17 +119,16 @@
             return;
         }
         
+        unsigned long long fileSize = [[NSFileManager.defaultManager attributesOfItemAtPath:filename
+                                                                                      error:nil] fileSize];
+        
         if(![type isEqualToString:@"txt"]) {
             
-            NSMutableString *header = [NSMutableString stringWithString:@""
+            NSMutableString *header = [NSMutableString stringWithFormat:@""
                                        "HTTP/1.1 200 OK\r\n"
-                                       "Content-Type: image/<type>\r\n"
-                                       "\r\n"];
-            
-            [header replaceOccurrencesOfString:@"<type>"
-                                    withString:type
-                                       options:0
-                                         range:(NSRange){0, header.length}];
+                                       "Content-Length: %lld\r\n"
+                                       "Content-Type: image/%@\r\n"
+                                       "\r\n", fileSize, type];
             
             NSData *data = [header dataUsingEncoding:NSUTF8StringEncoding];
             
@@ -137,9 +136,6 @@
         }
         
         int fd = open(filename.fileSystemRepresentation, O_RDONLY);
-        
-        unsigned long long fileSize = [[NSFileManager.defaultManager attributesOfItemAtPath:filename
-                                                                                      error:nil] fileSize];
         
         int bytesSent = 0;
         
