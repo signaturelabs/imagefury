@@ -62,6 +62,8 @@
 		58512BA814B3E91100CAE308 /* duty_calls.png in Resources */ = {isa = PBXBuildFile; fileRef = 58512B9F14B3E91100CAE308 /* duty_calls.png */; };
 		58512BAA14B3E9B800CAE308 /* Images.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58512BA914B3E9B800CAE308 /* Images.plist */; };
 		58512BC814B65D6400CAE308 /* amazon403.txt in Resources */ = {isa = PBXBuildFile; fileRef = 58512BC714B65D6400CAE308 /* amazon403.txt */; };
+		5884606A14CA1F0D00048721 /* ScrollTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5884606914CA1F0D00048721 /* ScrollTest.m */; };
+		5884606E14CA20D300048721 /* FailPlaceholderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5884606D14CA20D200048721 /* FailPlaceholderTest.m */; };
 		8C2581231414A84100411959 /* ManualImageLoadingTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2581211414A84100411959 /* ManualImageLoadingTestViewController.m */; };
 		8C2581241414A84100411959 /* ManualImageLoadingTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C2581221414A84100411959 /* ManualImageLoadingTestViewController.xib */; };
 		8C2581281414A87A00411959 /* ImageFuryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2581271414A87A00411959 /* ImageFuryTest.m */; };
@@ -157,6 +159,10 @@
 		58512B9F14B3E91100CAE308 /* duty_calls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = duty_calls.png; sourceTree = "<group>"; };
 		58512BA914B3E9B800CAE308 /* Images.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Images.plist; sourceTree = "<group>"; };
 		58512BC714B65D6400CAE308 /* amazon403.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = amazon403.txt; sourceTree = "<group>"; };
+		5884606814CA1F0C00048721 /* ScrollTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTest.h; sourceTree = "<group>"; };
+		5884606914CA1F0D00048721 /* ScrollTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollTest.m; sourceTree = "<group>"; };
+		5884606C14CA20D200048721 /* FailPlaceholderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailPlaceholderTest.h; sourceTree = "<group>"; };
+		5884606D14CA20D200048721 /* FailPlaceholderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailPlaceholderTest.m; sourceTree = "<group>"; };
 		8C2581201414A84100411959 /* ManualImageLoadingTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManualImageLoadingTestViewController.h; path = ../ManualImageLoadingTestViewController.h; sourceTree = "<group>"; };
 		8C2581211414A84100411959 /* ManualImageLoadingTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManualImageLoadingTestViewController.m; path = ../ManualImageLoadingTestViewController.m; sourceTree = "<group>"; };
 		8C2581221414A84100411959 /* ManualImageLoadingTestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ManualImageLoadingTestViewController.xib; path = ../ManualImageLoadingTestViewController.xib; sourceTree = "<group>"; };
@@ -428,6 +434,10 @@
 				582C7DF114C0F4FE005D7FD6 /* IncompleteTest.m */,
 				582C7DF314C0F70E005D7FD6 /* Error403Test.h */,
 				582C7DF414C0F70E005D7FD6 /* Error403Test.m */,
+				5884606814CA1F0C00048721 /* ScrollTest.h */,
+				5884606914CA1F0D00048721 /* ScrollTest.m */,
+				5884606C14CA20D200048721 /* FailPlaceholderTest.h */,
+				5884606D14CA20D200048721 /* FailPlaceholderTest.m */,
 			);
 			name = TestCases;
 			sourceTree = "<group>";
@@ -583,6 +593,8 @@
 				582C7DEF14C0F239005D7FD6 /* SlowTest.m in Sources */,
 				582C7DF214C0F4FE005D7FD6 /* IncompleteTest.m in Sources */,
 				582C7DF514C0F70E005D7FD6 /* Error403Test.m in Sources */,
+				5884606A14CA1F0D00048721 /* ScrollTest.m in Sources */,
+				5884606E14CA20D300048721 /* FailPlaceholderTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
