@@ -172,14 +172,18 @@ static long long diskUsageEstimate = 0;
         if(response.statusCode / 100 != 2 && response.statusCode != 304) {
             
             [con cancel];
-            return;
+            
+            if([self.delegate respondsToSelector:@selector(IFLoaderFailed:)])
+                [self.delegate IFLoaderFailed:nil];
         }
         
         if(!self.allowNonImages && [[response.allHeaderFields objectForKey:@"Content-Type"]
             rangeOfString:@"image/"].location != 0) {
             
             [con cancel];
-            return;
+            
+            if([self.delegate respondsToSelector:@selector(IFLoaderFailed:)])
+                [self.delegate IFLoaderFailed:nil];
         }
         
         if(!self.allowChecksumFailure) {
@@ -278,6 +282,10 @@ static long long diskUsageEstimate = 0;
         NSLog(@"MD5 eTag mismatch -- ignoring image.");
         
         self.connection = nil;
+        
+        if([self.delegate respondsToSelector:@selector(IFLoaderFailed:)])
+            [self.delegate IFLoaderFailed:nil];
+        
         return;
     }
 	
